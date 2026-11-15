@@ -192,7 +192,3 @@ export const ministries: Ministry[] = [
     requirements: ['Discrição e comunhão com a autoridade eclesiástica.'],
   },
 ];
-
-export function getMinistry(id: string) {
-  return ministries.find((ministry) => ministry.id === id);
-}

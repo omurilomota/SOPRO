@@ -346,11 +346,3 @@ A CNBB recomenda a prática do jejum e da adoração como sustento dessa oraçã
 ];
 
 export const carismOfServiceIds = ['servico', 'ensino', 'exortacao', 'generosidade', 'governo', 'acolhida', 'intercessao'];
-
-export function getCharism(id: string) {
-  return charisms.find((item) => item.id === id);
-}
-
-export function getGift(id: string) {
-  return charisms.find((item) => item.id === id);
-}

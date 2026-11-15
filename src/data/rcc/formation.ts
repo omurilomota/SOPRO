@@ -218,7 +218,3 @@ export const formationPhases: { id: FormationStage['phase']; name: string; note:
       'Capacitação por ministério, oferecida pela coordenação diocesana ou estadual.',
   },
 ];
-
-export function getFormationStage(id: string) {
-  return formationStages.find((stage) => stage.id === id);
-}

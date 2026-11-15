@@ -252,7 +252,3 @@ export const prayerMeetingElements: PrayerMeetingElement[] = [
       'Desordem, sobreposição de vozes, mensagens que constrangem — e quem insiste em falar sem interpretação.',
   },
 ];
-
-export function getGroupMoment(id: string) {
-  return groupMoments.find((moment) => moment.id === id);
-}

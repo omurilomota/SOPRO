@@ -139,7 +139,3 @@ Importante: a efusão não é condição para a salvação, não é sinal de san
     reference: 'Documentos de Malinas; CNBB 53, nn. 36-40 (efeitos e limites)',
   },
 ];
-
-export function getSvesSession(number: number) {
-  return svesSessions.find((session) => session.number === number);
-}

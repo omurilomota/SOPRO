@@ -238,7 +238,3 @@ export const rccDocuments: RccDocument[] = [
     url: null,
   },
 ];
-
-export function getGlossaryEntry(term: string) {
-  return glossary.find((entry) => entry.term.toLowerCase() === term.toLowerCase());
-}

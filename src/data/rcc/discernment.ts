@@ -168,7 +168,3 @@ export const pastoralWarnings: PastoralWarning[] = [
     source: 'CIC 2690; CNBB 53, n. 30',
   },
 ];
-
-export function getCriterion(id: string) {
-  return discernmentCriteria.find((criterion) => criterion.id === id);
-}
