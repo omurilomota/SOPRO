@@ -62,7 +62,7 @@ export default function RosaryPage() {
               <ul className="space-y-1 pt-1">
                 {group.mysteries.map((mystery) => (
                   <li key={mystery.id} className="flex gap-2 text-[0.75rem] leading-snug text-ink-soft">
-                    <span className={cnNumber(COLOR_TONE[group.color])} aria-hidden>
+                    <span className={bulletClass(COLOR_TONE[group.color])} aria-hidden>
                       ·
                     </span>
                     <span className="flex-1">{mystery.title}</span>
@@ -83,6 +83,6 @@ export default function RosaryPage() {
   );
 }
 
-function cnNumber(color: string) {
+function bulletClass(color: string) {
   return `mt-0.5 flex size-3.5 shrink-0 items-center justify-center rounded-full border border-current text-[0.625rem] leading-none ${color}`;
 }

@@ -19,8 +19,9 @@ export function BottomNav() {
     setMoreOpen(false);
   }, [location.pathname]);
 
-  const isMoreActive = MORE_LINKS.some((link) => location.pathname.startsWith(link.to) && link.to !== '/caminhada')
-    || location.pathname.startsWith('/privacidade');
+  const isMoreActive = MORE_LINKS.some(
+    (link) => link.to !== '/caminhada' && location.pathname.startsWith(link.to),
+  );
 
   return (
     <>

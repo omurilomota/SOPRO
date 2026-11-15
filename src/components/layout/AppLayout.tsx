@@ -78,7 +78,12 @@ export function AppLayout() {
         </main>
 
         <div className="mx-auto w-full max-w-5xl px-4 pb-24 sm:px-6 md:pb-6 lg:px-10">
-          <SiteFooter />
+          <div className="flex items-end justify-between gap-4">
+            <SiteFooter />
+            <div className="hidden shrink-0 pb-1 md:block">
+              <ThemeToggle />
+            </div>
+          </div>
         </div>
       </div>
 
