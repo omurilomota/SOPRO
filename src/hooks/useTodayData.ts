@@ -44,9 +44,10 @@ export function useTodayData(): TodayData {
     [events.items, today],
   );
 
+  // O grupo de oração tem seção própria na tela Hoje; evitar duplicidade.
   const next = useMemo(() => {
-    const found = nextOccurrence(events.items, addDaysISO(today, 1), 120);
-    return found;
+    const others = events.items.filter((event) => event.kind !== 'grupo-oracao');
+    return nextOccurrence(others, addDaysISO(today, 1), 120);
   }, [events.items, today]);
 
   const nextGroup = useMemo(() => {

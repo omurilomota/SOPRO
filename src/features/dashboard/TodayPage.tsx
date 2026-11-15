@@ -291,7 +291,9 @@ export default function TodayPage() {
           </Link>
         </div>
 
-        {todayOccurrences.length === 0 ? (
+        {dataLoading ? (
+          <div className="h-20 animate-pulse rounded-[var(--radius-card)] bg-surface-muted" />
+        ) : todayOccurrences.length === 0 ? (
           <Card className="flex flex-wrap items-center justify-between gap-3 p-4">
             <div className="min-w-0">
               <p className="text-[0.9375rem] text-ink">Nada marcado para hoje</p>

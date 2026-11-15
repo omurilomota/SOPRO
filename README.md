@@ -152,7 +152,7 @@ diretamente: tudo passa por `services/liturgy`.
 - **Liturgia** — API comunitária [Dancrf/liturgia-diaria](https://github.com/Dancrf/liturgia-diaria)
   (v2, versão estável). Leia [`docs/liturgia.md`](docs/liturgia.md) para os
   detalhes de integração, limites e licenciamento.
-- **Orações e mistérios** — formulas tradicionais em domínio público e sínteses
+- **Orações e mistérios** — formulações tradicionais em domínio público e sínteses
   escritas para o SOPRO. Política em [`docs/conteudo.md`](docs/conteudo.md).
 - **Formações** — textos originais do SOPRO com referências verificáveis. A
   biblioteca **nunca** copia material de terceiros: guarda metadados e link para
