@@ -1,4 +1,4 @@
-import { LiturgicalColorBadge } from '../../../components/ui/Badge';
+import { LiturgicalColorMark } from '../../../components/ui/Marks';
 import type { LiturgyCelebration as Celebration } from '../../../types/liturgy';
 import { Disclosure, ReadingBlock } from './ReadingBlock';
 
@@ -15,28 +15,22 @@ export function CelebrationView({ celebration, showEucharisticPrayers = true }: 
 
   return (
     <div className="space-y-6">
-      <header className="space-y-2">
-        <div className="flex flex-wrap items-center gap-2">
-          <LiturgicalColorBadge color={celebration.color} />
-          {!celebration.isPrimary && (
-            <span className="rounded-full border border-line bg-surface-muted px-2.5 py-1 text-[0.625rem] uppercase tracking-[0.1em] text-muted">
-              Celebração alternativa
-            </span>
-          )}
+      <header className="space-y-1.5">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+          <LiturgicalColorMark color={celebration.color} />
+          {!celebration.isPrimary && <span className="rubric-muted text-[0.5625rem]">Alternativa</span>}
         </div>
-        <h2 className="text-[1.375rem] leading-snug text-ink sm:text-[1.5rem]">
-          {celebration.title}
-        </h2>
+        <h2 className="text-[1.5rem] leading-tight text-ink sm:text-[1.75rem]">{celebration.title}</h2>
       </header>
 
       {celebration.readings.length === 0 ? (
-        <p className="rounded-xl border border-dashed border-line-strong bg-surface-muted/50 px-4 py-6 text-center text-sm text-muted">
+        <p className="border-y border-rule py-6 font-display text-[0.9375rem] italic leading-relaxed text-muted">
           A fonte não disponibilizou as leituras para esta celebração.
         </p>
       ) : (
-        <div className="divide-y divide-line">
+        <div className="ruled border-t border-rule">
           {celebration.readings.map((reading, index) => (
-            <div key={`${reading.label}-${index}`} className="py-5 first:pt-0 last:pb-0">
+            <div key={`${reading.label}-${index}`} className="py-5 first:pt-4 last:pb-0">
               <ReadingBlock reading={reading} />
             </div>
           ))}
@@ -44,39 +38,39 @@ export function CelebrationView({ celebration, showEucharisticPrayers = true }: 
       )}
 
       {showEucharisticPrayers && (hasPrayers || hasAntiphons || prayers.extras.length > 0) && (
-        <div className="space-y-2">
-          <h3 className="text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-muted">
-            Orações e antífonas
-          </h3>
+        <div>
+          <p className="section-rule mb-1">
+            <span className="rubric whitespace-nowrap">Orações e antífonas</span>
+          </p>
 
           {antiphons.entrance && (
             <Disclosure title="Antífona de entrada">
-              <p className="prose-reading text-[0.9375rem]">{antiphons.entrance}</p>
+              <p className="reading-sm">{antiphons.entrance}</p>
             </Disclosure>
           )}
           {prayers.collect && (
             <Disclosure title="Oração coleta">
-              <p className="prose-reading text-[0.9375rem]">{prayers.collect}</p>
+              <p className="reading-sm">{prayers.collect}</p>
             </Disclosure>
           )}
           {prayers.offerings && (
             <Disclosure title="Oração sobre as oferendas">
-              <p className="prose-reading text-[0.9375rem]">{prayers.offerings}</p>
+              <p className="reading-sm">{prayers.offerings}</p>
             </Disclosure>
           )}
           {antiphons.communion && (
             <Disclosure title="Antífona da comunhão">
-              <p className="prose-reading text-[0.9375rem]">{antiphons.communion}</p>
+              <p className="reading-sm">{antiphons.communion}</p>
             </Disclosure>
           )}
           {prayers.communion && (
             <Disclosure title="Oração após a comunhão">
-              <p className="prose-reading text-[0.9375rem]">{prayers.communion}</p>
+              <p className="reading-sm">{prayers.communion}</p>
             </Disclosure>
           )}
           {prayers.extras.map((extra, index) => (
             <Disclosure key={`${extra.title}-${index}`} title={extra.title}>
-              <p className="prose-reading text-[0.9375rem]">{extra.text}</p>
+              <p className="reading-sm">{extra.text}</p>
             </Disclosure>
           ))}
         </div>

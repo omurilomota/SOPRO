@@ -1,4 +1,4 @@
-import { CircleAlert, RefreshCw, WifiOff } from 'lucide-react';
+import { RefreshCw } from 'lucide-react';
 import type { LiturgyError } from '../../../types/liturgy';
 import { describeLiturgyError } from '../../../services/liturgy';
 import { Button } from '../../../components/ui/Button';
@@ -13,32 +13,24 @@ export function LiturgyErrorState({
   onRetry: () => void;
 }) {
   const { title, message } = describeLiturgyError(error);
-  const Icon = error.kind === 'offline' ? WifiOff : CircleAlert;
 
   return (
-    <div className="rounded-[var(--radius-card)] border border-line bg-surface">
-      <EmptyState
-        icon={Icon}
-        title={title}
-        description={message}
-        action={
-          <Button variant="secondary" size="sm" onClick={onRetry}>
-            <RefreshCw size={14} aria-hidden />
-            Tentar novamente
-          </Button>
-        }
-      />
-    </div>
+    <EmptyState
+      label={title}
+      description={message}
+      action={
+        <Button variant="outline" size="sm" onClick={onRetry}>
+          <RefreshCw size={13} aria-hidden />
+          Tentar novamente
+        </Button>
+      }
+    />
   );
 }
 
 export function LiturgyLoading() {
   return (
-    <div className="space-y-5 rounded-[var(--radius-card)] border border-line bg-surface p-5 sm:p-6">
-      <div className="space-y-2">
-        <div className="h-3 w-24 animate-pulse rounded bg-surface-muted" />
-        <div className="h-7 w-2/3 animate-pulse rounded bg-surface-muted" />
-      </div>
+    <div className="space-y-5">
       <ReadingSkeleton />
       <ReadingSkeleton />
     </div>
@@ -54,12 +46,12 @@ export function StaleNotice({
   onRetry: () => void;
 }) {
   return (
-    <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 rounded-xl border border-brass/25 bg-brass-soft/60 px-3.5 py-2.5 text-[0.75rem] leading-relaxed text-ink-soft dark:bg-brass-soft/30">
+    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-y border-rule bg-paper-2/60 px-1 py-2 text-[0.75rem] leading-relaxed text-ink-2">
       <span className="flex-1">{message}</span>
       <button
         type="button"
         onClick={onRetry}
-        className="inline-flex items-center gap-1 font-medium text-brass-strong hover:underline dark:text-brass"
+        className="inline-flex items-center gap-1 text-[0.75rem] font-medium text-rubric hover:underline"
       >
         <RefreshCw size={12} aria-hidden />
         Atualizar

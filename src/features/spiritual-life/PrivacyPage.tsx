@@ -1,7 +1,9 @@
-import { ArrowLeft, Database, EyeOff, Lock, Server, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, EyeOff } from 'lucide-react';
+import { ButtonLink } from '../../components/ui/Button';
 import { Link } from 'react-router-dom';
-import { Card } from '../../components/ui/Card';
 import { PageHeader } from '../../components/ui/PageHeader';
+import { Meta } from '../../components/ui/Marks';
+import { Section } from '../../components/ui/Structure';
 import { liturgyProviderInfo } from '../../services/liturgy';
 import { DB_NAME } from '../../database/schema';
 
@@ -20,52 +22,45 @@ const STORED = [
 
 export default function PrivacyPage() {
   return (
-    <div className="space-y-6 animate-[var(--animate-fade-up)]">
-      <Link to="/caminhada/configuracoes" className="inline-flex items-center gap-1.5 text-[0.8125rem] text-muted hover:text-ink">
-        <ArrowLeft size={14} aria-hidden /> Configurações
+    <div className="space-y-8 animate-[var(--animate-fade)]">
+      <Link
+        to="/caminhada/configuracoes"
+        className="inline-flex items-center gap-1.5 text-[0.8125rem] text-muted transition-colors hover:text-rubric"
+      >
+        <ArrowLeft size={13} aria-hidden /> Configurações
       </Link>
 
       <PageHeader
-        eyebrow="Privacidade"
+        label="Privacidade"
         title="O que acontece com os seus dados"
         description="Privacidade desde a concepção. Esta página descreve, sem letras miúdas, o funcionamento real do SOPRO."
       />
 
-      <Card className="space-y-2.5 p-5">
-        <h2 className="flex items-center gap-2 text-base text-ink">
-          <Lock size={16} className="text-brass" aria-hidden />
-          Tudo fica no seu dispositivo
-        </h2>
-        <p className="text-[0.875rem] leading-relaxed text-ink-soft">
+      <section className="border-y border-rule py-4">
+        <h2 className="font-display text-[1.25rem] text-ink">Tudo fica no seu dispositivo</h2>
+        <p className="mt-1.5 max-w-[64ch] text-[0.875rem] leading-relaxed text-ink-2">
           Diário, intenções, anotações e compromissos são gravados no IndexedDB do seu navegador,
-          em um banco local chamado <code className="rounded bg-surface-muted px-1.5 py-0.5 text-[0.75rem]">{DB_NAME}</code>.
+          em um banco local chamado{' '}
+          <code className="border-b border-rule-strong px-0.5 font-mono text-[0.8125rem]">{DB_NAME}</code>.
           Não há conta, login, servidor de aplicação ou sincronização nesta versão. Se você limpar
           os dados do site no navegador, esses registros serão apagados.
         </p>
-      </Card>
-
-      <section className="space-y-3">
-        <h2 className="text-base text-ink">Dados guardados localmente</h2>
-        <div className="overflow-hidden rounded-[var(--radius-card)] border border-line bg-surface">
-          <dl className="divide-y divide-line">
-            {STORED.map(([title, description]) => (
-              <div key={title} className="grid gap-0.5 px-4 py-3 sm:grid-cols-[11rem_1fr] sm:gap-4">
-                <dt className="flex items-center gap-2 text-[0.8125rem] font-medium text-ink">
-                  <Database size={12} className="text-brass" aria-hidden />
-                  {title}
-                </dt>
-                <dd className="text-[0.8125rem] leading-relaxed text-muted">{description}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
       </section>
 
-      <section className="space-y-3">
-        <h2 className="text-base text-ink">A única conexão externa</h2>
-        <Card className="space-y-2 p-4">
-          <p className="flex items-start gap-2 text-[0.875rem] leading-relaxed text-ink-soft">
-            <Server size={15} className="mt-0.5 shrink-0 text-brass" aria-hidden />
+      <Section label="Dados guardados localmente">
+        <dl className="ruled border-y border-rule">
+          {STORED.map(([title, description]) => (
+            <div key={title} className="grid gap-0.5 py-2.5 sm:grid-cols-[11rem_1fr] sm:gap-5">
+              <dt className="text-[0.8125rem] font-medium text-ink">{title}</dt>
+              <dd className="text-[0.8125rem] leading-relaxed text-muted">{description}</dd>
+            </div>
+          ))}
+        </dl>
+      </Section>
+
+      <Section label="A única conexão externa">
+        <div className="space-y-1.5">
+          <p className="text-[0.875rem] leading-relaxed text-ink-2">
             <span>
               Para exibir a liturgia do dia, o SOPRO consulta a API pública{' '}
               {liturgyProviderInfo.homepage ? (
@@ -73,7 +68,7 @@ export default function PrivacyPage() {
                   href={liturgyProviderInfo.homepage}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="underline decoration-line-strong underline-offset-2 hover:text-brass"
+                  className="underline decoration-rule-strong underline-offset-2 hover:text-rubric"
                 >
                   {liturgyProviderInfo.name}
                 </a>
@@ -90,13 +85,12 @@ export default function PrivacyPage() {
             você preferir não fazer nem essa consulta, é possível usar o SOPRO apenas com o
             conteúdo já salvo.
           </p>
-        </Card>
-      </section>
+        </div>
+      </Section>
 
-      <section className="space-y-3">
-        <h2 className="text-base text-ink">O que o SOPRO não faz</h2>
-        <Card className="p-4">
-          <ul className="space-y-2 text-[0.875rem] leading-relaxed text-ink-soft">
+      <Section label="O que o SOPRO não faz">
+        <div>
+          <ul className="space-y-2 text-[0.875rem] leading-relaxed text-ink-2">
             {[
               'Não exige cadastro nem senha para uso básico.',
               'Não usa analytics, rastreadores, pixels ou publicidade.',
@@ -106,39 +100,35 @@ export default function PrivacyPage() {
               'Não usa cookies de rastreamento.',
             ].map((item) => (
               <li key={item} className="flex gap-2">
-                <EyeOff size={14} className="mt-1 shrink-0 text-brass" aria-hidden />
+                <EyeOff size={12} className="mt-1.5 shrink-0 text-muted" aria-hidden />
                 <span>{item}</span>
               </li>
             ))}
           </ul>
-        </Card>
-      </section>
+        </div>
+      </Section>
 
-      <section className="space-y-3">
-        <h2 className="text-base text-ink">Seus controles</h2>
-        <Card className="flex flex-wrap items-center justify-between gap-3 p-4">
-          <p className="flex items-start gap-2 text-[0.875rem] leading-relaxed text-ink-soft">
-            <ShieldCheck size={15} className="mt-0.5 shrink-0 text-brass" aria-hidden />
+      <Section label="Seus controles">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <p className="max-w-[58ch] text-[0.875rem] leading-relaxed text-ink-2">
             <span>
               Em <strong className="font-medium text-ink">Configurações</strong> você pode exportar
               uma cópia completa em JSON e apagar integralmente todos os dados.
             </span>
           </p>
-          <Link
-            to="/caminhada/configuracoes"
-            className="rounded-full border border-line-strong bg-surface px-3.5 py-2 text-[0.8125rem] font-medium text-ink transition-colors hover:border-brass/40"
-          >
+          <ButtonLink to="/caminhada/configuracoes" variant="outline" size="sm">
             Abrir configurações
-          </Link>
-        </Card>
-      </section>
+          </ButtonLink>
+        </div>
+      </Section>
 
-      <p className="rounded-xl border border-line bg-surface-muted/40 p-4 text-[0.75rem] leading-relaxed text-muted">
-        <strong className="font-medium text-ink-soft">Nota honesta:</strong> dados locais não são
+      <p className="border-t border-rule pt-3 text-[0.75rem] leading-relaxed text-muted">
+        <Meta>Nota honesta</Meta>{' '}
+        <span className="mt-1 block">Dados locais não são
         criptografados pelo SOPRO — eles ficam protegidos pela segurança do seu navegador e do seu
         dispositivo. Em computadores compartilhados, use o modo de navegação privada ou apague os
         dados ao terminar. Se no futuro existir backend ou sincronização, haverá revisão específica
-        de segurança e adequação à LGPD antes de qualquer disponibilização.
+        de segurança e adequação à LGPD antes de qualquer disponibilização.</span>
       </p>
     </div>
   );

@@ -21,7 +21,17 @@ const PrayerGroupPage = lazy(() => import('../../features/calendar/PrayerGroupPa
 const FormationsPage = lazy(() => import('../../features/formations/FormationsPage'));
 const FormationTrackPage = lazy(() => import('../../features/formations/FormationTrackPage'));
 const CharismaticPage = lazy(() => import('../../features/charismatic/CharismaticPage'));
-const CharismaticTopicPage = lazy(() => import('../../features/charismatic/CharismaticTopicPage'));
+const WhatIsRccPage = lazy(() => import('../../features/charismatic/WhatIsRccPage'));
+const GroupMomentsPage = lazy(() => import('../../features/charismatic/GroupMomentsPage'));
+const MeetingPage = lazy(() => import('../../features/charismatic/MeetingPage'));
+const SvesPage = lazy(() => import('../../features/charismatic/SvesPage'));
+const GiftsPage = lazy(() => import('../../features/charismatic/GiftsPage'));
+const CharismsPage = lazy(() => import('../../features/charismatic/CharismsPage'));
+const DiscernmentPage = lazy(() => import('../../features/charismatic/DiscernmentPage'));
+const RccFormationPage = lazy(() => import('../../features/charismatic/FormationPage'));
+const MinistriesPage = lazy(() => import('../../features/charismatic/MinistriesPage'));
+const RccHistoryPage = lazy(() => import('../../features/charismatic/HistoryPage'));
+const GlossaryPage = lazy(() => import('../../features/charismatic/GlossaryPage'));
 const SpiritualLifePage = lazy(() => import('../../features/spiritual-life/SpiritualLifePage'));
 const JournalPage = lazy(() => import('../../features/spiritual-life/JournalPage'));
 const SettingsPage = lazy(() => import('../../features/spiritual-life/SettingsPage'));
@@ -49,7 +59,17 @@ export const router = createBrowserRouter([
       { path: 'formacoes', element: withSuspense(<FormationsPage />) },
       { path: 'formacoes/:trackId', element: withSuspense(<FormationTrackPage />) },
       { path: 'carismatico', element: withSuspense(<CharismaticPage />) },
-      { path: 'carismatico/:topicId', element: withSuspense(<CharismaticTopicPage />) },
+      { path: 'carismatico/o-que-e', element: withSuspense(<WhatIsRccPage />) },
+      { path: 'carismatico/grupo-de-oracao', element: withSuspense(<GroupMomentsPage />) },
+      { path: 'carismatico/reuniao', element: withSuspense(<MeetingPage />) },
+      { path: 'carismatico/sves', element: withSuspense(<SvesPage />) },
+      { path: 'carismatico/dons', element: withSuspense(<GiftsPage />) },
+      { path: 'carismatico/carismas', element: withSuspense(<CharismsPage />) },
+      { path: 'carismatico/discernimento', element: withSuspense(<DiscernmentPage />) },
+      { path: 'carismatico/formacao', element: withSuspense(<RccFormationPage />) },
+      { path: 'carismatico/ministerios', element: withSuspense(<MinistriesPage />) },
+      { path: 'carismatico/historia', element: withSuspense(<RccHistoryPage />) },
+      { path: 'carismatico/glossario', element: withSuspense(<GlossaryPage />) },
       { path: 'caminhada', element: withSuspense(<SpiritualLifePage />) },
       { path: 'caminhada/diario', element: withSuspense(<JournalPage />) },
       { path: 'caminhada/configuracoes', element: withSuspense(<SettingsPage />) },

@@ -43,8 +43,23 @@ precisa, uma pasta `components/`. Nenhuma feature chama `fetch` diretamente.
 
 ### `data/` — conteúdo editorial
 
-Orações, mistérios do Rosário, formações, dons e carismas. Separado do código de
-propósito: revisar conteúdo não deveria exigir mexer em lógica.
+Orações, mistérios do Rosário, formações e, em `data/rcc/`, toda a base da área
+*Vida no Espírito*: dons infusos e frutos, carismas, três momentos do grupo de
+oração, elementos da reunião, nove semanas do SVES, etapas do processo
+formativo, ministérios, critérios de discernimento, alertas pastorais, linha do
+tempo e glossário.
+
+Separado do código de propósito: revisar conteúdo não deveria exigir mexer em
+lógica — e conteúdo doutrinal precisa de revisão. Os testes de `data/rcc`
+funcionam como guardas: verificam, por exemplo, que todo carisma tem cautela
+pastoral e que a distinção entre dom infuso e carisma não foi quebrada.
+
+### Progresso do caminho carismático
+
+`rccProgress` é uma store própria (DB v2), com uma linha por iniciativa
+(`sves:8`, `formacao:mb3`). O hook `useRccProgress(kind)` expõe
+`byRef`/`toggle`/`setNote`. Nada é enviado a servidor: marcar uma semana não sai
+do aparelho.
 
 ### `utils/` — funções puras
 
@@ -105,9 +120,25 @@ recarregaria em loop infinito.
 | `activityLog`       | histórico local                       | `id`   |
 | `favorites`         | favoritos genéricos                   | `id`   |
 | `liturgyCache`      | última liturgia por data              | `id` = data |
+| `rccProgress`       | semanas do SVES e módulos de formação | `id` = `kind:refId` |
 
-Versão do banco em `src/database/schema.ts` (`DB_VERSION`). Toda evolução de
-esquema precisa de migração em `onupgradeneeded`.
+Versão do banco em `src/database/schema.ts` (`DB_VERSION`, hoje `2`). Toda
+evolução de esquema precisa de migração em `onupgradeneeded` — o upgrade é
+aditivo e cria apenas as stores que ainda não existem, de modo que um usuário da
+v1 mantém todos os dados ao abrir a v2.
+
+## Sistema visual ("Missal")
+
+A interface é construída como um livro litúrgico, não como um painel:
+
+- **Estrutura por filetes e tipografia**, não por cartões. `.plate` é o único
+  container com moldura e é raro.
+- **Rubrica** — versalete vermelho (`--color-rubric`) para rótulos estruturais;
+  substitui o "eyebrow" genérico de template.
+- **Serifa para leitura** (Newsreader), sans para interface (Inter).
+- **Cantos quase retos** (`--radius: 3px`), **nenhuma sombra** em conteúdo.
+- Cores litúrgicas usadas só onde têm significado (marcadores de compromisso,
+  cor da celebração).
 
 ## Acessibilidade
 

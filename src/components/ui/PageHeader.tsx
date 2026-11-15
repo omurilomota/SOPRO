@@ -2,30 +2,54 @@ import type { ReactNode } from 'react';
 import { cn } from '../../utils/cn';
 
 interface PageHeaderProps {
-  eyebrow?: string;
+  /** Rubrica acima do título — versalete vermelho. */
+  label?: string;
   title: string;
+  /** Linha de contexto abaixo do título (serifada, discreta). */
   description?: ReactNode;
   action?: ReactNode;
   className?: string;
+  /** Título grande de abertura de tela. */
+  display?: boolean;
 }
 
-export function PageHeader({ eyebrow, title, description, action, className }: PageHeaderProps) {
+/**
+ * Cabeçalho de tela.
+ *
+ * Estrutura: rubrica → título serifado → filete → contexto.
+ * O filete abaixo do título é o gesto central do sistema.
+ */
+export function PageHeader({
+  label,
+  title,
+  description,
+  action,
+  className,
+  display = true,
+}: PageHeaderProps) {
   return (
-    <header className={cn('flex flex-wrap items-end justify-between gap-4 pb-1', className)}>
-      <div className="min-w-0 space-y-1">
-        {eyebrow && (
-          <p className="text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-brass">
-            {eyebrow}
-          </p>
-        )}
-        <h1 className="text-[1.75rem] leading-tight tracking-tight text-ink sm:text-[2rem]">
+    <header className={cn('space-y-2.5', className)}>
+      {label && <p className="rubric">{label}</p>}
+
+      <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
+        <h1
+          className={cn(
+            'text-ink',
+            display
+              ? 'text-[1.875rem] leading-[1.1] sm:text-[2.25rem]'
+              : 'text-[1.5rem] leading-tight',
+          )}
+        >
           {title}
         </h1>
-        {description && (
-          <p className="max-w-prose text-sm leading-relaxed text-muted">{description}</p>
-        )}
+        {action && <div className="shrink-0 pb-0.5">{action}</div>}
       </div>
-      {action && <div className="shrink-0">{action}</div>}
+
+      <div className="h-px bg-rule" />
+
+      {description && (
+        <div className="max-w-[58ch] text-[0.875rem] leading-relaxed text-muted">{description}</div>
+      )}
     </header>
   );
 }

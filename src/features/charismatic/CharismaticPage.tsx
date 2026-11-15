@@ -1,173 +1,126 @@
-import { ArrowRight, Flame, Info, ScrollText } from 'lucide-react';
-import { useState } from 'react';
+import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { Badge } from '../../components/ui/Badge';
-import { Card } from '../../components/ui/Card';
 import { PageHeader } from '../../components/ui/PageHeader';
-import { charismaticTopics, gifts } from '../../data/charismatic';
-import { cn } from '../../utils/cn';
+import { Flush, Section } from '../../components/ui/Structure';
+import { Meta, Rubric } from '../../components/ui/Marks';
+import { svesSessions } from '../../data/rcc/sves';
+import { formationStages } from '../../data/rcc/formation';
+import { charitableDisclaimer } from './shared';
+import { charismaticSections } from './sections';
+import { useRccProgress } from './useRccProgress';
+import { CharismaticSectionNav } from './CharismaticSectionNav';
 
-type Tab = 'dons' | 'carismas' | 'temas';
+const basicsModules = formationStages.filter((stage) => stage.phase === 'basico');
 
 /**
- * Espiritualidade carismática.
+ * Porta de entrada da área que diferencia o SOPRO.
  *
- * Separação teológica explícita em três abas: dons do Espírito (Is 11),
- * carismas (1Cor 12) e temas da vida no Espírito. Não há testes de dons —
- * a plataforma é instrumento de formação, não autoridade de discernimento.
+ * Estrutura editorial, não dashboard: uma abertura em texto corrido, o estado
+ * do caminho em uma linha, e um índice numerado — como o sumário de um missal.
  */
 export default function CharismaticPage() {
-  const [tab, setTab] = useState<Tab>('dons');
+  const sves = useRccProgress('sves');
+  const formacao = useRccProgress('formacao');
 
-  const giftsOfSpirit = gifts.filter((gift) => gift.category === 'dom-do-espirito');
-  const charisms = gifts.filter((gift) => gift.category === 'carisma');
+  const svesDone = sves.completedCount;
+  const basicDone = formacao.completedCount;
 
   return (
-    <div className="space-y-6 animate-[var(--animate-fade-up)]">
+    <div className="space-y-8 animate-[var(--animate-fade)]">
       <PageHeader
-        eyebrow="Espiritualidade carismática"
-        title="Vida no Espírito"
-        description="Formação sobre dons, carismas e a espiritualidade da Renovação Carismática Católica, com distinções teológicas claras e referências verificáveis."
+        label="Vida no Espírito"
+        title="A Renovação Carismática Católica, sem atalho"
+        description="Não é uma coleção de frases sobre o Espírito Santo. É o que a Igreja no Brasil documentou sobre a RCC, o que o grupo de oração faz na prática e o que a formação realmente exige."
       />
 
-      <div className="flex items-start gap-2.5 rounded-xl border border-serenity/20 bg-serenity-soft/60 px-3.5 py-3 text-[0.75rem] leading-relaxed text-ink-soft dark:bg-serenity-soft/40">
-        <Info size={14} className="mt-0.5 shrink-0 text-serenity" aria-hidden />
-        <span>
-          Esta seção é formativa, não diagnóstica. O SOPRO <strong className="font-medium">não</strong>{' '}
-          oferece testes para identificar ou confirmar carismas: o discernimento pertence à pessoa,
-          à comunidade e à Igreja.
-        </span>
+      <CharismaticSectionNav />
+
+      <div className="grid gap-7 md:grid-cols-[minmax(0,1fr)_13.5rem] md:gap-9">
+        <div className="space-y-5">
+          <p className="reading dropcap">
+            A Renovação Carismática Católica nasceu em 1967, numa universidade americana, de
+            universitários que rezavam pedindo uma renovação da vida cristã — não de uma instituição
+            que decidiu fundar um movimento. Chegou ao Brasil em 1969 e, desde então, a Igreja
+            brasileira precisou dizer o que nela edificava e o que feria o povo de Deus. Foi o que a
+            CNBB fez em 1994, no Documento 53.
+          </p>
+          <p className="reading">
+            Quase tudo o que circula sobre carismas na internet ignora esse documento. Esta área não
+            ignora. Cada afirmação aqui tem uma referência que você pode conferir — e, onde a Igreja
+            pede cautela, a cautela está escrita junto, não escondida numa nota de rodapé.
+          </p>
+        </div>
+
+        <aside className="space-y-4 border-t border-rule pt-4 md:border-l md:border-t-0 md:pl-5 md:pt-0">
+          <div>
+            <Rubric>Seu caminho</Rubric>
+            <p className="mt-1.5 font-display text-[1.75rem] leading-none text-ink [font-variant-numeric:oldstyle-nums]">
+              {svesDone}
+              <span className="text-[1rem] text-muted">/{svesSessions.length}</span>
+            </p>
+            <p className="mt-1 text-[0.75rem] leading-snug text-muted">
+              semanas do SVES concluídas
+            </p>
+          </div>
+
+          <div className="h-px bg-rule" />
+
+          <div>
+            <p className="font-display text-[1.75rem] leading-none text-ink [font-variant-numeric:oldstyle-nums]">
+              {basicDone}
+              <span className="text-[1rem] text-muted">/{basicsModules.length}</span>
+            </p>
+            <p className="mt-1 text-[0.75rem] leading-snug text-muted">
+              módulos do Módulo Básico
+            </p>
+          </div>
+
+          <div className="h-px bg-rule" />
+
+          <p className="text-[0.6875rem] leading-relaxed text-muted">
+            O progresso fica só no seu aparelho. Não há conta, nem sincronização, nem envio de nada.
+          </p>
+        </aside>
       </div>
 
-      <div className="flex flex-wrap gap-1.5" role="tablist" aria-label="Categorias">
-        {(
-          [
-            { id: 'dons', label: 'Dons do Espírito' },
-            { id: 'carismas', label: 'Carismas (1Cor 12)' },
-            { id: 'temas', label: 'Temas e vida no Espírito' },
-          ] as const
-        ).map((item) => (
-          <button
-            key={item.id}
-            type="button"
-            role="tab"
-            aria-selected={tab === item.id}
-            onClick={() => setTab(item.id)}
-            className={cn(
-              'rounded-full border px-3.5 py-1.5 text-[0.75rem] transition-colors',
-              tab === item.id
-                ? 'border-ink bg-ink text-canvas'
-                : 'border-line bg-surface text-ink-soft hover:border-line-strong',
-            )}
-          >
-            {item.label}
-          </button>
-        ))}
-      </div>
-
-      {tab === 'dons' && (
-        <div className="space-y-3">
-          <p className="text-[0.8125rem] leading-relaxed text-muted">
-            Os sete dons do Espírito (Is 11, 2-3) acompanham a vida da graça e aperfeiçoam as
-            virtudes. Não são habilidades extraordinárias nem sinais de eleição.
-          </p>
-          <ul className="grid gap-2.5 sm:grid-cols-2">
-            {giftsOfSpirit.map((gift) => (
-              <li key={gift.id}>
-                <Card className="h-full p-4">
-                  <div className="flex items-start gap-2">
-                    <Flame size={14} className="mt-1 shrink-0 text-brass" aria-hidden />
-                    <h2 className="font-display text-[1rem] leading-snug text-ink">{gift.name}</h2>
-                  </div>
-                  <p className="mt-1.5 text-[0.8125rem] leading-relaxed text-ink-soft">
-                    {gift.summary}
-                  </p>
-                  <div className="mt-2 flex flex-wrap gap-1.5">
-                    {gift.scripture.map((reference) => (
-                      <Badge key={reference}>{reference}</Badge>
-                    ))}
-                  </div>
-                  {gift.notes.length > 0 && (
-                    <ul className="mt-2.5 space-y-1 border-t border-line pt-2.5">
-                      {gift.notes.map((note) => (
-                        <li key={note} className="text-[0.6875rem] leading-relaxed text-muted">
-                          {note}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </Card>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      {tab === 'carismas' && (
-        <div className="space-y-3">
-          <p className="text-[0.8125rem] leading-relaxed text-muted">
-            Os carismas de 1Cor 12, 8-10 são graças dadas &ldquo;para o bem comum&rdquo;. São
-            distintos dos sete dons: servem a uma necessidade concreta da comunidade e precisam ser
-            discernidos.
-          </p>
-          <ul className="space-y-2.5">
-            {charisms.map((gift) => (
-              <li key={gift.id}>
-                <Card className="p-4">
-                  <div className="flex items-start gap-2">
-                    <ScrollText size={14} className="mt-1 shrink-0 text-brass" aria-hidden />
-                    <h2 className="font-display text-[1rem] leading-snug text-ink">{gift.name}</h2>
-                  </div>
-                  <p className="mt-1.5 text-[0.8125rem] leading-relaxed text-ink-soft">
-                    {gift.summary}
-                  </p>
-                  <div className="mt-2 flex flex-wrap gap-1.5">
-                    {gift.scripture.map((reference) => (
-                      <Badge key={reference}>{reference}</Badge>
-                    ))}
-                  </div>
-                  {gift.notes.length > 0 && (
-                    <ul className="mt-2.5 space-y-1 border-t border-line pt-2.5">
-                      {gift.notes.map((note) => (
-                        <li key={note} className="text-[0.6875rem] leading-relaxed text-muted">
-                          {note}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </Card>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      {tab === 'temas' && (
-        <ul className="space-y-2.5">
-          {charismaticTopics.map((topic) => (
-            <li key={topic.id}>
-              <Link to={`/carismatico/${topic.id}`} className="group">
-                <Card className="flex items-center gap-3 p-4 transition-colors group-hover:border-brass/40 group-hover:bg-surface-muted/40">
-                  <div className="min-w-0 flex-1">
-                    <h2 className="font-display text-[1rem] leading-snug text-ink">{topic.title}</h2>
-                    <p className="mt-0.5 line-clamp-2 text-[0.8125rem] leading-relaxed text-muted">
-                      {topic.summary}
-                    </p>
-                  </div>
-                  <ArrowRight size={15} className="shrink-0 text-muted transition-transform group-hover:translate-x-0.5" aria-hidden />
-                </Card>
+      <Section label="Índice" description="Na ordem em que se entra na vida do movimento.">
+        <ul className="ruled">
+          {charismaticSections.map((section) => (
+            <li key={section.to}>
+              <Link
+                to={section.to}
+                className="group flex items-baseline gap-4 py-3.5 transition-colors hover:text-rubric"
+              >
+                <span className="numeral w-7 shrink-0 pt-0.5" aria-hidden>
+                  {section.mark}
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="flex items-baseline gap-2">
+                    <span className="font-display text-[1.0625rem] leading-snug text-ink transition-colors group-hover:text-rubric">
+                      {section.title}
+                    </span>
+                    <ArrowUpRight
+                      size={13}
+                      className="shrink-0 text-muted opacity-0 transition-opacity group-hover:opacity-100"
+                      aria-hidden
+                    />
+                  </span>
+                  <span className="mt-0.5 block max-w-[54ch] text-[0.8125rem] leading-relaxed text-muted">
+                    {section.description}
+                  </span>
+                </span>
               </Link>
             </li>
           ))}
         </ul>
-      )}
+      </Section>
 
-      <p className="rounded-xl border border-line bg-surface-muted/40 p-4 text-[0.75rem] leading-relaxed text-muted">
-        <strong className="font-medium text-ink-soft">Sobre a RCC:</strong> o SOPRO é um projeto
-        independente e não é um aplicativo oficial da RCCBRASIL nem de qualquer instituição eclesial.
-        As referências a documentos da Renovação são indicativas, para estudo, e devem ser conferidas
-        nas fontes oficiais.
-      </p>
+      <Flush className="px-4 py-4">
+        <Meta>Nota de transparência</Meta>
+        <p className="mt-1.5 max-w-[60ch] text-[0.8125rem] leading-relaxed text-ink-2">
+          {charitableDisclaimer}
+        </p>
+      </Flush>
     </div>
   );
 }

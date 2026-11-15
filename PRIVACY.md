@@ -1,7 +1,7 @@
 # Política de privacidade do SOPRO
 
 **Última atualização:** 15 de novembro de 2026
-**Versão:** 1.0 (MVP)
+**Versão:** 1.1
 
 O SOPRO é um aplicativo gratuito, open-source e comunitário para organização da
 vida espiritual católica. Esta política descreve, de forma direta, quais dados
@@ -32,6 +32,7 @@ Guardados no IndexedDB do navegador, sob o banco `sopro`:
 | Favoritos                  | referências a orações e conteúdos marcados                    | não          |
 | Histórico de atividades    | registro local de ações no app                                | não          |
 | Cache de liturgia          | última liturgia consultada, para leitura offline              | automático   |
+| Progresso carismático      | semanas do SVES e módulos de formação marcados como vividos   | não          |
 
 Todos esses dados são **opcionais e informados por você**. O aplicativo funciona
 sem nenhum deles.

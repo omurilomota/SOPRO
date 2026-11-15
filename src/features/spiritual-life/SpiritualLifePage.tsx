@@ -1,25 +1,12 @@
-import {
-  BookHeart,
-  Check,
-  Circle,
-  Flame,
-  Heart,
-  NotebookPen,
-  PenLine,
-  Plus,
-  Sparkles,
-  Target,
-  Trash2,
-  Undo2,
-} from 'lucide-react';
+import { Check, NotebookPen, Plus, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Badge } from '../../components/ui/Badge';
-import { Button } from '../../components/ui/Button';
-import { Card } from '../../components/ui/Card';
+import { Button, ButtonLink } from '../../components/ui/Button';
 import { EmptyState } from '../../components/ui/EmptyState';
 import { Field, Select, TextArea, TextInput } from '../../components/ui/Field';
 import { PageHeader } from '../../components/ui/PageHeader';
+import { Meta, Reference, Rubric, Tag } from '../../components/ui/Marks';
+import { Section } from '../../components/ui/Structure';
 import { useToast } from '../../components/ui/Toast';
 import { useLocalCollection } from '../../hooks/useLocalCollection';
 import {
@@ -46,6 +33,12 @@ const HABIT_KINDS: { value: HabitKind; label: string }[] = [
   { value: 'outro', label: 'Outro' },
 ];
 
+/**
+ * Caminhada: hábitos, diário, intenções, versículos e plano de vida.
+ *
+ * Tudo em listas pautadas. O tom é de caderno pessoal, não de painel de
+ * métricas — de propósito: constância não se mede por gráfico.
+ */
 export default function SpiritualLifePage() {
   const { notify } = useToast();
   const habits = useLocalCollection<SpiritualHabit>(habitRepository, {
@@ -96,7 +89,6 @@ export default function SpiritualLifePage() {
   const addHabit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (!newHabit.trim()) return;
-    const now = new Date().toISOString();
     await habits.add({
       id: createId('habit'),
       title: newHabit.trim(),
@@ -104,93 +96,93 @@ export default function SpiritualLifePage() {
       targetPerWeek: 7,
       weekdays: [],
       active: true,
-      createdAt: now,
+      createdAt: new Date().toISOString(),
     });
     setNewHabit('');
     notify('Hábito adicionado.');
   };
 
   return (
-    <div className="space-y-8 animate-[var(--animate-fade-up)]">
+    <div className="space-y-9 animate-[var(--animate-fade)]">
       <PageHeader
-        eyebrow="Minha caminhada"
+        label="Minha caminhada"
         title="Minha caminhada"
         description="Um espaço privado para o seu ritmo: hábitos, intenções, versículos e plano de vida. Nada daqui sai deste dispositivo."
         action={
-          <Link to="/caminhada/diario" className="inline-flex items-center gap-1.5 rounded-full border border-line-strong bg-surface px-3.5 py-2 text-[0.8125rem] font-medium text-ink transition-colors hover:border-brass/40">
-            <NotebookPen size={14} aria-hidden />
+          <ButtonLink to="/caminhada/diario" variant="outline" size="sm">
+            <NotebookPen size={13} aria-hidden />
             Diário
-          </Link>
+          </ButtonLink>
         }
       />
 
       {/* Hábitos -------------------------------------------------------- */}
-      <section className="space-y-3">
-        <h2 className="text-base text-ink">Rotina e hábitos</h2>
-
+      <Section label="Rotina e hábitos">
         {habits.items.length === 0 ? (
           <EmptyState
-            compact
-            icon={Target}
-            title="Defina sua rotina"
+            label="Defina sua rotina"
             description="Comece com um hábito por vez: oração da manhã, leitura bíblica, terço."
           />
         ) : (
-          <Card className="overflow-hidden">
-            <ul className="divide-y divide-line">
-              {habits.items.map((habit) => (
-                <li key={habit.id} className="flex flex-wrap items-center gap-3 px-4 py-3">
-                  <div className="min-w-0 flex-1">
-                    <p className="text-[0.9375rem] text-ink">{habit.title}</p>
-                    <p className="text-[0.6875rem] text-muted">
-                      {HABIT_KINDS.find((kind) => kind.value === habit.kind)?.label}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-1" role="group" aria-label={`Marcações de ${habit.title}`}>
-                    {last7.map((date) => {
-                      const done = completedOn(habit.id, date);
-                      return (
-                        <button
-                          key={date}
-                          type="button"
-                          onClick={() => void toggleCompletion(habit.id, date)}
-                          aria-pressed={done}
-                          aria-label={`${formatShortDate(date)} — ${done ? 'feito' : 'não marcado'}`}
-                          className={cn(
-                            'flex size-6 items-center justify-center rounded-full border text-[0.5rem] transition-colors',
-                            done
-                              ? 'border-brass/40 bg-brass text-white'
-                              : 'border-line text-muted hover:border-brass/40',
-                          )}
-                        >
-                          {done ? (
-                            <Check size={10} strokeWidth={3} aria-hidden />
-                          ) : (
-                            <span aria-hidden>{WEEKDAY_SHORT[new Date(date + 'T12:00:00').getDay()]?.[0]}</span>
-                          )}
-                        </button>
-                      );
-                    })}
-                  </div>
-                  <button
-                    type="button"
-                    onClick={async () => {
-                      if (!window.confirm(`Remover o hábito "${habit.title}"?`)) return;
-                      await habits.remove(habit.id);
-                      notify('Hábito removido.');
-                    }}
-                    className="rounded-full p-1.5 text-muted transition-colors hover:bg-liturgy-red/8 hover:text-liturgy-red"
-                    aria-label={`Remover ${habit.title}`}
-                  >
-                    <Trash2 size={13} aria-hidden />
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </Card>
+          <ul className="ruled border-y border-rule">
+            {habits.items.map((habit) => (
+              <li key={habit.id} className="flex flex-wrap items-center gap-x-3 gap-y-2 py-2.5">
+                <div className="min-w-0 flex-1">
+                  <p className="text-[0.9375rem] text-ink">{habit.title}</p>
+                  <p className="text-[0.6875rem] uppercase tracking-[0.1em] text-muted">
+                    {HABIT_KINDS.find((kind) => kind.value === habit.kind)?.label}
+                  </p>
+                </div>
+                <div
+                  className="flex items-center gap-1"
+                  role="group"
+                  aria-label={`Marcações de ${habit.title}`}
+                >
+                  {last7.map((date) => {
+                    const done = completedOn(habit.id, date);
+                    return (
+                      <button
+                        key={date}
+                        type="button"
+                        onClick={() => void toggleCompletion(habit.id, date)}
+                        aria-pressed={done}
+                        aria-label={`${formatShortDate(date)} — ${done ? 'feito' : 'não marcado'}`}
+                        className={cn(
+                          'flex size-[22px] items-center justify-center border text-[0.5rem] transition-colors',
+                          done
+                            ? 'border-rubric bg-rubric text-paper'
+                            : 'border-rule-strong text-muted hover:border-ink',
+                        )}
+                      >
+                        {done ? (
+                          <Check size={10} strokeWidth={3} aria-hidden />
+                        ) : (
+                          <span aria-hidden>
+                            {WEEKDAY_SHORT[new Date(date + 'T12:00:00').getDay()]?.[0]}
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+                <button
+                  type="button"
+                  onClick={async () => {
+                    if (!window.confirm(`Remover o hábito "${habit.title}"?`)) return;
+                    await habits.remove(habit.id);
+                    notify('Hábito removido.');
+                  }}
+                  className="p-1 text-muted transition-colors hover:text-rubric"
+                  aria-label={`Remover ${habit.title}`}
+                >
+                  <Trash2 size={13} aria-hidden />
+                </button>
+              </li>
+            ))}
+          </ul>
         )}
 
-        <form onSubmit={addHabit} className="flex flex-wrap items-end gap-2">
+        <form onSubmit={addHabit} className="flex flex-wrap items-end gap-3">
           <Field label="Novo hábito" className="min-w-40 flex-1">
             {(id) => (
               <TextInput
@@ -217,59 +209,55 @@ export default function SpiritualLifePage() {
               </Select>
             )}
           </Field>
-          <Button type="submit" size="sm" variant="secondary">
-            <Plus size={14} aria-hidden />
+          <Button type="submit" size="sm" variant="outline">
+            <Plus size={13} aria-hidden />
             Adicionar
           </Button>
         </form>
         <p className="text-[0.6875rem] leading-relaxed text-muted">
-          Os sete círculos mostram a última semana. Marcar não é nota — serve para você perceber
+          Os sete quadrados mostram a última semana. Marcar não é nota — serve para você perceber
           padrões, não para cobrar constância.
         </p>
-      </section>
+      </Section>
 
       {/* Diário -------------------------------------------------------- */}
-      <section className="space-y-3">
-        <div className="flex items-end justify-between gap-3">
-          <h2 className="text-base text-ink">Diário espiritual</h2>
-          <Link to="/caminhada/diario" className="text-[0.75rem] text-ink-soft hover:text-brass">
+      <Section
+        label="Diário espiritual"
+        action={
+          <Link to="/caminhada/diario" className="text-[0.75rem] text-ink-2 hover:text-rubric">
             Ver tudo
           </Link>
-        </div>
+        }
+      >
         {journal.items.length === 0 ? (
           <EmptyState
-            compact
-            icon={PenLine}
-            title="Ainda sem registros"
+            label="Ainda sem registros"
             description="Escreva quando quiser. Um parágrafo basta."
             action={
-              <Link to="/caminhada/diario" className="inline-flex items-center gap-1.5 text-[0.75rem] font-medium text-ink hover:text-brass">
+              <ButtonLink to="/caminhada/diario" variant="quiet" size="sm" className="px-0">
                 Abrir o diário
-              </Link>
+              </ButtonLink>
             }
           />
         ) : (
-          <ul className="space-y-2">
+          <ul className="ruled border-y border-rule">
             {journal.items.slice(0, 3).map((entry) => (
-              <li key={entry.id}>
-                <Card className="p-4">
-                  <p className="text-[0.6875rem] uppercase tracking-[0.1em] text-brass">
-                    {formatShortDate(entry.date)}
-                  </p>
-                  {entry.title && <p className="mt-0.5 text-[0.9375rem] text-ink">{entry.title}</p>}
-                  <p className="mt-1 line-clamp-3 whitespace-pre-line text-[0.8125rem] leading-relaxed text-muted">
-                    {entry.body}
-                  </p>
-                </Card>
+              <li key={entry.id} className="py-3">
+                <Rubric className="text-[0.5625rem]">{formatShortDate(entry.date)}</Rubric>
+                {entry.title && (
+                  <p className="mt-0.5 font-display text-[1rem] text-ink">{entry.title}</p>
+                )}
+                <p className="mt-1 line-clamp-3 whitespace-pre-line text-[0.8125rem] leading-relaxed text-ink-2">
+                  {entry.body}
+                </p>
               </li>
             ))}
           </ul>
         )}
-      </section>
+      </Section>
 
       {/* Intenções ----------------------------------------------------- */}
-      <section className="space-y-3">
-        <h2 className="text-base text-ink">Intenções</h2>
+      <Section label="Intenções">
         <form
           onSubmit={async (event) => {
             event.preventDefault();
@@ -282,9 +270,9 @@ export default function SpiritualLifePage() {
               answeredAt: null,
             });
             setNewIntention('');
-            notify('Intenção guardada. Vamos rezar por ela.');
+            notify('Intenção guardada.');
           }}
-          className="flex gap-2"
+          className="flex items-end gap-2"
         >
           <TextInput
             value={newIntention}
@@ -293,61 +281,53 @@ export default function SpiritualLifePage() {
             aria-label="Nova intenção"
             maxLength={200}
           />
-          <Button type="submit" size="sm" variant="secondary">
-            <Plus size={14} aria-hidden />
+          <Button type="submit" size="sm" variant="outline">
+            <Plus size={13} aria-hidden />
           </Button>
         </form>
 
         {intentions.items.length === 0 ? (
           <EmptyState
-            compact
-            icon={Heart}
-            title="Nenhuma intenção"
+            label="Nenhuma intenção"
             description="Escreva um nome ou um pedido. Fica só entre você e Deus."
           />
         ) : (
-          <ul className="space-y-2">
+          <ul className="ruled border-y border-rule">
             {intentions.items.map((intention) => (
-              <li key={intention.id}>
-                <Card className="flex items-center gap-3 px-4 py-3">
-                  <span className="flex-1 text-[0.875rem] text-ink">{intention.text}</span>
-                  {intention.answeredAt ? (
-                    <Badge tone="brass">
-                      <Sparkles size={10} aria-hidden />
-                      Atendida
-                    </Badge>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={() =>
-                        void intentions.update({
-                          ...intention,
-                          answeredAt: new Date().toISOString(),
-                        })
-                      }
-                      className="text-[0.6875rem] text-muted transition-colors hover:text-brass"
-                    >
-                      Marcar como atendida
-                    </button>
-                  )}
+              <li key={intention.id} className="flex items-center gap-3 py-2.5">
+                <span className="min-w-0 flex-1 text-[0.875rem] text-ink">{intention.text}</span>
+                {intention.answeredAt ? (
+                  <Tag tone="rubric">Atendida</Tag>
+                ) : (
                   <button
                     type="button"
-                    onClick={() => void intentions.remove(intention.id)}
-                    className="rounded-full p-1.5 text-muted hover:bg-liturgy-red/8 hover:text-liturgy-red"
-                    aria-label="Remover intenção"
+                    onClick={() =>
+                      void intentions.update({
+                        ...intention,
+                        answeredAt: new Date().toISOString(),
+                      })
+                    }
+                    className="text-[0.6875rem] text-muted underline decoration-rule-strong underline-offset-2 transition-colors hover:text-rubric"
                   >
-                    <Trash2 size={12} aria-hidden />
+                    Marcar como atendida
                   </button>
-                </Card>
+                )}
+                <button
+                  type="button"
+                  onClick={() => void intentions.remove(intention.id)}
+                  className="p-1 text-muted transition-colors hover:text-rubric"
+                  aria-label="Remover intenção"
+                >
+                  <Trash2 size={12} aria-hidden />
+                </button>
               </li>
             ))}
           </ul>
         )}
-      </section>
+      </Section>
 
       {/* Versículos ---------------------------------------------------- */}
-      <section className="space-y-3">
-        <h2 className="text-base text-ink">Versículos favoritos</h2>
+      <Section label="Versículos favoritos">
         <form
           onSubmit={async (event) => {
             event.preventDefault();
@@ -363,7 +343,7 @@ export default function SpiritualLifePage() {
             setVerseText('');
             notify('Versículo guardado.');
           }}
-          className="space-y-2 rounded-[var(--radius-card)] border border-line bg-surface p-3.5"
+          className="space-y-3"
         >
           <Field label="Referência">
             {(id) => (
@@ -389,48 +369,43 @@ export default function SpiritualLifePage() {
             )}
           </Field>
           <div className="flex justify-end">
-            <Button type="submit" size="sm" variant="secondary">
-              <Plus size={14} aria-hidden />
+            <Button type="submit" size="sm" variant="outline">
+              <Plus size={13} aria-hidden />
               Guardar
             </Button>
           </div>
         </form>
 
         {verses.items.length === 0 ? (
-          <p className="text-[0.75rem] text-muted">
+          <p className="text-[0.75rem] leading-relaxed text-muted">
             Guarde aqui os versículos que falam com você. Sempre à mão, offline.
           </p>
         ) : (
-          <ul className="grid gap-2 sm:grid-cols-2">
+          <ul className="ruled border-y border-rule">
             {verses.items.map((verse) => (
-              <li key={verse.id}>
-                <Card className="flex h-full flex-col justify-between gap-2 p-4">
-                  <div>
-                    <p className="text-[0.6875rem] uppercase tracking-[0.1em] text-brass">
-                      {verse.reference}
-                    </p>
-                    <p className="mt-1 font-display text-[0.9375rem] leading-relaxed text-ink-soft">
-                      {verse.text}
-                    </p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => void verses.remove(verse.id)}
-                    className="self-end rounded-full p-1.5 text-muted hover:bg-liturgy-red/8 hover:text-liturgy-red"
-                    aria-label={`Remover ${verse.reference}`}
-                  >
-                    <Trash2 size={12} aria-hidden />
-                  </button>
-                </Card>
+              <li key={verse.id} className="flex items-start gap-3 py-3">
+                <div className="min-w-0 flex-1">
+                  <Reference>{verse.reference}</Reference>
+                  <p className="mt-0.5 font-display text-[0.9375rem] leading-relaxed text-ink">
+                    {verse.text}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => void verses.remove(verse.id)}
+                  className="p-1 text-muted transition-colors hover:text-rubric"
+                  aria-label={`Remover ${verse.reference}`}
+                >
+                  <Trash2 size={12} aria-hidden />
+                </button>
               </li>
             ))}
           </ul>
         )}
-      </section>
+      </Section>
 
       {/* Plano de vida ------------------------------------------------- */}
-      <section className="space-y-3">
-        <h2 className="text-base text-ink">Plano de vida espiritual</h2>
+      <Section label="Plano de vida espiritual">
         <form
           onSubmit={async (event) => {
             event.preventDefault();
@@ -445,7 +420,7 @@ export default function SpiritualLifePage() {
             setPlanText('');
             notify('Item adicionado ao plano.');
           }}
-          className="flex gap-2"
+          className="flex items-end gap-2"
         >
           <TextInput
             value={planText}
@@ -454,53 +429,47 @@ export default function SpiritualLifePage() {
             aria-label="Novo item do plano de vida"
             maxLength={140}
           />
-          <Button type="submit" size="sm" variant="secondary">
-            <Plus size={14} aria-hidden />
+          <Button type="submit" size="sm" variant="outline">
+            <Plus size={13} aria-hidden />
           </Button>
         </form>
 
         {plan.items.length === 0 ? (
           <EmptyState
-            compact
-            icon={BookHeart}
-            title="Sem plano ainda"
+            label="Sem plano ainda"
             description="Um plano de vida não é uma lista de exigências. Comece com duas ou três coisas."
           />
         ) : (
-          <ul className="space-y-1.5">
+          <ul className="ruled border-y border-rule">
             {plan.items.map((item) => (
-              <li key={item.id}>
-                <Card className="flex items-center gap-3 px-4 py-2.5">
-                  <Circle size={16} className="shrink-0 text-brass/60" aria-hidden />
-                  <span className="flex-1 text-[0.875rem] text-ink">{item.title}</span>
-                  <button
-                    type="button"
-                    onClick={() => void plan.remove(item.id)}
-                    className="rounded-full p-1.5 text-muted hover:bg-liturgy-red/8 hover:text-liturgy-red"
-                    aria-label="Remover item"
-                  >
-                    <Trash2 size={12} aria-hidden />
-                  </button>
-                </Card>
+              <li key={item.id} className="flex items-center gap-3 py-2.5">
+                <span className="numeral shrink-0" aria-hidden>
+                  ·
+                </span>
+                <span className="min-w-0 flex-1 text-[0.875rem] text-ink">{item.title}</span>
+                <button
+                  type="button"
+                  onClick={() => void plan.remove(item.id)}
+                  className="p-1 text-muted transition-colors hover:text-rubric"
+                  aria-label="Remover item"
+                >
+                  <Trash2 size={12} aria-hidden />
+                </button>
               </li>
             ))}
           </ul>
         )}
-      </section>
+      </Section>
 
-      <div className="flex flex-wrap items-center gap-3 rounded-xl border border-line bg-surface-muted/40 px-4 py-3">
-        <Flame size={15} className="text-brass" aria-hidden />
+      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1.5 border-t border-rule pt-3">
+        <Meta>Seus dados</Meta>
         <p className="flex-1 text-[0.75rem] leading-relaxed text-muted">
           Quer levar seus dados com você ou apagá-los? Em Configurações há exportação e exclusão
           integral.
         </p>
-        <Link
-          to="/caminhada/configuracoes"
-          className="inline-flex items-center gap-1 text-[0.75rem] font-medium text-ink hover:text-brass"
-        >
-          <Undo2 size={12} aria-hidden />
+        <ButtonLink to="/caminhada/configuracoes" variant="quiet" size="sm" className="px-0">
           Configurações
-        </Link>
+        </ButtonLink>
       </div>
     </div>
   );

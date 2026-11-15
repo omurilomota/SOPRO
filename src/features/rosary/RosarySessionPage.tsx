@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight, Check, RotateCcw } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
@@ -43,13 +43,12 @@ export default function RosarySessionPage() {
       <div className="space-y-4">
         <Link
           to="/terco"
-          className="inline-flex items-center gap-1.5 text-[0.8125rem] text-muted hover:text-ink"
+          className="inline-flex items-center gap-1.5 text-[0.8125rem] text-muted hover:text-rubric"
         >
-          <ArrowLeft size={14} aria-hidden /> Terço
+          <ArrowLeft size={13} aria-hidden /> Terço
         </Link>
         <EmptyState
-          icon={RotateCcw}
-          title="Mistérios não encontrados"
+          label="Mistérios não encontrados"
           description="Escolha um dos conjuntos de mistérios para começar."
         />
       </div>
@@ -85,19 +84,19 @@ export default function RosarySessionPage() {
   };
 
   return (
-    <div className="mx-auto max-w-2xl space-y-5 animate-[var(--animate-fade-in)]">
+    <div className="mx-auto max-w-2xl space-y-5 animate-[var(--animate-fade)]">
       <div className="flex items-center justify-between gap-3">
         <button
           type="button"
           onClick={leave}
-          className="inline-flex items-center gap-1.5 text-[0.8125rem] text-muted transition-colors hover:text-ink"
+          className="inline-flex items-center gap-1.5 text-[0.8125rem] text-muted transition-colors hover:text-rubric"
         >
-          <ArrowLeft size={14} aria-hidden /> {group.name}
+          <ArrowLeft size={13} aria-hidden /> {group.name}
         </button>
         <button
           type="button"
           onClick={() => setFocusMode((value) => !value)}
-          className="rounded-full border border-line px-2.5 py-1 text-[0.6875rem] text-muted transition-colors hover:text-ink"
+          className="border-b border-rule-strong pb-px text-[0.6875rem] text-muted transition-colors hover:border-rubric hover:text-rubric"
           aria-pressed={focusMode}
         >
           {focusMode ? 'Sair do modo leitura' : 'Modo leitura'}
@@ -105,9 +104,9 @@ export default function RosarySessionPage() {
       </div>
 
       <div className="space-y-2">
-        <div className="h-1 overflow-hidden rounded-full bg-surface-muted" aria-hidden>
+        <div className="h-px overflow-hidden bg-rule" aria-hidden>
           <div
-            className="h-full rounded-full bg-brass/70 transition-[width] duration-500"
+            className="h-full bg-rubric transition-[width] duration-500"
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -117,15 +116,10 @@ export default function RosarySessionPage() {
       </div>
 
       <section
-        className={cn(
-          'rounded-[var(--radius-card)] border border-line bg-surface p-5 shadow-[var(--shadow-soft)] sm:p-7',
-          focusMode && 'px-4 py-8 sm:px-8',
-        )}
+        className={cn('border-t border-rule pt-5', focusMode && 'pt-8')}
       >
         {step.mystery && (
-          <p className="mb-2 text-[0.6875rem] uppercase tracking-[0.14em] text-brass">
-            {step.mystery.scripture}
-          </p>
+          <p className="rubric mb-1.5">{step.mystery.scripture}</p>
         )}
         <h1 className={cn('text-ink', focusMode ? 'text-[1.5rem]' : 'text-[1.375rem]')}>
           {step.title}
@@ -134,7 +128,7 @@ export default function RosarySessionPage() {
         {step.text && (
           <div
             className={cn(
-              'mt-4 whitespace-pre-line font-display leading-[1.85] text-ink-soft',
+              'mt-3 whitespace-pre-line font-display leading-[1.85] text-ink',
               focusMode ? 'text-[1.25rem]' : 'text-[1.0625rem]',
             )}
           >
@@ -143,7 +137,7 @@ export default function RosarySessionPage() {
         )}
 
         {isBeadStep && (
-          <div className="mt-7 space-y-4 border-t border-line pt-5">
+          <div className="mt-6 space-y-4 border-t border-rule pt-5">
             <div
               className="flex items-center justify-center gap-2"
               role="img"
@@ -153,8 +147,8 @@ export default function RosarySessionPage() {
                 <span
                   key={index}
                   className={cn(
-                    'size-2.5 rounded-full transition-colors duration-300',
-                    index < beads ? 'bg-brass' : 'bg-line-strong/60',
+                    'size-2 rounded-full transition-colors duration-300',
+                    index < beads ? 'bg-rubric' : 'bg-rule-strong/70',
                   )}
                 />
               ))}
@@ -170,10 +164,10 @@ export default function RosarySessionPage() {
               type="button"
               onClick={advance}
               className={cn(
-                'flex w-full items-center justify-center gap-2 rounded-xl border px-4 py-3.5 text-[0.875rem] font-medium transition-colors',
+                'flex w-full items-center justify-center gap-2 border py-3 text-[0.875rem] font-medium transition-colors',
                 beadsComplete
-                  ? 'border-brass/30 bg-brass-soft text-brass-strong dark:text-brass'
-                  : 'border-line bg-surface-muted text-ink-soft hover:border-brass/40',
+                  ? 'border-ink bg-ink text-paper hover:bg-rubric'
+                  : 'border-rule-strong text-ink hover:border-ink',
               )}
             >
               {beadsComplete ? 'Continuar' : 'Ave-Maria'}
@@ -189,7 +183,7 @@ export default function RosarySessionPage() {
 
       <div className="flex items-center justify-between gap-3 pb-2">
         <Button
-          variant="ghost"
+          variant="quiet"
           size="sm"
           onClick={previous}
           disabled={stepIndex === 0 && beads === 0}

@@ -2,68 +2,86 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* --------------------------------------------------------------------------
-   Design tokens — SOPRO
-   Paleta clara e serena: marfim, tinta, latão suave e azul-sereno.
-   -------------------------------------------------------------------------- */
+/* ==========================================================================
+   SOPRO — sistema visual "Missal"
+   --------------------------------------------------------------------------
+   A referência não é um app de produtividade: é o livro litúrgico.
+   Papel quente, tinta densa, filetes finos e RUBRICA — o vermelho com que os
+   missais imprimem as instruções desde a Idade Média. Cantos quase retos,
+   hierarquia tipográfica serifada, estrutura por linhas e não por cartões.
+   ========================================================================== */
+
 @theme {
-  --font-sans:
-    'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-display: 'Newsreader Variable', ui-serif, Georgia, 'Times New Roman', serif;
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Newsreader Variable', ui-serif, Georgia, serif;
 
-  --color-canvas: #faf7f2;
-  --color-surface: #ffffff;
-  --color-surface-muted: #f4efe7;
-  --color-surface-sunken: #efe8dd;
-  --color-ink: #23201b;
-  --color-ink-soft: #4b453d;
-  --color-muted: #7d746a;
-  --color-line: #e7dfd3;
-  --color-line-strong: #d8cdba;
+  /* Superfícies */
+  --color-paper: #faf6ee;
+  --color-paper-2: #f3ece0;
+  --color-plate: #fffdf9;
 
-  --color-brass: #a3824a;
-  --color-brass-strong: #8a6a34;
-  --color-brass-soft: #f2e8d6;
-  --color-serenity: #3f5f73;
-  --color-serenity-soft: #e8eef1;
+  /* Tinta */
+  --color-ink: #1b1815;
+  --color-ink-2: #4a433b;
+  --color-muted: #7c7267;
 
-  --color-liturgy-green: #4c7a5a;
-  --color-liturgy-red: #a8453b;
-  --color-liturgy-purple: #6a4b79;
-  --color-liturgy-rose: #bc7590;
-  --color-liturgy-white: #c2a267;
+  /* Filetes */
+  --color-rule: #ded4c4;
+  --color-rule-strong: #c9bca8;
 
-  --radius-card: 1.125rem;
-  --shadow-soft: 0 1px 2px rgb(35 32 27 / 0.04), 0 8px 24px -16px rgb(35 32 27 / 0.18);
+  /* Rubrica — o acento da casa */
+  --color-rubric: #9c3a2c;
+  --color-rubric-2: #b85a48;
+  --color-rubric-wash: #f2e2dc;
 
-  --animate-fade-up: fade-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
-  --animate-fade-in: fade-in 0.35s ease-out both;
+  /* Azul de referência (links eruditos, notas) */
+  --color-indigo: #33475e;
+  --color-indigo-wash: #e4e9ef;
+
+  /* Cores litúrgicas — usadas só onde têm significado */
+  --color-liturgia-verde: #4a6b52;
+  --color-liturgia-vermelho: #9c3a2c;
+  --color-liturgia-roxo: #5f4468;
+  --color-liturgia-rosa: #b06a80;
+  --color-liturgia-branco: #b99a5e;
+
+  --radius: 3px;
+
+  --animate-rise: rise 0.4s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+  --animate-fade: fade 0.3s ease-out both;
 }
 
 @layer theme {
   .dark {
-    --color-canvas: #14120f;
-    --color-surface: #1c1916;
-    --color-surface-muted: #232019;
-    --color-surface-sunken: #100e0c;
-    --color-ink: #f0eae0;
-    --color-ink-soft: #d5cdc1;
-    --color-muted: #a49a8c;
-    --color-line: #322c25;
-    --color-line-strong: #453d33;
+    --color-paper: #14120e;
+    --color-paper-2: #1b1815;
+    --color-plate: #201c17;
 
-    --color-brass: #cba76f;
-    --color-brass-strong: #dcbd8b;
-    --color-brass-soft: #2f2719;
-    --color-serenity: #9dbed1;
-    --color-serenity-soft: #1e2a31;
+    --color-ink: #f1ebe0;
+    --color-ink-2: #cfc7ba;
+    --color-muted: #9a9083;
+
+    --color-rule: #322c24;
+    --color-rule-strong: #473f34;
+
+    --color-rubric: #d9776a;
+    --color-rubric-2: #e08e80;
+    --color-rubric-wash: #2a1e1a;
+
+    --color-indigo: #9bb0c6;
+    --color-indigo-wash: #1c242c;
+
+    --color-liturgia-verde: #7fa389;
+    --color-liturgia-roxo: #a98dba;
+    --color-liturgia-rosa: #d69aad;
+    --color-liturgia-branco: #d9bd85;
   }
 }
 
-@keyframes fade-up {
+@keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(6px);
   }
   to {
     opacity: 1;
@@ -71,7 +89,7 @@
   }
 }
 
-@keyframes fade-in {
+@keyframes fade {
   from {
     opacity: 0;
   }
@@ -82,21 +100,22 @@
 
 @layer base {
   * {
-    border-color: var(--color-line);
+    border-color: var(--color-rule);
   }
 
   html {
     -webkit-text-size-adjust: 100%;
-    scroll-behavior: smooth;
   }
 
   body {
-    background-color: var(--color-canvas);
+    background-color: var(--color-paper);
     color: var(--color-ink);
     font-family: var(--font-sans);
-    font-feature-settings: 'cv11', 'ss01';
+    font-size: 0.9375rem;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'kern', 'liga', 'cv05';
     min-height: 100dvh;
   }
 
@@ -105,34 +124,44 @@
   h3,
   h4 {
     font-family: var(--font-display);
-    font-weight: 500;
-    letter-spacing: -0.014em;
+    font-weight: 400;
+    font-variation-settings: 'opsz' 36;
+    letter-spacing: -0.018em;
+    line-height: 1.16;
     text-wrap: balance;
+    color: var(--color-ink);
   }
 
   p {
     text-wrap: pretty;
   }
 
+  strong {
+    font-weight: 600;
+  }
+
+  /* Foco: rubrica, nunca o anel azul padrão do navegador. */
   :focus-visible {
-    outline: 2px solid var(--color-brass);
-    outline-offset: 3px;
-    border-radius: 4px;
+    outline: 2px solid var(--color-rubric);
+    outline-offset: 2px;
   }
 
   ::selection {
-    background: var(--color-brass-soft);
-    color: var(--color-ink);
+    background: var(--color-rubric-wash);
+    color: var(--color-rubric);
   }
 
   ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: 9px;
+    height: 9px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: var(--color-line-strong);
-    border-radius: 999px;
-    border: 3px solid var(--color-canvas);
+    background: var(--color-rule-strong);
+    border: 3px solid var(--color-paper);
+    border-radius: 99px;
   }
 
   input,
@@ -151,43 +180,122 @@
   .dark input[type='time'] {
     color-scheme: dark;
   }
+
+  hr {
+    border: 0;
+    border-top: 1px solid var(--color-rule);
+  }
 }
 
 @layer components {
-  /* Texto corrido de leituras e orações: confortável para leitura longa. */
-  .prose-reading {
+  /* --- Rótulo de rubrica: o marcador estrutural do sistema --------------
+     Pequeno, versalete, vermelho. Usado em títulos de seção, metadados,
+     referências. Substitui o "eyebrow" genérico. */
+  .rubric {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--color-rubric);
+    font-feature-settings: 'kern';
+  }
+
+  .rubric-muted {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  /* --- Título de seção com filete --------------------------------------
+     O filete preenche a linha até a borda: estrutura por linha, não por caixa. */
+  .section-rule {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .section-rule::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--color-rule);
+  }
+
+  /* --- Texto corrido de leitura ---------------------------------------- */
+  .reading {
+    font-family: var(--font-display);
     font-size: 1.0625rem;
-    line-height: 1.85;
-    color: var(--color-ink-soft);
+    font-variation-settings: 'opsz' 16;
+    line-height: 1.82;
+    color: var(--color-ink-2);
+    white-space: pre-line;
+    hanging-punctuation: first;
+  }
+
+  .reading-sm {
+    font-family: var(--font-display);
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    color: var(--color-ink-2);
     white-space: pre-line;
   }
 
-  .prose-reading strong {
-    color: var(--color-ink);
-    font-weight: 600;
+  /* --- Capitular: abertura de artigo longo ----------------------------- */
+  .dropcap::first-letter {
+    float: left;
+    font-family: var(--font-display);
+    font-size: 3.1em;
+    line-height: 0.82;
+    padding-right: 0.09em;
+    padding-top: 0.06em;
+    color: var(--color-rubric);
+    font-weight: 400;
   }
 
-  .liturgy-quote {
+  /* --- Citação litúrgica / escriturística ------------------------------ */
+  .scripture {
     font-family: var(--font-display);
-    font-size: 1.25rem;
+    font-style: italic;
+    font-size: 1.0625rem;
     line-height: 1.7;
     color: var(--color-ink);
   }
 
-  .hairline {
-    background-image: linear-gradient(
-      to right,
-      transparent,
-      var(--color-line-strong),
-      transparent
-    );
-    height: 1px;
+  /* --- Placa: o único "cartão" do sistema -----------------------------
+     Borda fina, canto quase reto, sem sombra. Reservada ao conteúdo
+     principal de uma tela — não a cada bloco. */
+  .plate {
+    background: var(--color-plate);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius);
   }
 
-  .surface {
-    background-color: var(--color-surface);
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-card);
+  .plate-flush {
+    background: transparent;
+    border: 0;
+    border-top: 1px solid var(--color-rule);
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  /* --- Lista pautada: a alternativa ao grid de cartões ----------------- */
+  .ruled > * + * {
+    border-top: 1px solid var(--color-rule);
+  }
+
+  /* --- Numeral marginal (como nos livros de horas) --------------------- */
+  .numeral {
+    font-family: var(--font-display);
+    font-size: 0.8125rem;
+    color: var(--color-rubric);
+    font-variant-numeric: oldstyle-nums tabular-nums;
+    letter-spacing: 0.02em;
+  }
+
+  .hairline {
+    height: 1px;
+    background: var(--color-rule);
   }
 
   .no-scrollbar::-webkit-scrollbar {
@@ -195,6 +303,21 @@
   }
   .no-scrollbar {
     scrollbar-width: none;
+  }
+
+  /* Fita de rúbrica à esquerda — marca item ativo na navegação. */
+  .rubric-mark {
+    position: relative;
+  }
+  .rubric-mark::before {
+    content: '';
+    position: absolute;
+    left: -1px;
+    top: 4px;
+    bottom: 4px;
+    width: 2px;
+    background: var(--color-rubric);
+    border-radius: 1px;
   }
 }
 

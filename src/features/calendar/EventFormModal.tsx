@@ -122,7 +122,7 @@ export function EventFormModal({
       description="Tudo fica salvo apenas neste dispositivo."
       footer={
         <>
-          <Button variant="ghost" size="sm" onClick={onClose} disabled={saving}>
+          <Button variant="quiet" size="sm" onClick={onClose} disabled={saving}>
             Cancelar
           </Button>
           <Button size="sm" onClick={handleSubmit} disabled={saving}>

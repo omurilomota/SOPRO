@@ -2,9 +2,10 @@ import { ArrowLeft, Download, MonitorSmartphone, Moon, Sun, Trash2, Upload } fro
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
-import { Card } from '../../components/ui/Card';
 import { Field, TextInput } from '../../components/ui/Field';
 import { PageHeader } from '../../components/ui/PageHeader';
+import { Section } from '../../components/ui/Structure';
+import { Meta } from '../../components/ui/Marks';
 import { useToast } from '../../components/ui/Toast';
 import { useSettings } from '../../hooks/useSettings';
 import {
@@ -80,23 +81,22 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="space-y-6 animate-[var(--animate-fade-up)]">
+    <div className="space-y-8 animate-[var(--animate-fade)]">
       <Link
         to="/caminhada"
-        className="inline-flex items-center gap-1.5 text-[0.8125rem] text-muted hover:text-ink"
+        className="inline-flex items-center gap-1.5 text-[0.8125rem] text-muted transition-colors hover:text-rubric"
       >
-        <ArrowLeft size={14} aria-hidden /> Minha caminhada
+        <ArrowLeft size={13} aria-hidden /> Minha caminhada
       </Link>
 
       <PageHeader
-        eyebrow="Configurações"
+        label="Configurações"
         title="Preferências e dados"
         description="Aparência, identificação e controle total sobre o que está guardado neste dispositivo."
       />
 
-      <section className="space-y-3">
-        <h2 className="text-base text-ink">Aparência</h2>
-        <div className="flex flex-wrap gap-2" role="group" aria-label="Tema">
+      <Section label="Aparência">
+        <div className="flex flex-wrap gap-x-4 gap-y-2" role="group" aria-label="Tema">
           {THEMES.map((theme) => (
             <button
               key={theme.value}
@@ -104,22 +104,21 @@ export default function SettingsPage() {
               onClick={() => void updateSettings({ theme: theme.value })}
               aria-pressed={settings?.theme === theme.value}
               className={cn(
-                'flex items-center gap-2 rounded-xl border px-3.5 py-2.5 text-[0.8125rem] transition-colors',
+                'flex items-center gap-1.5 border-b pb-0.5 text-[0.8125rem] transition-colors',
                 settings?.theme === theme.value
-                  ? 'border-brass/40 bg-brass-soft text-ink dark:bg-brass-soft/40'
-                  : 'border-line bg-surface text-ink-soft hover:border-line-strong',
+                  ? 'border-rubric text-rubric'
+                  : 'border-transparent text-muted hover:text-ink-2',
               )}
             >
-              <theme.icon size={15} aria-hidden />
+              <theme.icon size={13} aria-hidden />
               {theme.label}
             </button>
           ))}
         </div>
-      </section>
+      </Section>
 
-      <section className="space-y-3">
-        <h2 className="text-base text-ink">Como quer ser chamado</h2>
-        <Card className="p-4">
+      <Section label="Como quer ser chamado">
+        <div>
           <Field
             label="Nome ou apelido"
             optional
@@ -136,7 +135,7 @@ export default function SettingsPage() {
                 />
                 <Button
                   size="sm"
-                  variant="secondary"
+                  variant="outline"
                   onClick={() => {
                     void updateSettings({ name: name.trim() || null });
                     notify('Nome atualizado.');
@@ -147,26 +146,25 @@ export default function SettingsPage() {
               </div>
             )}
           </Field>
-        </Card>
-      </section>
+        </div>
+      </Section>
 
-      <section className="space-y-3">
-        <h2 className="text-base text-ink">Seus dados</h2>
-        <Card className="divide-y divide-line">
-          <div className="flex flex-wrap items-center justify-between gap-3 p-4">
+      <Section label="Seus dados">
+        <div className="ruled border-y border-rule">
+          <div className="flex flex-wrap items-center justify-between gap-3 py-3.5">
             <div className="min-w-0">
               <p className="text-[0.9375rem] text-ink">Exportar cópia de segurança</p>
               <p className="text-[0.75rem] leading-relaxed text-muted">
                 Gera um arquivo JSON com tudo o que está salvo. O arquivo fica com você.
               </p>
             </div>
-            <Button size="sm" variant="secondary" onClick={handleExport} disabled={busy}>
+            <Button size="sm" variant="outline" onClick={handleExport} disabled={busy}>
               <Download size={14} aria-hidden />
               Exportar
             </Button>
           </div>
 
-          <div className="flex flex-wrap items-center justify-between gap-3 p-4">
+          <div className="flex flex-wrap items-center justify-between gap-3 py-3.5">
             <div className="min-w-0">
               <p className="text-[0.9375rem] text-ink">Restaurar de uma cópia</p>
               <p className="text-[0.75rem] leading-relaxed text-muted">
@@ -175,7 +173,7 @@ export default function SettingsPage() {
             </div>
             <Button
               size="sm"
-              variant="secondary"
+              variant="outline"
               onClick={() => fileInput.current?.click()}
               disabled={busy}
             >
@@ -195,9 +193,9 @@ export default function SettingsPage() {
             />
           </div>
 
-          <div className="flex flex-wrap items-center justify-between gap-3 p-4">
+          <div className="flex flex-wrap items-center justify-between gap-3 py-3.5">
             <div className="min-w-0">
-              <p className="text-[0.9375rem] text-liturgy-red">Excluir todos os dados</p>
+              <p className="text-[0.9375rem] text-rubric">Excluir todos os dados</p>
               <p className="text-[0.75rem] leading-relaxed text-muted">
                 Apaga diário, intenções, hábitos, compromissos, favoritos e cache de liturgia.
               </p>
@@ -207,12 +205,13 @@ export default function SettingsPage() {
               Excluir tudo
             </Button>
           </div>
-        </Card>
-      </section>
+        </div>
+      </Section>
 
-      <p className="text-[0.75rem] leading-relaxed text-muted">
+      <p className="border-t border-rule pt-3 text-[0.75rem] leading-relaxed text-muted">
+        <Meta>Privacidade</Meta>{' '}
         Para entender exatamente o que é armazenado e onde, leia a{' '}
-        <Link to="/privacidade" className="underline decoration-line-strong underline-offset-2 hover:text-ink">
+        <Link to="/privacidade" className="underline decoration-rule-strong underline-offset-2 hover:text-rubric">
           política de privacidade
         </Link>
         .

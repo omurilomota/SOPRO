@@ -38,16 +38,6 @@ export type CharismaticTheme =
   | 'servico'
   | 'comunidade';
 
-export interface GiftOfTheSpirit {
-  id: ID;
-  name: string;
-  /** Origem da categoria: dons do Espírito (Is 11) ou carismas (1Cor 12). */
-  category: 'dom-do-espirito' | 'carisma';
-  summary: string;
-  scripture: string[];
-  notes: string[];
-}
-
 /**
  * Material de formação/ biblioteca. `rights` documenta as condições de uso:
  * nunca redistribuímos conteúdo de terceiros sem permissão — por padrão

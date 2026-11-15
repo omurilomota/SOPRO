@@ -51,18 +51,30 @@ permissão de reprodução. Paráfrase com referência é sempre preferível.
 
 Ponto de atenção específico do projeto:
 
-- **Dons do Espírito (Is 11, 2-3)** e **carismas (1Cor 12, 8-10)** são categorias
-  distintas e são apresentadas em abas separadas. Exemplos que costumam ser
-  confundidos: *sabedoria* (dom) ≠ *palavra de sabedoria* (carisma); *ciência*
-  (dom) ≠ *palavra de ciência* (carisma); *fé* (virtude teologal) ≠ *fé* (carisma).
-- **Não há testes de dons.** A plataforma não afirma identificar, confirmar ou
-  diagnosticar carismas de ninguém.
+- **Dons do Espírito (Is 11, 2-3)**, **carismas (1Cor 12)** e **frutos (Gl 5, 22-23)**
+  são três categorias distintas, apresentadas como tais na página *Dons e carismas*.
+  Exemplos que costumam ser confundidos: *sabedoria* (dom) ≠ *palavra de sabedoria*
+  (carisma); *ciência* (dom) ≠ *palavra de ciência* (carisma); *fé* (virtude
+  teologal) ≠ *fé* (carisma).
+- **Não há testes de dons.** A plataforma não oferece questionário, perfil ou
+  diagnóstico. O progresso registrado na área é de *percurso* (semanas do SVES,
+  módulos do Módulo Básico), nunca de identificação de carisma.
 - **Nada de promessas de cura.** Os dons de cura são apresentados como graça, não
-  como técnica ou resultado garantido.
+  como técnica ou resultado garantido, e sempre com o encaminhamento a
+  acompanhamento médico quando pertinente.
 - **Discernimento é comunitário.** Todo texto reforça a necessidade de direção
-  espiritual, comunhão com a paróquia e submissão à Igreja.
+  espiritual, comunhão com a paróquia e submissão à Igreja. A página
+  *Discernimento* lista os cinco critérios de eclesialidade (ChL 30) e os alertas
+  do Doc. 53 da CNBB.
+- **Cautelas obrigatórias** derivadas do Documento 53: nada de "repouso no
+  Espírito" apresentado como experiência normal (n. 66); nada de óleo ou gestos
+  que imitem sacramentos na oração pelos doentes (nn. 60-61); o juízo sobre os
+  carismas pertence aos pastores (nn. 57-58); não reaproveitar termos eclesiais
+  com outro sentido (n. 29).
 - **Não somos a RCCBRASIL.** A independência institucional é declarada no rodapé,
   no README e nas páginas da área carismática.
+- **Sem URL inventada.** Só se referencia documento cuja localização pública é
+  conhecida; os demais ficam como referência bibliográfica, sem link.
 
 ## 6. Revisão
 
@@ -73,6 +85,8 @@ Antes de abrir um PR com conteúdo novo, verifique:
 - [ ] As referências bíblicas e magisteriais estão corretas?
 - [ ] O tom é pastoral, sóbrio e não sensacionalista?
 - [ ] Nenhuma categoria teológica foi misturada?
+- [ ] Nenhuma cautela pastoral do Doc. 53 foi contrariada?
+- [ ] O teste `src/data/rcc/rcc-content.test.ts` continua passando?
 
 Em caso de dúvida jurídica ou doutrinal, registre a questão em uma issue em vez de
 decidir sozinho — o projeto prefere a lacuna documentada ao erro silencioso.

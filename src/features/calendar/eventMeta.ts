@@ -15,18 +15,22 @@ export interface EventKindMeta {
   id: EventKind;
   label: string;
   icon: LucideIcon;
-  /** Classe de cor do marcador (mantém a paleta sóbria). */
+  /** Cor do marcador — usa as cores litúrgicas onde há correspondência. */
   dot: string;
 }
 
+/**
+ * Marcadores de tipo de compromisso.
+ * As cores não são decorativas: seguem a paleta litúrgica do sistema.
+ */
 export const EVENT_KINDS: EventKindMeta[] = [
-  { id: 'missa', label: 'Missa', icon: Church, dot: 'bg-brass' },
-  { id: 'grupo-oracao', label: 'Grupo de Oração', icon: Users, dot: 'bg-serenity' },
-  { id: 'confissao', label: 'Confissão', icon: HandHeart, dot: 'bg-liturgy-purple' },
-  { id: 'adoracao', label: 'Adoração', icon: Sparkles, dot: 'bg-liturgy-white' },
-  { id: 'formacao', label: 'Formação', icon: BookOpenCheck, dot: 'bg-liturgy-green' },
-  { id: 'retiro', label: 'Retiro', icon: Mountain, dot: 'bg-serenity' },
-  { id: 'novena', label: 'Novena', icon: Flame, dot: 'bg-liturgy-rose' },
+  { id: 'missa', label: 'Missa', icon: Church, dot: 'bg-liturgia-branco' },
+  { id: 'grupo-oracao', label: 'Grupo de Oração', icon: Users, dot: 'bg-rubric' },
+  { id: 'confissao', label: 'Confissão', icon: HandHeart, dot: 'bg-liturgia-roxo' },
+  { id: 'adoracao', label: 'Adoração', icon: Sparkles, dot: 'bg-liturgia-branco' },
+  { id: 'formacao', label: 'Formação', icon: BookOpenCheck, dot: 'bg-liturgia-verde' },
+  { id: 'retiro', label: 'Retiro', icon: Mountain, dot: 'bg-liturgia-verde' },
+  { id: 'novena', label: 'Novena', icon: Flame, dot: 'bg-liturgia-rosa' },
   { id: 'outro', label: 'Outro', icon: CalendarHeart, dot: 'bg-muted' },
 ];
 

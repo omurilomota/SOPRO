@@ -10,6 +10,7 @@ import type {
   SpiritualHabit,
 } from '../../types/spiritual-life';
 import type { Liturgy } from '../../types/liturgy';
+import type { RccProgressRecord } from '../../types/rcc';
 import { createRepository, type Repository } from './idb';
 
 export interface FavoriteRecord {
@@ -39,5 +40,6 @@ export const lifePlanRepository = createRepository<LifePlanItem>(STORES.lifePlan
 export const activityLogRepository = createRepository<ActivityLogEntry>(STORES.activityLog);
 export const favoritesRepository = createRepository<FavoriteRecord>(STORES.favorites);
 export const liturgyCacheRepository = createRepository<LiturgyCacheRecord>(STORES.liturgyCache);
+export const rccProgressRepository = createRepository<RccProgressRecord>(STORES.rccProgress);
 
 export type { Repository };

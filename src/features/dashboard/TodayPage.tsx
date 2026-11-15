@@ -1,25 +1,21 @@
 import {
   ArrowRight,
-  BookOpen,
   CalendarDays,
   Check,
-  Circle,
   Clock,
-  Compass,
-  Flame,
-  GraduationCap,
-  HandHeart,
   MapPin,
-  Users,
+  Plus,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Badge, LiturgicalColorBadge } from '../../components/ui/Badge';
-import { Card } from '../../components/ui/Card';
+import { ButtonLink } from '../../components/ui/Button';
+import { Meta, Reference, Rubric } from '../../components/ui/Marks';
+import { Flush, Section } from '../../components/ui/Structure';
 import { useLiturgy } from '../../hooks/useLiturgy';
 import { useTodayData } from '../../hooks/useTodayData';
 import { useSettings } from '../../hooks/useSettings';
 import { getPrayersByCategory } from '../../data/prayers';
+import { svesSessions } from '../../data/rcc/sves';
 import { activityLogRepository, habitCompletionRepository } from '../../services/storage/repositories';
 import type { HabitKind } from '../../types/spiritual-life';
 import { createId } from '../../utils/id';
@@ -33,6 +29,7 @@ import {
   todayISO,
 } from '../../utils/date';
 import { eventKindMeta } from '../calendar/eventMeta';
+import { useRccProgress } from '../charismatic/useRccProgress';
 import { LiturgyErrorState, LiturgyLoading } from '../liturgy/components/LiturgyStatus';
 
 const KIND_LABEL: Record<HabitKind, string> = {
@@ -46,6 +43,13 @@ const KIND_LABEL: Record<HabitKind, string> = {
   outro: 'Atividade',
 };
 
+/**
+ * Tela de abertura: o "ordinário do dia".
+ *
+ * Deliberadamente sóbria: data, liturgia, rotina marcável, compromissos.
+ * A leitura é vertical e contínua, como uma página de livro — não uma grade
+ * de cartões com números grandes em cima.
+ */
 export default function TodayPage() {
   const today = todayISO();
   const { settings } = useSettings();
@@ -58,6 +62,7 @@ export default function TodayPage() {
     habits,
     completionsToday,
   } = useTodayData();
+  const sves = useRccProgress('sves');
 
   const [pending, setPending] = useState<string | null>(null);
   const [completed, setCompleted] = useState<Set<string>>(new Set());
@@ -66,7 +71,6 @@ export default function TodayPage() {
     document.title = 'SOPRO · Hoje';
   }, []);
 
-  // Sincroniza o estado local de hábitos concluídos com o banco.
   useEffect(() => {
     setCompleted(new Set(completionsToday.map((item) => item.habitId)));
   }, [completionsToday]);
@@ -85,18 +89,15 @@ export default function TodayPage() {
   const gospel = celebration?.readings.find((reading) => reading.kind === 'gospel');
   const gospelOption = gospel?.options[0];
 
-  const morningPrayer = getPrayersByCategory('manha')[0];
-  const nightPrayer = getPrayersByCategory('noite')[0];
   const hour = new Date().getHours();
-  const suggestedPrayer = hour < 12 ? morningPrayer : nightPrayer;
+  const suggestedPrayer = getPrayersByCategory(hour < 12 ? 'manha' : 'noite')[0];
 
-  const completedIds = completed;
+  const nextSves = svesSessions[sves.completedCount] ?? null;
 
   const toggleHabit = async (habitId: string) => {
-    if (completedIds.has(habitId) || pending) return;
+    if (completed.has(habitId) || pending) return;
     setPending(habitId);
     const habit = habits.find((item) => item.id === habitId);
-    // Atualização otimista: só refletimos depois que o dado está no banco.
     try {
       await habitCompletionRepository.put({
         id: createId('done'),
@@ -120,150 +121,133 @@ export default function TodayPage() {
   };
 
   return (
-    <div className="space-y-7 animate-[var(--animate-fade-up)]">
-      {/* Saudação ------------------------------------------------------- */}
-      <header className="space-y-1.5">
-        <p className="text-[0.6875rem] font-medium uppercase tracking-[0.16em] text-brass">
-          {capitalize(formatLongDate(today))}
-        </p>
-        <h1 className="text-[1.875rem] leading-[1.15] tracking-tight text-ink sm:text-[2.25rem]">
+    <div className="space-y-9 animate-[var(--animate-fade)]">
+      {/* Abertura ------------------------------------------------------- */}
+      <header className="space-y-2">
+        <p className="rubric">{capitalize(formatLongDate(today))}</p>
+        <h1 className="text-[2rem] leading-[1.08] text-ink sm:text-[2.5rem]">
           {greeting}
           {firstName ? `, ${firstName}` : ''}.
         </h1>
-        <p className="max-w-prose text-sm leading-relaxed text-muted">
-          Que o seu dia comece com calma. Aqui está o essencial, sem excesso.
+        <div className="h-px bg-rule" />
+        <p className="max-w-[52ch] text-[0.875rem] leading-relaxed text-muted">
+          O essencial do dia, sem excesso. Nada aqui é enviado a servidor algum.
         </p>
       </header>
 
       {/* Liturgia ------------------------------------------------------- */}
-      <section aria-labelledby="liturgia-do-dia">
-        <div className="mb-2.5 flex items-end justify-between gap-3">
-          <h2 id="liturgia-do-dia" className="text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-muted">
-            Liturgia do dia
-          </h2>
+      <Section
+        label="Liturgia do dia"
+        action={
           <Link
             to={`/liturgia/${today}`}
-            className="inline-flex items-center gap-1 text-[0.75rem] text-ink-soft transition-colors hover:text-brass"
+            className="inline-flex items-center gap-1 text-[0.75rem] text-ink-2 transition-colors hover:text-rubric"
           >
             Ver completo
             <ArrowRight size={12} aria-hidden />
           </Link>
-        </div>
-
-        {loading && !liturgy && (
-          <div className="rounded-[var(--radius-card)] border border-line bg-surface p-5">
-            <LiturgyLoading />
-          </div>
-        )}
-
+        }
+      >
+        {loading && !liturgy && <LiturgyLoading />}
         {error && <LiturgyErrorState error={error} onRetry={() => reload({ force: true })} />}
 
         {liturgy && celebration && (
-          <Card className="overflow-hidden">
-            <div className="border-b border-line bg-surface-muted/40 px-5 py-4">
-              <div className="flex flex-wrap items-center gap-2">
-                <LiturgicalColorBadge color={celebration.color} />
-                {liturgy.season && <Badge>{liturgy.season.name}</Badge>}
-              </div>
-              <h3 className="mt-2 font-display text-[1.25rem] leading-snug text-ink">
+          <div className="space-y-3">
+            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <h3 className="font-display text-[1.375rem] leading-snug text-ink">
                 {celebration.title}
               </h3>
+              {liturgy.season && <Meta>{liturgy.season.name}</Meta>}
             </div>
-            <div className="px-5 py-4">
-              {gospelOption ? (
-                <>
-                  <p className="flex flex-wrap items-baseline gap-x-2 text-[0.75rem] text-muted">
-                    <span className="font-medium uppercase tracking-[0.1em] text-brass">
-                      Evangelho
-                    </span>
-                    {gospelOption.reference && <span>{gospelOption.reference}</span>}
-                  </p>
-                  <p className="mt-2 line-clamp-4 font-display text-[1.0625rem] leading-relaxed text-ink-soft">
-                    {gospelOption.text}
-                  </p>
-                  <Link
-                    to={`/liturgia/${today}`}
-                    className="mt-3 inline-flex items-center gap-1.5 text-[0.8125rem] font-medium text-ink transition-colors hover:text-brass"
-                  >
-                    Ler as leituras
-                    <ArrowRight size={13} aria-hidden />
-                  </Link>
-                </>
-              ) : (
-                <p className="text-[0.8125rem] text-muted">
-                  A fonte não disponibilizou leituras para esta data.{' '}
-                  <Link to={`/liturgia/${today}`} className="underline decoration-line-strong underline-offset-2">
-                    Abrir liturgia
-                  </Link>
-                </p>
-              )}
-            </div>
-          </Card>
-        )}
-      </section>
 
-      {/* Rotina espiritual --------------------------------------------- */}
-      <section aria-labelledby="rotina">
-        <div className="mb-2.5 flex items-end justify-between gap-3">
-          <h2 id="rotina" className="text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-muted">
-            Rotina espiritual
-          </h2>
+            {gospelOption ? (
+              <>
+                <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                  <Rubric>Evangelho</Rubric>
+                  {gospelOption.reference && <Reference>{gospelOption.reference}</Reference>}
+                </div>
+                <p className="reading line-clamp-5 border-l-2 border-rule pl-4">
+                  {gospelOption.text}
+                </p>
+                <Link
+                  to={`/liturgia/${today}`}
+                  className="inline-flex items-center gap-1.5 border-b border-rule-strong pb-0.5 text-[0.8125rem] text-ink transition-colors hover:border-rubric hover:text-rubric"
+                >
+                  Ler as leituras
+                  <ArrowRight size={13} aria-hidden />
+                </Link>
+              </>
+            ) : (
+              <p className="text-[0.875rem] text-muted">
+                A fonte não disponibilizou leituras para esta data.{' '}
+                <Link to={`/liturgia/${today}`} className="underline underline-offset-2">
+                  Abrir liturgia
+                </Link>
+              </p>
+            )}
+          </div>
+        )}
+      </Section>
+
+      {/* Rotina --------------------------------------------------------- */}
+      <Section
+        label="Rotina espiritual"
+        action={
           <Link
             to="/caminhada"
-            className="inline-flex items-center gap-1 text-[0.75rem] text-ink-soft transition-colors hover:text-brass"
+            className="text-[0.75rem] text-ink-2 transition-colors hover:text-rubric"
           >
             Ajustar
-            <ArrowRight size={12} aria-hidden />
           </Link>
-        </div>
-
+        }
+      >
         {dataLoading ? (
-          <div className="h-24 animate-pulse rounded-[var(--radius-card)] bg-surface-muted" />
+          <div className="h-20 animate-pulse bg-paper-2" />
         ) : habits.length === 0 ? (
-          <Card className="flex flex-wrap items-center justify-between gap-3 p-4">
+          <div className="flex flex-wrap items-center justify-between gap-3 border-y border-rule py-4">
             <div className="min-w-0">
               <p className="text-[0.9375rem] text-ink">Nenhum hábito definido</p>
               <p className="text-[0.75rem] leading-relaxed text-muted">
                 Escolha as atividades que deseja acompanhar — sem cobranças.
               </p>
             </div>
-            <Link
-              to="/caminhada"
-              className="inline-flex items-center gap-1.5 rounded-full border border-line-strong bg-surface px-3.5 py-2 text-[0.75rem] font-medium text-ink transition-colors hover:border-brass/40"
-            >
-              <Compass size={13} aria-hidden />
+            <ButtonLink to="/caminhada" variant="outline" size="sm">
               Definir rotina
-            </Link>
-          </Card>
+            </ButtonLink>
+          </div>
         ) : (
-          <ul className="grid gap-2 sm:grid-cols-2">
+          <ul className="ruled border-y border-rule">
             {habits.map((habit) => {
-              const done = completedIds.has(habit.id);
+              const done = completed.has(habit.id);
               return (
                 <li key={habit.id}>
                   <button
                     type="button"
                     onClick={() => void toggleHabit(habit.id)}
                     disabled={done || pending === habit.id}
-                    className={cn(
-                      'flex w-full items-center gap-3 rounded-xl border px-3.5 py-3 text-left transition-colors',
-                      done
-                        ? 'border-brass/25 bg-brass-soft/50 dark:bg-brass-soft/25'
-                        : 'border-line bg-surface hover:border-brass/30',
-                    )}
+                    className="flex w-full items-center gap-3 py-2.5 text-left transition-colors hover:text-rubric disabled:cursor-default"
                   >
-                    {done ? (
-                      <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-brass text-white">
-                        <Check size={12} strokeWidth={3} aria-hidden />
-                      </span>
-                    ) : (
-                      <Circle size={20} className="shrink-0 text-line-strong" aria-hidden />
-                    )}
+                    <span
+                      className={cn(
+                        'flex size-[15px] shrink-0 items-center justify-center rounded-none border transition-colors',
+                        done ? 'border-rubric bg-rubric text-paper' : 'border-rule-strong',
+                      )}
+                      aria-hidden
+                    >
+                      {done && <Check size={10} strokeWidth={3} />}
+                    </span>
                     <span className="min-w-0 flex-1">
-                      <span className={cn('block text-[0.875rem]', done ? 'text-ink-soft' : 'text-ink')}>
+                      <span
+                        className={cn(
+                          'block text-[0.9375rem]',
+                          done ? 'text-muted line-through decoration-rule-strong' : 'text-ink',
+                        )}
+                      >
                         {habit.title}
                       </span>
-                      <span className="block text-[0.6875rem] text-muted">{KIND_LABEL[habit.kind]}</span>
+                      <span className="block text-[0.6875rem] uppercase tracking-[0.1em] text-muted">
+                        {KIND_LABEL[habit.kind]}
+                      </span>
                     </span>
                   </button>
                 </li>
@@ -271,30 +255,27 @@ export default function TodayPage() {
             })}
           </ul>
         )}
-        <p className="mt-2 text-[0.6875rem] leading-relaxed text-muted">
+        <p className="text-[0.6875rem] leading-relaxed text-muted">
           Marcar não é obrigação: o registro serve apenas para você perceber o seu ritmo.
         </p>
-      </section>
+      </Section>
 
       {/* Compromissos --------------------------------------------------- */}
-      <section aria-labelledby="compromissos">
-        <div className="mb-2.5 flex items-end justify-between gap-3">
-          <h2 id="compromissos" className="text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-muted">
-            Compromissos de hoje
-          </h2>
+      <Section
+        label="Compromissos de hoje"
+        action={
           <Link
             to="/calendario"
-            className="inline-flex items-center gap-1 text-[0.75rem] text-ink-soft transition-colors hover:text-brass"
+            className="text-[0.75rem] text-ink-2 transition-colors hover:text-rubric"
           >
             Calendário
-            <ArrowRight size={12} aria-hidden />
           </Link>
-        </div>
-
+        }
+      >
         {dataLoading ? (
-          <div className="h-20 animate-pulse rounded-[var(--radius-card)] bg-surface-muted" />
+          <div className="h-16 animate-pulse bg-paper-2" />
         ) : todayOccurrences.length === 0 ? (
-          <Card className="flex flex-wrap items-center justify-between gap-3 p-4">
+          <div className="flex flex-wrap items-center justify-between gap-3 border-y border-rule py-4">
             <div className="min-w-0">
               <p className="text-[0.9375rem] text-ink">Nada marcado para hoje</p>
               <p className="text-[0.75rem] leading-relaxed text-muted">
@@ -303,136 +284,168 @@ export default function TodayPage() {
                   : 'Adicione uma missa, uma confissão ou a reunião do seu grupo.'}
               </p>
             </div>
-            <Link
-              to="/calendario"
-              className="inline-flex items-center gap-1.5 rounded-full border border-line-strong bg-surface px-3.5 py-2 text-[0.75rem] font-medium text-ink transition-colors hover:border-brass/40"
-            >
-              <CalendarDays size={13} aria-hidden />
+            <ButtonLink to="/calendario" variant="outline" size="sm">
+              <Plus size={13} aria-hidden />
               Adicionar
-            </Link>
-          </Card>
+            </ButtonLink>
+          </div>
         ) : (
-          <ul className="space-y-2">
+          <ul className="ruled border-y border-rule">
             {todayOccurrences.map((occurrence) => {
               const meta = eventKindMeta(occurrence.event.kind);
               return (
-                <li key={`${occurrence.event.id}-${occurrence.date}`}>
-                  <Card className="flex items-center gap-3 p-3.5">
-                    <span className={cn('size-2 shrink-0 rounded-full', meta.dot)} aria-hidden />
-                    <div className="min-w-0 flex-1">
-                      <p className="truncate text-[0.9375rem] text-ink">{occurrence.event.title}</p>
-                      <p className="flex flex-wrap items-center gap-x-2.5 text-[0.75rem] text-muted">
-                        {occurrence.startTime && (
-                          <span className="flex items-center gap-1 tabular-nums">
-                            <Clock size={11} aria-hidden />
-                            {formatTime(occurrence.startTime)}
-                          </span>
-                        )}
-                        {occurrence.event.location && (
-                          <span className="flex items-center gap-1 truncate">
-                            <MapPin size={11} aria-hidden />
-                            {occurrence.event.location}
-                          </span>
-                        )}
-                      </p>
-                    </div>
-                    <meta.icon size={15} className="shrink-0 text-muted" aria-hidden />
-                  </Card>
+                <li
+                  key={`${occurrence.event.id}-${occurrence.date}`}
+                  className="flex items-baseline gap-3 py-2.5"
+                >
+                  <span
+                    className={cn('size-[7px] shrink-0 translate-y-[-2px] rounded-full', meta.dot)}
+                    aria-hidden
+                  />
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[0.9375rem] text-ink">{occurrence.event.title}</p>
+                    <p className="flex flex-wrap items-center gap-x-2.5 text-[0.75rem] text-muted">
+                      {occurrence.startTime && (
+                        <span className="flex items-center gap-1 tabular-nums">
+                          <Clock size={10} aria-hidden />
+                          {formatTime(occurrence.startTime)}
+                        </span>
+                      )}
+                      {occurrence.event.location && (
+                        <span className="flex items-center gap-1 truncate">
+                          <MapPin size={10} aria-hidden />
+                          {occurrence.event.location}
+                        </span>
+                      )}
+                    </p>
+                  </div>
                 </li>
               );
             })}
           </ul>
         )}
-      </section>
 
-      {/* Grupo de oração ----------------------------------------------- */}
+        {nextOccurrence && todayOccurrences.length > 0 && (
+          <p className="flex flex-wrap items-baseline gap-x-2 text-[0.75rem] text-muted">
+            <Meta>Próximo</Meta>
+            <span className="text-ink-2">{nextOccurrence.event.title}</span>
+            <span>
+              {capitalize(formatShortDate(nextOccurrence.date))} ·{' '}
+              {relativeDayLabel(nextOccurrence.date)}
+            </span>
+          </p>
+        )}
+      </Section>
+
+      {/* Grupo de oração ------------------------------------------------ */}
       {nextGroupOccurrence && (
-        <section aria-labelledby="grupo">
-          <h2 id="grupo" className="mb-2.5 text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-muted">
-            Grupo de oração
-          </h2>
-          <Card className="flex items-center gap-3.5 p-4">
-            <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-serenity-soft text-serenity">
-              <Users size={18} strokeWidth={1.6} aria-hidden />
-            </span>
-            <div className="min-w-0 flex-1">
-              <p className="text-[0.9375rem] text-ink">{nextGroupOccurrence.event.title}</p>
-              <p className="text-[0.75rem] text-muted">
-                {capitalize(formatShortDate(nextGroupOccurrence.date))}
-                {nextGroupOccurrence.startTime ? ` · ${formatTime(nextGroupOccurrence.startTime)}` : ''}
-                {' · '}
-                <span className="text-brass">{relativeDayLabel(nextGroupOccurrence.date)}</span>
-              </p>
-            </div>
-            <Link
-              to="/calendario/grupo-de-oracao"
-              className="shrink-0 text-[0.75rem] text-ink-soft transition-colors hover:text-brass"
-            >
-              Editar
-            </Link>
-          </Card>
-        </section>
+        <Flush className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1.5 px-1 py-3">
+          <div className="min-w-0">
+            <Rubric>Grupo de oração</Rubric>
+            <p className="mt-0.5 text-[0.9375rem] text-ink">{nextGroupOccurrence.event.title}</p>
+            <p className="text-[0.75rem] text-muted">
+              {capitalize(formatShortDate(nextGroupOccurrence.date))}
+              {nextGroupOccurrence.startTime ? ` · ${formatTime(nextGroupOccurrence.startTime)}` : ''}
+              {' · '}
+              <span className="text-rubric">{relativeDayLabel(nextGroupOccurrence.date)}</span>
+            </p>
+          </div>
+          <Link
+            to="/carismatico/grupo-de-oracao"
+            className="text-[0.75rem] text-ink-2 transition-colors hover:text-rubric"
+          >
+            Como funciona
+          </Link>
+        </Flush>
       )}
 
-      {/* Próximo compromisso ------------------------------------------ */}
-      {nextOccurrence && (
-        <section aria-labelledby="proximo">
-          <h2 id="proximo" className="mb-2.5 text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-muted">
-            Próximo compromisso
-          </h2>
-          <Card className="flex items-center gap-3.5 p-4">
-            <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-brass-soft text-brass">
-              <CalendarDays size={18} strokeWidth={1.6} aria-hidden />
-            </span>
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-[0.9375rem] text-ink">{nextOccurrence.event.title}</p>
-              <p className="text-[0.75rem] text-muted">
-                {capitalize(formatShortDate(nextOccurrence.date))}
-                {nextOccurrence.startTime ? ` · ${formatTime(nextOccurrence.startTime)}` : ''}
-                {' · '}
-                <span className="text-brass">{relativeDayLabel(nextOccurrence.date)}</span>
+      {/* Vida no Espírito ----------------------------------------------- */}
+      <Section
+        label="Vida no Espírito"
+        action={
+          <Link
+            to="/carismatico"
+            className="inline-flex items-center gap-1 text-[0.75rem] text-ink-2 transition-colors hover:text-rubric"
+          >
+            Abrir área
+            <ArrowRight size={12} aria-hidden />
+          </Link>
+        }
+      >
+        <div className="border-y border-rule py-4">
+          {nextSves ? (
+            <>
+              <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                <h3 className="font-display text-[1.125rem] leading-snug text-ink">
+                  Semana {nextSves.number} — {nextSves.title}
+                </h3>
+                <Meta>
+                  {sves.completedCount}/{svesSessions.length} do SVES
+                </Meta>
+              </div>
+              <p className="mt-1.5 max-w-[56ch] text-[0.8125rem] leading-relaxed text-ink-2">
+                {nextSves.theme}
               </p>
-            </div>
-          </Card>
-        </section>
-      )}
+              <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1.5">
+                <Link
+                  to="/carismatico/sves"
+                  className="inline-flex items-center gap-1.5 border-b border-rule-strong pb-0.5 text-[0.8125rem] text-ink transition-colors hover:border-rubric hover:text-rubric"
+                >
+                  Continuar o seminário
+                  <ArrowRight size={13} aria-hidden />
+                </Link>
+                <Reference>{nextSves.scripture[0]}</Reference>
+              </div>
+            </>
+          ) : (
+            <>
+              <h3 className="font-display text-[1.125rem] leading-snug text-ink">
+                Seminário concluído
+              </h3>
+              <p className="mt-1.5 max-w-[56ch] text-[0.8125rem] leading-relaxed text-ink-2">
+                O próximo passo do caminho é o Módulo Básico da formação. Ele é longo por um motivo:
+                sem base, o serviço vira improviso.
+              </p>
+              <Link
+                to="/carismatico/formacao"
+                className="mt-2 inline-flex items-center gap-1.5 border-b border-rule-strong pb-0.5 text-[0.8125rem] text-ink transition-colors hover:border-rubric hover:text-rubric"
+              >
+                Ver o processo formativo
+                <ArrowRight size={13} aria-hidden />
+              </Link>
+            </>
+          )}
+        </div>
+      </Section>
 
-      {/* Sugestões ------------------------------------------------------ */}
-      <section aria-labelledby="sugestoes">
-        <h2 id="sugestoes" className="mb-2.5 text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-muted">
-          Para rezar agora
-        </h2>
-        <div className="grid gap-2.5 sm:grid-cols-3">
+      {/* Para rezar agora ----------------------------------------------- */}
+      <Section label="Para rezar agora">
+        <div className="grid gap-x-6 gap-y-3 sm:grid-cols-3">
           {suggestedPrayer && (
-            <Link to={`/oracoes/${suggestedPrayer.id}`} className="group">
-              <Card className="h-full p-4 transition-colors group-hover:border-brass/40 group-hover:bg-surface-muted/40">
-                <HandHeart size={16} className="mb-2 text-brass" aria-hidden />
-                <p className="font-display text-[0.9375rem] leading-snug text-ink">
-                  {suggestedPrayer.title}
-                </p>
-                <p className="mt-0.5 text-[0.6875rem] text-muted">Oração</p>
-              </Card>
+            <Link to={`/oracoes/${suggestedPrayer.id}`} className="group border-t border-rule pt-2.5">
+              <p className="font-display text-[0.9375rem] leading-snug text-ink transition-colors group-hover:text-rubric">
+                {suggestedPrayer.title}
+              </p>
+              <p className="text-[0.6875rem] uppercase tracking-[0.1em] text-muted">Oração</p>
             </Link>
           )}
-          <Link to="/oracoes" className="group">
-            <Card className="h-full p-4 transition-colors group-hover:border-brass/40 group-hover:bg-surface-muted/40">
-              <BookOpen size={16} className="mb-2 text-brass" aria-hidden />
-              <p className="font-display text-[0.9375rem] leading-snug text-ink">Biblioteca de orações</p>
-              <p className="mt-0.5 text-[0.6875rem] text-muted">Todas as categorias</p>
-            </Card>
+          <Link to="/oracoes" className="group border-t border-rule pt-2.5">
+            <p className="font-display text-[0.9375rem] leading-snug text-ink transition-colors group-hover:text-rubric">
+              Biblioteca de orações
+            </p>
+            <p className="text-[0.6875rem] uppercase tracking-[0.1em] text-muted">Todas as categorias</p>
           </Link>
-          <Link to="/formacoes" className="group">
-            <Card className="h-full p-4 transition-colors group-hover:border-brass/40 group-hover:bg-surface-muted/40">
-              <GraduationCap size={16} className="mb-2 text-brass" aria-hidden />
-              <p className="font-display text-[0.9375rem] leading-snug text-ink">Formações</p>
-              <p className="mt-0.5 text-[0.6875rem] text-muted">Trilhas e documentos</p>
-            </Card>
+          <Link to="/formacoes" className="group border-t border-rule pt-2.5">
+            <p className="font-display text-[0.9375rem] leading-snug text-ink transition-colors group-hover:text-rubric">
+              Formações
+            </p>
+            <p className="text-[0.6875rem] uppercase tracking-[0.1em] text-muted">Trilhas e documentos</p>
           </Link>
         </div>
-      </section>
+      </Section>
 
-      <p className="flex items-center gap-2 pt-1 text-[0.6875rem] text-muted">
-        <Flame size={12} className="text-brass" aria-hidden />
+      <p className="flex items-center gap-1.5 text-[0.6875rem] text-muted">
+        <CalendarDays size={11} aria-hidden />
         Tudo o que você vê aqui está salvo apenas neste dispositivo.
       </p>
     </div>

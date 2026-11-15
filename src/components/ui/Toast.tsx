@@ -49,21 +49,23 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             <div
               key={toast.id}
               className={cn(
-                'pointer-events-auto flex w-full max-w-sm items-center gap-2.5 rounded-xl border px-3.5 py-2.5 text-sm shadow-lg animate-[fade-up_0.25s_ease-out]',
-                toast.tone === 'error'
-                  ? 'border-liturgy-red/25 bg-surface text-liturgy-red'
-                  : 'border-line bg-surface text-ink',
+                'pointer-events-auto flex w-full max-w-sm items-start gap-2.5 border border-rule border-l-2 bg-plate px-3.5 py-2.5 text-[0.8125rem] animate-[var(--animate-rise)]',
+                toast.tone === 'error' ? 'border-rubric text-ink' : 'border-ink text-ink',
               )}
             >
-              <Icon size={16} className={toast.tone === 'error' ? 'text-liturgy-red' : 'text-brass'} aria-hidden />
+              <Icon
+                size={13}
+                className={cn('mt-0.5 shrink-0', toast.tone === 'error' ? 'text-rubric' : 'text-ink-2')}
+                aria-hidden
+              />
               <span className="flex-1 leading-snug">{toast.message}</span>
               <button
                 type="button"
                 onClick={() => dismiss(toast.id)}
-                className="rounded-full p-1 text-muted hover:bg-surface-muted"
+                className="p-0.5 text-muted transition-colors hover:text-ink"
                 aria-label="Dispensar aviso"
               >
-                <X size={14} aria-hidden />
+                <X size={12} aria-hidden />
               </button>
             </div>
           );

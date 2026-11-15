@@ -7,7 +7,7 @@
  */
 
 export const DB_NAME = 'sopro';
-export const DB_VERSION = 1;
+export const DB_VERSION = 2;
 
 export const STORES = {
   settings: 'settings',
@@ -22,6 +22,8 @@ export const STORES = {
   activityLog: 'activityLog',
   favorites: 'favorites',
   liturgyCache: 'liturgyCache',
+  /** Progresso local do Seminário de Vida no Espírito Santo e das formações. */
+  rccProgress: 'rccProgress',
 } as const;
 
 export type StoreName = (typeof STORES)[keyof typeof STORES];
@@ -40,4 +42,5 @@ export const STORE_INDEXES: Partial<Record<StoreName, { name: string; keyPath: s
   activityLog: [{ name: 'by-date', keyPath: 'date' }],
   favorites: [],
   liturgyCache: [{ name: 'by-date', keyPath: 'date' }],
+  rccProgress: [],
 };

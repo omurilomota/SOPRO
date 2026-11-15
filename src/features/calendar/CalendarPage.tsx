@@ -1,21 +1,10 @@
-import {
-  CalendarPlus,
-  ChevronLeft,
-  ChevronRight,
-  Clock,
-  Download,
-  MapPin,
-  Pencil,
-  Plus,
-  Trash2,
-  Users,
-} from 'lucide-react';
+import { ChevronLeft, ChevronRight, Clock, MapPin, Pencil, Plus, Trash2 } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
-import { Card } from '../../components/ui/Card';
 import { EmptyState } from '../../components/ui/EmptyState';
 import { PageHeader } from '../../components/ui/PageHeader';
+import { Meta } from '../../components/ui/Marks';
 import { useToast } from '../../components/ui/Toast';
 import { useCalendarEvents, usePrayerGroups } from '../../hooks/useCalendar';
 import { downloadICS } from '../../services/calendar/ics';
@@ -41,6 +30,13 @@ import { EventFormModal, type EventDraft } from './EventFormModal';
 
 type View = 'month' | 'week';
 
+/**
+ * Calendário.
+ *
+ * A grade é do próprio sistema: filetes de 1px, dia atual em tinta cheia,
+ * marcadores como pontos de cor litúrgica. Nada de sombras ou células com
+ * fundo colorido.
+ */
 export default function CalendarPage() {
   const { items, loading, create, save, remove } = useCalendarEvents();
   const { items: groups } = usePrayerGroups();
@@ -113,90 +109,82 @@ export default function CalendarPage() {
     notify('Arquivo .ics gerado. Abra-o em seu calendário.');
   };
 
+  const openNew = () => {
+    setEditing(undefined);
+    setFormOpen(true);
+  };
+
   return (
-    <div className="space-y-6 animate-[var(--animate-fade-up)]">
+    <div className="space-y-6 animate-[var(--animate-fade)]">
       <PageHeader
-        eyebrow="Calendário"
+        label="Calendário"
         title="Seus compromissos"
-        description="Missas, confissões, formações, retiros e o seu grupo de oração. Tudo armazenado apenas neste dispositivo."
+        description="Missas, confissões, formações e o seu grupo de oração. Tudo armazenado apenas neste dispositivo."
         action={
-          <div className="flex flex-wrap gap-2">
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={() => {
-                setEditing(undefined);
-                setFormOpen(true);
-              }}
-            >
-              <Plus size={14} aria-hidden />
-              Compromisso
-            </Button>
-          </div>
+          <Button variant="solid" size="sm" onClick={openNew}>
+            <Plus size={13} aria-hidden />
+            Compromisso
+          </Button>
         }
       />
 
-      <div className="grid gap-3 sm:grid-cols-2">
-        <Link to="/calendario/grupo-de-oracao" className="group">
-          <Card className="flex h-full items-center gap-3 p-4 transition-colors group-hover:border-brass/40 group-hover:bg-surface-muted/40">
-            <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-serenity-soft text-serenity">
-              <Users size={18} strokeWidth={1.6} aria-hidden />
+      <div className="grid gap-x-8 gap-y-3 sm:grid-cols-2">
+        <Link to="/calendario/grupo-de-oracao" className="group border-t border-rule pt-2.5">
+          <span className="flex items-baseline justify-between gap-2">
+            <span className="font-display text-[0.9375rem] text-ink transition-colors group-hover:text-rubric">
+              Meu grupo de oração
             </span>
-            <span className="min-w-0 flex-1">
-              <span className="block text-sm font-medium text-ink">Meu grupo de oração</span>
-              <span className="block truncate text-[0.75rem] text-muted">
-                {groups.length === 0
-                  ? 'Cadastre o dia e o horário da reunião'
-                  : groups
-                      .map((group) => `${WEEKDAY_SHORT[group.weekday]} ${formatTime(group.startTime)}`)
-                      .join(' · ')}
-              </span>
-            </span>
-            <ChevronRight size={15} className="shrink-0 text-muted" aria-hidden />
-          </Card>
+            <ChevronRight size={13} className="shrink-0 text-muted" aria-hidden />
+          </span>
+          <span className="mt-0.5 block text-[0.75rem] leading-relaxed text-muted">
+            {groups.length === 0
+              ? 'Cadastre o dia e o horário da reunião'
+              : groups
+                  .map((group) => `${WEEKDAY_SHORT[group.weekday]} ${formatTime(group.startTime)}`)
+                  .join(' · ')}
+          </span>
         </Link>
 
-        <Card className="flex items-center gap-3 p-4">
-          <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-brass-soft text-brass">
-            <Download size={17} strokeWidth={1.6} aria-hidden />
+        <button type="button" onClick={exportICS} className="group border-t border-rule pt-2.5 text-left">
+          <span className="flex items-baseline justify-between gap-2">
+            <span className="font-display text-[0.9375rem] text-ink transition-colors group-hover:text-rubric">
+              Exportar calendário
+            </span>
+            <ChevronRight size={13} className="shrink-0 text-muted" aria-hidden />
           </span>
-          <span className="min-w-0 flex-1">
-            <span className="block text-sm font-medium text-ink">Exportar calendário</span>
-            <span className="block text-[0.75rem] text-muted">Arquivo .ics para o seu app</span>
+          <span className="mt-0.5 block text-[0.75rem] leading-relaxed text-muted">
+            Arquivo .ics para o calendário do seu celular
           </span>
-          <Button variant="ghost" size="sm" onClick={exportICS}>
-            Exportar
-          </Button>
-        </Card>
+        </button>
       </div>
 
-      <Card className="overflow-hidden">
-        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line px-3 py-2.5 sm:px-4">
-          <div className="flex items-center gap-1">
+      <div>
+        <div className="flex flex-wrap items-center justify-between gap-2 border-y border-rule py-2">
+          <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={() => shift(-1)}
-              className="rounded-full p-1.5 text-muted transition-colors hover:bg-surface-muted hover:text-ink"
+              className="p-1 text-muted transition-colors hover:text-rubric"
               aria-label={view === 'month' ? 'Mês anterior' : 'Semana anterior'}
             >
-              <ChevronLeft size={16} aria-hidden />
+              <ChevronLeft size={15} aria-hidden />
             </button>
             <button
               type="button"
               onClick={() => shift(1)}
-              className="rounded-full p-1.5 text-muted transition-colors hover:bg-surface-muted hover:text-ink"
+              className="p-1 text-muted transition-colors hover:text-rubric"
               aria-label={view === 'month' ? 'Próximo mês' : 'Próxima semana'}
             >
-              <ChevronRight size={16} aria-hidden />
+              <ChevronRight size={15} aria-hidden />
             </button>
-            <h2 className="ml-1 font-display text-[0.9375rem] capitalize text-ink sm:text-base">
+            <h2 className="font-display text-[1rem] capitalize text-ink">
               {view === 'month'
                 ? capitalize(formatMonthYear(cursor))
                 : `Semana de ${formatShortDate(toISODate(days[0] ?? cursor))}`}
             </h2>
           </div>
 
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-3">
             <button
               type="button"
               onClick={() => {
@@ -204,11 +192,11 @@ export default function CalendarPage() {
                 setCursor(today);
                 setSelectedDate(todayISO());
               }}
-              className="rounded-full px-2.5 py-1 text-[0.6875rem] text-muted transition-colors hover:bg-surface-muted hover:text-ink"
+              className="text-[0.6875rem] uppercase tracking-[0.1em] text-muted transition-colors hover:text-rubric"
             >
               Hoje
             </button>
-            <div className="flex rounded-full border border-line p-0.5" role="group" aria-label="Visualização">
+            <div className="flex gap-3" role="group" aria-label="Visualização">
               {(['month', 'week'] as const).map((option) => (
                 <button
                   key={option}
@@ -216,8 +204,10 @@ export default function CalendarPage() {
                   onClick={() => setView(option)}
                   aria-pressed={view === option}
                   className={cn(
-                    'rounded-full px-2.5 py-1 text-[0.6875rem] transition-colors',
-                    view === option ? 'bg-ink text-canvas' : 'text-muted hover:text-ink',
+                    'border-b pb-px text-[0.6875rem] uppercase tracking-[0.1em] transition-colors',
+                    view === option
+                      ? 'border-rubric text-rubric'
+                      : 'border-transparent text-muted hover:text-ink-2',
                   )}
                 >
                   {option === 'month' ? 'Mês' : 'Semana'}
@@ -227,15 +217,23 @@ export default function CalendarPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-7 border-b border-line bg-surface-muted/40 text-center">
+        <div className="grid grid-cols-7 border-b border-rule text-center">
           {WEEKDAY_SHORT.map((label) => (
-            <span key={label} className="py-1.5 text-[0.625rem] uppercase tracking-[0.08em] text-muted">
+            <span
+              key={label}
+              className="py-1.5 text-[0.5625rem] uppercase tracking-[0.12em] text-muted"
+            >
               {label}
             </span>
           ))}
         </div>
 
-        <div className={cn('grid grid-cols-7', view === 'month' ? 'auto-rows-[3.25rem] sm:auto-rows-[4rem]' : 'auto-rows-[5rem]')}>
+        <div
+          className={cn(
+            'grid grid-cols-7 border-l border-rule',
+            view === 'month' ? 'auto-rows-[3.1rem] sm:auto-rows-[3.75rem]' : 'auto-rows-[5rem]',
+          )}
+        >
           {days.map((day) => {
             const iso = toISODate(day);
             const inCurrentMonth = view === 'week' || day.getMonth() === cursor.getMonth();
@@ -250,25 +248,26 @@ export default function CalendarPage() {
                 aria-pressed={selected}
                 aria-label={`${formatShortDate(iso)} — ${dayOccurrences.length} compromisso(s)`}
                 className={cn(
-                  'group relative flex flex-col items-center gap-1 border-b border-r border-line/60 p-1.5 transition-colors last:border-r-0',
-                  selected ? 'bg-brass-soft/60 dark:bg-brass-soft/30' : 'hover:bg-surface-muted/50',
-                  !inCurrentMonth && 'opacity-40',
+                  'relative flex flex-col items-center gap-1 border-b border-r border-rule p-1.5 transition-colors',
+                  selected && 'bg-paper-2',
+                  !selected && 'hover:bg-paper-2/60',
+                  !inCurrentMonth && 'opacity-35',
                 )}
               >
                 <span
                   className={cn(
-                    'flex size-6 items-center justify-center rounded-full text-[0.75rem] tabular-nums',
-                    isToday(iso) ? 'bg-ink font-medium text-canvas' : 'text-ink-soft',
+                    'flex size-[22px] items-center justify-center text-[0.75rem] tabular-nums',
+                    isToday(iso) ? 'bg-ink font-medium text-paper' : 'text-ink-2',
                   )}
                 >
                   {day.getDate()}
                 </span>
                 {dayOccurrences.length > 0 && (
-                  <span className="flex flex-wrap items-center justify-center gap-0.5">
+                  <span className="flex flex-wrap items-center justify-center gap-[3px]">
                     {dayOccurrences.slice(0, 3).map((occurrence, index) => (
                       <span
                         key={`${occurrence.event.id}-${index}`}
-                        className={cn('size-1.5 rounded-full', eventKindMeta(occurrence.event.kind).dot)}
+                        className={cn('size-[5px] rounded-full', eventKindMeta(occurrence.event.kind).dot)}
                       />
                     ))}
                     {dayOccurrences.length > 3 && (
@@ -280,12 +279,12 @@ export default function CalendarPage() {
             );
           })}
         </div>
-      </Card>
+      </div>
 
-      <section className="space-y-3">
-        <div className="flex items-end justify-between gap-3">
+      <section className="space-y-2">
+        <div className="flex flex-wrap items-baseline justify-between gap-3">
           <div>
-            <h2 className="text-base text-ink">
+            <h2 className="font-display text-[1.0625rem] text-ink">
               {isToday(selectedDate) ? 'Hoje' : capitalize(formatShortDate(selectedDate))}
             </h2>
             <p className="text-[0.75rem] text-muted">
@@ -294,88 +293,78 @@ export default function CalendarPage() {
                 : `${selectedOccurrences.length} compromisso${selectedOccurrences.length > 1 ? 's' : ''}`}
             </p>
           </div>
-          <Button
-            size="sm"
-            variant="secondary"
-            onClick={() => {
-              setEditing(undefined);
-              setFormOpen(true);
-            }}
-          >
-            <CalendarPlus size={14} aria-hidden />
+          <Button size="sm" variant="outline" onClick={openNew}>
+            <Plus size={13} aria-hidden />
             Adicionar
           </Button>
         </div>
 
         {loading ? (
-          <div className="h-20 animate-pulse rounded-xl bg-surface-muted" />
+          <div className="h-16 animate-pulse bg-paper-2" />
         ) : selectedOccurrences.length === 0 ? (
           <EmptyState
-            compact
-            icon={CalendarPlus}
-            title="Dia livre"
+            label="Dia livre"
             description="Adicione uma missa, uma confissão ou a reunião do seu grupo de oração."
           />
         ) : (
-          <ul className="space-y-2">
+          <ul className="ruled border-y border-rule">
             {selectedOccurrences.map((occurrence) => {
               const meta = eventKindMeta(occurrence.event.kind);
               return (
-                <li key={`${occurrence.event.id}-${occurrence.date}`}>
-                  <Card className="flex items-start gap-3 p-3.5">
-                    <span className={cn('mt-1.5 size-2 shrink-0 rounded-full', meta.dot)} aria-hidden />
-                    <div className="min-w-0 flex-1">
-                      <p className="text-[0.9375rem] font-medium leading-snug text-ink">
-                        {occurrence.event.title}
-                      </p>
-                      <p className="mt-0.5 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-[0.75rem] text-muted">
-                        <span className="flex items-center gap-1">
-                          <meta.icon size={12} aria-hidden />
-                          {meta.label}
+                <li
+                  key={`${occurrence.event.id}-${occurrence.date}`}
+                  className="flex items-start gap-3 py-3"
+                >
+                  <span
+                    className={cn('mt-[7px] size-[7px] shrink-0 rounded-full', meta.dot)}
+                    aria-hidden
+                  />
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[0.9375rem] leading-snug text-ink">{occurrence.event.title}</p>
+                    <p className="mt-0.5 flex flex-wrap items-baseline gap-x-3 gap-y-0.5 text-[0.75rem] text-muted">
+                      <span>{meta.label}</span>
+                      {occurrence.startTime && (
+                        <span className="flex items-center gap-1 tabular-nums">
+                          <Clock size={10} aria-hidden />
+                          {formatTime(occurrence.startTime)}
+                          {occurrence.event.endTime && ` – ${formatTime(occurrence.event.endTime)}`}
                         </span>
-                        {occurrence.startTime && (
-                          <span className="flex items-center gap-1 tabular-nums">
-                            <Clock size={12} aria-hidden />
-                            {formatTime(occurrence.startTime)}
-                            {occurrence.event.endTime && ` – ${formatTime(occurrence.event.endTime)}`}
-                          </span>
-                        )}
-                        {occurrence.event.location && (
-                          <span className="flex items-center gap-1">
-                            <MapPin size={12} aria-hidden />
-                            {occurrence.event.location}
-                          </span>
-                        )}
-                        {occurrence.isRecurring && <span className="text-brass">repete</span>}
-                      </p>
-                      {occurrence.event.notes && (
-                        <p className="mt-1 text-[0.75rem] leading-relaxed text-muted">
-                          {occurrence.event.notes}
-                        </p>
                       )}
-                    </div>
-                    <div className="flex shrink-0 gap-0.5">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setEditing(occurrence.event);
-                          setFormOpen(true);
-                        }}
-                        className="rounded-full p-1.5 text-muted transition-colors hover:bg-surface-muted hover:text-ink"
-                        aria-label={`Editar ${occurrence.event.title}`}
-                      >
-                        <Pencil size={13} aria-hidden />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => void handleDelete(occurrence.event)}
-                        className="rounded-full p-1.5 text-muted transition-colors hover:bg-liturgy-red/8 hover:text-liturgy-red"
-                        aria-label={`Excluir ${occurrence.event.title}`}
-                      >
-                        <Trash2 size={13} aria-hidden />
-                      </button>
-                    </div>
-                  </Card>
+                      {occurrence.event.location && (
+                        <span className="flex items-center gap-1">
+                          <MapPin size={10} aria-hidden />
+                          {occurrence.event.location}
+                        </span>
+                      )}
+                      {occurrence.isRecurring && <span className="text-rubric">repete</span>}
+                    </p>
+                    {occurrence.event.notes && (
+                      <p className="mt-1 text-[0.75rem] leading-relaxed text-muted">
+                        {occurrence.event.notes}
+                      </p>
+                    )}
+                  </div>
+                  <div className="flex shrink-0 gap-1">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEditing(occurrence.event);
+                        setFormOpen(true);
+                      }}
+                      className="p-1 text-muted transition-colors hover:text-ink"
+                      aria-label={`Editar ${occurrence.event.title}`}
+                    >
+                      <Pencil size={13} aria-hidden />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => void handleDelete(occurrence.event)}
+                      className="p-1 text-muted transition-colors hover:text-rubric"
+                      aria-label={`Excluir ${occurrence.event.title}`}
+                    >
+                      <Trash2 size={13} aria-hidden />
+                    </button>
+                  </div>
                 </li>
               );
             })}
@@ -383,20 +372,20 @@ export default function CalendarPage() {
         )}
       </section>
 
-      <div className="flex flex-wrap items-center gap-3 rounded-xl border border-line bg-surface-muted/40 px-3.5 py-2.5">
-        <span className="text-[0.6875rem] uppercase tracking-[0.1em] text-muted">Tipos</span>
+      <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1.5 border-t border-rule pt-3">
+        <Meta>Tipos</Meta>
         {EVENT_KINDS.map((kind) => (
-          <span key={kind.id} className="flex items-center gap-1.5 text-[0.6875rem] text-ink-soft">
-            <span className={cn('size-1.5 rounded-full', kind.dot)} aria-hidden />
+          <span key={kind.id} className="flex items-center gap-1.5 text-[0.6875rem] text-ink-2">
+            <span className={cn('size-[6px] rounded-full', kind.dot)} aria-hidden />
             {kind.label}
           </span>
         ))}
       </div>
 
-      <p className="text-[0.75rem] leading-relaxed text-muted">
+      <p className="max-w-[62ch] text-[0.75rem] leading-relaxed text-muted">
         Para uma novena com data de início e fim, crie um compromisso do tipo “Novena”, marque a
         repetição semanal ou mensal e defina até quando ela vai. Os hábitos diários ficam em{' '}
-        <Link to="/caminhada" className="underline decoration-line-strong underline-offset-2">
+        <Link to="/caminhada" className="underline decoration-rule-strong underline-offset-2 hover:text-rubric">
           Minha caminhada
         </Link>
         .

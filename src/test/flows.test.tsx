@@ -78,7 +78,7 @@ describe('fluxo de hábitos', () => {
     fireEvent.change(screen.getByLabelText('Novo hábito'), {
       target: { value: 'Terço diário' },
     });
-    fireEvent.click(screen.getByRole('button', { name: /Adicionar/i }));
+    fireEvent.click(screen.getByRole('button', { name: /^Adicionar$/i }));
 
     expect(await screen.findByText('Terço diário')).toBeTruthy();
 

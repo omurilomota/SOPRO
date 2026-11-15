@@ -1,8 +1,7 @@
-import { ArrowLeft, Clock, MapPin, Pencil, Plus, Trash2, Users } from 'lucide-react';
+import { ArrowLeft, Clock, MapPin, Pencil, Plus, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
-import { Card } from '../../components/ui/Card';
 import { EmptyState } from '../../components/ui/EmptyState';
 import { Field, Select, TextArea, TextInput } from '../../components/ui/Field';
 import { Modal } from '../../components/ui/Modal';
@@ -36,16 +35,16 @@ export default function PrayerGroupPage() {
   };
 
   return (
-    <div className="space-y-6 animate-[var(--animate-fade-up)]">
+    <div className="space-y-6 animate-[var(--animate-fade)]">
       <Link
         to="/calendario"
-        className="inline-flex items-center gap-1.5 text-[0.8125rem] text-muted hover:text-ink"
+        className="inline-flex items-center gap-1.5 text-[0.8125rem] text-muted transition-colors hover:text-rubric"
       >
-        <ArrowLeft size={14} aria-hidden /> Calendário
+        <ArrowLeft size={13} aria-hidden /> Calendário
       </Link>
 
       <PageHeader
-        eyebrow="Grupo de oração"
+        label="Grupo de oração"
         title="Meu grupo de oração"
         description="Cadastre o dia e o horário da sua reunião. Sem endereço obrigatório, sem cadastro público."
         action={
@@ -57,23 +56,22 @@ export default function PrayerGroupPage() {
       />
 
       {loading ? (
-        <div className="h-24 animate-pulse rounded-xl bg-surface-muted" />
+        <div className="h-20 animate-pulse bg-paper-2" />
       ) : items.length === 0 ? (
         <EmptyState
-          icon={Users}
-          title="Nenhum grupo cadastrado"
+          label="Nenhum grupo cadastrado"
           description="Informe o nome e o dia da semana da reunião. Depois você poderá ver o próximo encontro na tela Hoje."
           action={
-            <Button size="sm" variant="secondary" onClick={openNew}>
+            <Button size="sm" variant="outline" onClick={openNew}>
               Cadastrar meu grupo
             </Button>
           }
         />
       ) : (
-        <ul className="space-y-2.5">
+        <ul className="ruled border-y border-rule">
           {items.map((group) => (
             <li key={group.id}>
-              <Card className="p-4">
+              <div className="py-3.5">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <h2 className="font-display text-[1.0625rem] text-ink">{group.name}</h2>
@@ -101,7 +99,7 @@ export default function PrayerGroupPage() {
                         setEditing(group);
                         setOpen(true);
                       }}
-                      className="rounded-full p-1.5 text-muted hover:bg-surface-muted hover:text-ink"
+                      className="p-1 text-muted transition-colors hover:text-ink"
                       aria-label={`Editar ${group.name}`}
                     >
                       <Pencil size={13} aria-hidden />
@@ -113,21 +111,21 @@ export default function PrayerGroupPage() {
                         await remove(group.id);
                         notify('Grupo removido.');
                       }}
-                      className="rounded-full p-1.5 text-muted hover:bg-liturgy-red/8 hover:text-liturgy-red"
+                      className="p-1 text-muted transition-colors hover:text-rubric"
                       aria-label={`Remover ${group.name}`}
                     >
                       <Trash2 size={13} aria-hidden />
                     </button>
                   </div>
                 </div>
-              </Card>
+              </div>
             </li>
           ))}
         </ul>
       )}
 
-      <div className="rounded-xl border border-line bg-surface-muted/40 p-4 text-[0.75rem] leading-relaxed text-muted">
-        <p className="mb-1.5 font-medium text-ink-soft">Por que só no dispositivo?</p>
+      <div className="border-t border-rule pt-3 text-[0.75rem] leading-relaxed text-muted">
+        <p className="mb-1 font-medium text-ink-2">Por que só no dispositivo?</p>
         <p>
           Nesta primeira versão não existe rede nacional de grupos nem cadastro público de
           participantes. Participar de um grupo de oração envolve dados sensíveis — se um dia houver
@@ -246,7 +244,7 @@ function PrayerGroupModal({ open, onClose, group, defaultName, onSubmit }: Modal
       description="O endereço é opcional."
       footer={
         <>
-          <Button variant="ghost" size="sm" onClick={onClose} disabled={saving}>
+          <Button variant="quiet" size="sm" onClick={onClose} disabled={saving}>
             Cancelar
           </Button>
           <Button size="sm" onClick={submit} disabled={saving}>
@@ -333,7 +331,7 @@ function PrayerGroupModal({ open, onClose, group, defaultName, onSubmit }: Modal
         </Field>
 
         {error && (
-          <p role="alert" className="rounded-lg bg-liturgy-red/8 px-3 py-2 text-[0.75rem] text-liturgy-red">
+          <p role="alert" className="border-l-2 border-rubric pl-3 text-[0.75rem] text-rubric">
             {error}
           </p>
         )}

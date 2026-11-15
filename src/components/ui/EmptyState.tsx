@@ -1,40 +1,26 @@
-import type { LucideIcon } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { cn } from '../../utils/cn';
 
 interface EmptyStateProps {
-  icon: LucideIcon;
-  title: string;
+  /** Rótulo de rubrica curto — ex.: "Nada aqui ainda". */
+  label: string;
   description: string;
   action?: ReactNode;
   className?: string;
-  compact?: boolean;
 }
 
-export function EmptyState({
-  icon: Icon,
-  title,
-  description,
-  action,
-  className,
-  compact = false,
-}: EmptyStateProps) {
+/**
+ * Estado vazio: um filete duplo e duas linhas de texto.
+ * Sem ícone gigante, sem caixa pontilhada, sem ilustração.
+ */
+export function EmptyState({ label, description, action, className }: EmptyStateProps) {
   return (
-    <div
-      className={cn(
-        'flex flex-col items-center justify-center rounded-[var(--radius-card)] border border-dashed border-line-strong/70 bg-surface/60 text-center',
-        compact ? 'gap-2 px-5 py-8' : 'gap-3 px-6 py-12',
-        className,
-      )}
-    >
-      <span className="flex size-10 items-center justify-center rounded-full bg-surface-muted text-brass">
-        <Icon size={19} strokeWidth={1.6} aria-hidden />
-      </span>
-      <div className="max-w-sm space-y-1">
-        <p className="font-display text-base text-ink">{title}</p>
-        <p className="text-[0.8125rem] leading-relaxed text-muted">{description}</p>
-      </div>
-      {action && <div className="pt-1">{action}</div>}
+    <div className={cn('border-y border-rule py-7', className)}>
+      <p className="rubric mb-1.5">{label}</p>
+      <p className="max-w-[46ch] font-display text-[0.9375rem] leading-relaxed text-ink-2">
+        {description}
+      </p>
+      {action && <div className="mt-3.5">{action}</div>}
     </div>
   );
 }

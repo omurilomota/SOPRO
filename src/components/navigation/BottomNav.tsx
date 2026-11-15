@@ -1,131 +1,159 @@
-import { Menu, X, Flame, Compass, Settings2, Heart } from 'lucide-react';
+import { Flame, Menu, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { cn } from '../../utils/cn';
-import { mobileNav } from './navItems';
+import { mobileNav, moreNav } from './navItems';
 
-const MORE_LINKS = [
-  { to: '/caminhada', label: 'Minha caminhada', icon: Compass, hint: 'Diário, hábitos e intenções' },
-  { to: '/carismatico', label: 'Carismático', icon: Flame, hint: 'Dons, carismas e RCC' },
-  { to: '/caminhada/configuracoes', label: 'Configurações', icon: Settings2, hint: 'Tema, dados e cópia de segurança' },
-  { to: '/privacidade', label: 'Privacidade', icon: Heart, hint: 'Como seus dados são tratados' },
-];
-
+/**
+ * Navegação inferior no celular.
+ *
+ * Cinco destinos: quatro áreas fixas, "Vida no Espírito" em destaque no centro
+ * e "Mais" para o resto. O destaque central é intencional — o diferencial do
+ * SOPRO precisa estar a um toque de distância.
+ */
 export function BottomNav() {
-  const [moreOpen, setMoreOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
-    setMoreOpen(false);
+    setOpen(false);
   }, [location.pathname]);
 
-  const isMoreActive = MORE_LINKS.some(
-    (link) => link.to !== '/caminhada' && location.pathname.startsWith(link.to),
+  const isSpiritActive = location.pathname.startsWith('/carismatico');
+  const isMoreActive = moreNav.some(
+    (item) =>
+      item.to !== '/carismatico' &&
+      (location.pathname === item.to || location.pathname.startsWith(`${item.to}/`)),
   );
 
   return (
     <>
-      {moreOpen && (
-        <div
-          className="fixed inset-0 z-40 bg-ink/20 backdrop-blur-[1px] md:hidden dark:bg-black/40"
-          onClick={() => setMoreOpen(false)}
-          aria-hidden
-        />
-      )}
-
-      {moreOpen && (
-        <div
-          id="more-sheet"
-          className="fixed inset-x-0 bottom-[calc(4.5rem+env(safe-area-inset-bottom))] z-50 mx-3 overflow-hidden rounded-2xl border border-line bg-surface shadow-xl animate-[fade-up_0.2s_ease-out] md:hidden"
-        >
-          <div className="flex items-center justify-between border-b border-line px-4 py-3">
-            <p className="text-[0.8125rem] font-medium text-ink">Mais</p>
-            <button
-              type="button"
-              onClick={() => setMoreOpen(false)}
-              className="rounded-full p-1.5 text-muted hover:bg-surface-muted"
-              aria-label="Fechar menu"
-            >
-              <X size={16} aria-hidden />
-            </button>
+      {open && (
+        <>
+          <div
+            className="fixed inset-0 z-40 bg-ink/25 md:hidden"
+            onClick={() => setOpen(false)}
+            aria-hidden
+          />
+          <div
+            id="mais"
+            className="fixed inset-x-0 bottom-[calc(3.5rem+env(safe-area-inset-bottom))] z-50 border-t border-rule bg-paper animate-[rise_0.18s_ease-out] md:hidden"
+          >
+            <div className="flex items-center justify-between border-b border-rule px-4 py-2.5">
+              <p className="rubric">Mais</p>
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="p-1 text-muted"
+                aria-label="Fechar"
+              >
+                <X size={15} aria-hidden />
+              </button>
+            </div>
+            <ul className="max-h-[55dvh] overflow-y-auto">
+              {moreNav.map((item) => (
+                <li key={item.to} className="border-b border-rule last:border-0">
+                  <NavLink
+                    to={item.to}
+                    className={({ isActive }) =>
+                      cn(
+                        'flex items-baseline gap-3 px-4 py-3',
+                        isActive ? 'text-rubric' : 'text-ink',
+                      )
+                    }
+                  >
+                    <item.icon size={14} strokeWidth={1.5} className="shrink-0 self-center text-muted" aria-hidden />
+                    <span className="min-w-0">
+                      <span className="block text-[0.875rem]">{item.label}</span>
+                      <span className="block text-[0.6875rem] leading-snug text-muted">
+                        {item.description}
+                      </span>
+                    </span>
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul className="p-1.5">
-            {MORE_LINKS.map((link) => (
-              <li key={link.to}>
-                <NavLink
-                  to={link.to}
-                  className={({ isActive }) =>
-                    cn(
-                      'flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm',
-                      isActive ? 'bg-surface-muted text-ink' : 'text-ink-soft',
-                    )
-                  }
-                >
-                  <link.icon size={17} strokeWidth={1.6} className="text-brass" aria-hidden />
-                  <span className="flex-1">
-                    <span className="block">{link.label}</span>
-                    <span className="block text-[0.6875rem] text-muted">{link.hint}</span>
-                  </span>
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-        </div>
+        </>
       )}
 
       <nav
         aria-label="Navegação principal"
-        className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-canvas/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md md:hidden"
+        className="fixed inset-x-0 bottom-0 z-40 border-t border-rule bg-paper/97 pb-[env(safe-area-inset-bottom)] backdrop-blur-sm md:hidden"
       >
-        <ul className="mx-auto flex max-w-lg items-stretch justify-between px-1">
-          {mobileNav.map((item) => (
-            <li key={item.to} className="flex-1">
-              <NavLink
-                to={item.to}
-                end={item.to === '/'}
-                className={({ isActive }) =>
-                  cn(
-                    'flex flex-col items-center gap-1 px-1 pb-2 pt-2.5 text-[0.625rem] transition-colors',
-                    isActive ? 'text-ink' : 'text-muted',
-                  )
-                }
-              >
-                {({ isActive }) => (
-                  <>
-                    <item.icon
-                      size={20}
-                      strokeWidth={isActive ? 2 : 1.6}
-                      className={isActive ? 'text-brass' : undefined}
-                      aria-hidden
-                    />
-                    <span className="truncate leading-none">{item.label.split(' ')[0]}</span>
-                  </>
-                )}
-              </NavLink>
-            </li>
+        <ul className="flex items-stretch">
+          {mobileNav.slice(0, 2).map((item) => (
+            <NavItemCell key={item.to} item={item} />
           ))}
+
+          <li className="flex-1">
+            <NavLink
+              to="/carismatico"
+              className={cn(
+                'flex h-full flex-col items-center gap-1 px-1 pb-2 pt-2 text-[0.5625rem] uppercase tracking-[0.08em]',
+                isSpiritActive ? 'text-rubric' : 'text-muted',
+              )}
+            >
+              <Flame
+                size={17}
+                strokeWidth={isSpiritActive ? 2 : 1.5}
+                className={isSpiritActive ? 'text-rubric' : 'text-muted'}
+                aria-hidden
+              />
+              <span className="leading-none">Espírito</span>
+            </NavLink>
+          </li>
+
+          {mobileNav.slice(2, 4).map((item) => (
+            <NavItemCell key={item.to} item={item} />
+          ))}
+
           <li className="flex-1">
             <button
               type="button"
-              onClick={() => setMoreOpen((open) => !open)}
-              aria-expanded={moreOpen}
-              aria-controls="more-sheet"
+              onClick={() => setOpen((value) => !value)}
+              aria-expanded={open}
+              aria-controls="mais"
               className={cn(
-                'flex w-full flex-col items-center gap-1 px-1 pb-2 pt-2.5 text-[0.625rem] transition-colors',
-                moreOpen || isMoreActive ? 'text-ink' : 'text-muted',
+                'flex h-full w-full flex-col items-center gap-1 px-1 pb-2 pt-2 text-[0.5625rem] uppercase tracking-[0.08em]',
+                isMoreActive || open ? 'text-rubric' : 'text-muted',
               )}
             >
-              <Menu
-                size={20}
-                strokeWidth={moreOpen || isMoreActive ? 2 : 1.6}
-                className={moreOpen || isMoreActive ? 'text-brass' : undefined}
-                aria-hidden
-              />
+              <Menu size={17} strokeWidth={isMoreActive || open ? 2 : 1.5} aria-hidden />
               <span className="leading-none">Mais</span>
             </button>
           </li>
         </ul>
       </nav>
     </>
+  );
+}
+
+function NavItemCell({ item }: { item: (typeof mobileNav)[number] }) {
+  return (
+    <li className="flex-1">
+      <NavLink
+        to={item.to}
+        end={item.to === '/'}
+        className={({ isActive }) =>
+          cn(
+            'flex h-full flex-col items-center gap-1 px-1 pb-2 pt-2 text-[0.5625rem] uppercase tracking-[0.08em]',
+            isActive ? 'text-ink' : 'text-muted',
+          )
+        }
+      >
+        {({ isActive }) => (
+          <>
+            <item.icon
+              size={17}
+              strokeWidth={isActive ? 2 : 1.5}
+              className={isActive ? 'text-rubric' : undefined}
+              aria-hidden
+            />
+            <span className="leading-none">{item.label}</span>
+          </>
+        )}
+      </NavLink>
+    </li>
   );
 }

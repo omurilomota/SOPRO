@@ -2,26 +2,29 @@ import { forwardRef, type ButtonHTMLAttributes } from 'react';
 import { Link, type LinkProps } from 'react-router-dom';
 import { cn } from '../../utils/cn';
 
-type Variant = 'primary' | 'secondary' | 'ghost' | 'danger';
+type Variant = 'solid' | 'outline' | 'quiet' | 'danger';
 type Size = 'sm' | 'md';
 
+/**
+ * Botões do sistema "Missal": cantos quase retos, sem pílulas.
+ * `solid` é tinta densa; `outline` é um filete; `quiet` é só texto com filete
+ * inferior no hover. Nada de sombras.
+ */
 const base =
-  'inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-200 ' +
-  'disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 ' +
-  'focus-visible:outline-brass active:scale-[0.985] select-none';
+  'inline-flex items-center justify-center gap-1.5 rounded-[2px] text-[0.8125rem] font-medium ' +
+  'transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-45 ' +
+  'focus-visible:outline-2 focus-visible:outline-offset-2';
 
 const variants: Record<Variant, string> = {
-  primary:
-    'bg-ink text-canvas hover:bg-ink/90 dark:bg-ink dark:text-canvas shadow-[0_1px_2px_rgb(35_32_27/0.12)]',
-  secondary:
-    'border border-line-strong bg-surface text-ink hover:bg-surface-muted hover:border-brass/40',
-  ghost: 'text-ink-soft hover:bg-surface-muted hover:text-ink',
-  danger: 'border border-liturgy-red/30 text-liturgy-red hover:bg-liturgy-red/8',
+  solid: 'bg-ink text-paper hover:bg-rubric',
+  outline: 'border border-rule-strong bg-transparent text-ink hover:border-ink hover:bg-paper-2',
+  quiet: 'text-ink-2 hover:text-rubric',
+  danger: 'border border-rubric/40 text-rubric hover:bg-rubric-wash',
 };
 
 const sizes: Record<Size, string> = {
-  sm: 'h-9 px-3.5 text-[0.8125rem]',
-  md: 'h-11 px-5 text-sm',
+  sm: 'h-8 px-3',
+  md: 'h-10 px-4',
 };
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -30,7 +33,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-  { className, variant = 'primary', size = 'md', type = 'button', ...props },
+  { className, variant = 'solid', size = 'md', type = 'button', ...props },
   ref,
 ) {
   return (
@@ -48,11 +51,29 @@ interface ButtonLinkProps extends LinkProps {
   size?: Size;
 }
 
-export function ButtonLink({
-  className,
-  variant = 'secondary',
-  size = 'md',
-  ...props
-}: ButtonLinkProps) {
+export function ButtonLink({ className, variant = 'outline', size = 'md', ...props }: ButtonLinkProps) {
   return <Link className={cn(base, variants[variant], sizes[size], className)} {...props} />;
+}
+
+/** Link editorial: texto com filete inferior. Não parece botão. */
+export function TextLink({
+  to,
+  children,
+  className,
+}: {
+  to: string;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <Link
+      to={to}
+      className={cn(
+        'inline-flex items-center gap-1 text-[0.8125rem] text-ink-2 underline decoration-rule-strong decoration-1 underline-offset-[3px] transition-colors hover:text-rubric hover:decoration-rubric/50',
+        className,
+      )}
+    >
+      {children}
+    </Link>
+  );
 }

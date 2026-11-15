@@ -8,9 +8,9 @@ export function OfflineBanner() {
   return (
     <div
       role="status"
-      className="flex items-center justify-center gap-2 border-b border-brass/25 bg-brass-soft px-4 py-2 text-center text-[0.75rem] text-brass-strong dark:text-brass"
+      className="flex items-center justify-center gap-2 border-b border-rule bg-paper-2 px-4 py-1.5 text-center text-[0.6875rem] text-ink-2"
     >
-      <CloudOff size={14} aria-hidden />
+      <CloudOff size={12} className="text-rubric" aria-hidden />
       <span>
         Você está offline. Suas anotações, compromissos e a última liturgia consultada seguem
         disponíveis.

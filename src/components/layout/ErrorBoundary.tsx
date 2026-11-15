@@ -27,23 +27,25 @@ export class ErrorBoundary extends Component<{ children: ReactNode }, State> {
     if (!this.state.hasError) return this.props.children;
 
     return (
-      <div className="flex min-h-dvh items-center justify-center bg-canvas px-6">
-        <div className="max-w-md space-y-4 text-center">
-          <h1 className="text-2xl text-ink">Algo saiu do previsto</h1>
-          <p className="text-sm leading-relaxed text-muted">
+      <div className="flex min-h-dvh items-center justify-center bg-paper px-6">
+        <div className="w-full max-w-md space-y-3.5">
+          <p className="rubric">Erro inesperado</p>
+          <h1 className="text-[1.75rem] leading-tight text-ink">Algo saiu do previsto</h1>
+          <div className="h-px bg-rule" />
+          <p className="text-[0.875rem] leading-relaxed text-muted">
             A aplicação encontrou um erro inesperado. Seus dados continuam salvos neste
             dispositivo — nada foi apagado.
           </p>
-          <details className="rounded-xl border border-line bg-surface-muted p-3 text-left">
-            <summary className="cursor-pointer text-xs text-muted">Detalhe técnico</summary>
-            <p className="mt-2 break-words font-mono text-[0.6875rem] text-ink-soft">
+          <details className="border-y border-rule py-2">
+            <summary className="cursor-pointer text-[0.75rem] text-muted">Detalhe técnico</summary>
+            <p className="mt-1.5 break-words font-mono text-[0.6875rem] leading-relaxed text-ink-2">
               {this.state.message}
             </p>
           </details>
           <button
             type="button"
             onClick={() => window.location.reload()}
-            className="rounded-full bg-ink px-5 py-2.5 text-sm text-canvas transition-opacity hover:opacity-90"
+            className="rounded-[2px] bg-ink px-4 py-2 text-[0.8125rem] font-medium text-paper transition-colors hover:bg-rubric"
           >
             Recarregar a aplicação
           </button>
