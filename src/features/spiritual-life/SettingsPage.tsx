@@ -84,7 +84,7 @@ export default function SettingsPage() {
     <div className="space-y-8 animate-[var(--animate-fade)]">
       <Link
         to="/caminhada"
-        className="inline-flex items-center gap-1.5 text-[0.8125rem] text-muted transition-colors hover:text-rubric"
+        className="inline-flex items-center gap-1.5 text-[0.875rem] text-muted transition-colors hover:text-rubric"
       >
         <ArrowLeft size={13} aria-hidden /> Minha caminhada
       </Link>
@@ -104,7 +104,7 @@ export default function SettingsPage() {
               onClick={() => void updateSettings({ theme: theme.value })}
               aria-pressed={settings?.theme === theme.value}
               className={cn(
-                'flex items-center gap-1.5 border-b pb-0.5 text-[0.8125rem] transition-colors',
+                'flex items-center gap-1.5 border-b pb-0.5 text-[0.875rem] transition-colors',
                 settings?.theme === theme.value
                   ? 'border-rubric text-rubric'
                   : 'border-transparent text-muted hover:text-ink-2',
@@ -154,7 +154,7 @@ export default function SettingsPage() {
           <div className="flex flex-wrap items-center justify-between gap-3 py-3.5">
             <div className="min-w-0">
               <p className="text-[0.9375rem] text-ink">Exportar cópia de segurança</p>
-              <p className="text-[0.75rem] leading-relaxed text-muted">
+              <p className="text-[0.8125rem] leading-relaxed text-muted">
                 Gera um arquivo JSON com tudo o que está salvo. O arquivo fica com você.
               </p>
             </div>
@@ -167,7 +167,7 @@ export default function SettingsPage() {
           <div className="flex flex-wrap items-center justify-between gap-3 py-3.5">
             <div className="min-w-0">
               <p className="text-[0.9375rem] text-ink">Restaurar de uma cópia</p>
-              <p className="text-[0.75rem] leading-relaxed text-muted">
+              <p className="text-[0.8125rem] leading-relaxed text-muted">
                 Substitui os dados atuais pelos do arquivo. Ação irreversível.
               </p>
             </div>
@@ -196,7 +196,7 @@ export default function SettingsPage() {
           <div className="flex flex-wrap items-center justify-between gap-3 py-3.5">
             <div className="min-w-0">
               <p className="text-[0.9375rem] text-rubric">Excluir todos os dados</p>
-              <p className="text-[0.75rem] leading-relaxed text-muted">
+              <p className="text-[0.8125rem] leading-relaxed text-muted">
                 Apaga diário, intenções, hábitos, compromissos, favoritos e cache de liturgia.
               </p>
             </div>
@@ -208,7 +208,7 @@ export default function SettingsPage() {
         </div>
       </Section>
 
-      <p className="border-t border-rule pt-3 text-[0.75rem] leading-relaxed text-muted">
+      <p className="border-t border-rule pt-3 text-[0.8125rem] leading-relaxed text-muted">
         <Meta>Privacidade</Meta>{' '}
         Para entender exatamente o que é armazenado e onde, leia a{' '}
         <Link to="/privacidade" className="underline decoration-rule-strong underline-offset-2 hover:text-rubric">

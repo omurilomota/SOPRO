@@ -136,7 +136,7 @@ export default function CalendarPage() {
             </span>
             <ChevronRight size={13} className="shrink-0 text-muted" aria-hidden />
           </span>
-          <span className="mt-0.5 block text-[0.75rem] leading-relaxed text-muted">
+          <span className="mt-1 block text-[0.8125rem] leading-relaxed text-muted">
             {groups.length === 0
               ? 'Cadastre o dia e o horário da reunião'
               : groups
@@ -152,7 +152,7 @@ export default function CalendarPage() {
             </span>
             <ChevronRight size={13} className="shrink-0 text-muted" aria-hidden />
           </span>
-          <span className="mt-0.5 block text-[0.75rem] leading-relaxed text-muted">
+          <span className="mt-1 block text-[0.8125rem] leading-relaxed text-muted">
             Arquivo .ics para o calendário do seu celular
           </span>
         </button>
@@ -192,7 +192,7 @@ export default function CalendarPage() {
                 setCursor(today);
                 setSelectedDate(todayISO());
               }}
-              className="text-[0.6875rem] uppercase tracking-[0.1em] text-muted transition-colors hover:text-rubric"
+              className="text-[0.75rem] uppercase tracking-[0.1em] text-muted transition-colors hover:text-rubric"
             >
               Hoje
             </button>
@@ -204,7 +204,7 @@ export default function CalendarPage() {
                   onClick={() => setView(option)}
                   aria-pressed={view === option}
                   className={cn(
-                    'border-b pb-px text-[0.6875rem] uppercase tracking-[0.1em] transition-colors',
+                    'border-b pb-px text-[0.75rem] uppercase tracking-[0.1em] transition-colors',
                     view === option
                       ? 'border-rubric text-rubric'
                       : 'border-transparent text-muted hover:text-ink-2',
@@ -221,7 +221,7 @@ export default function CalendarPage() {
           {WEEKDAY_SHORT.map((label) => (
             <span
               key={label}
-              className="py-1.5 text-[0.5625rem] uppercase tracking-[0.12em] text-muted"
+              className="py-1.5 text-[0.625rem] uppercase tracking-[0.12em] text-muted"
             >
               {label}
             </span>
@@ -256,7 +256,7 @@ export default function CalendarPage() {
               >
                 <span
                   className={cn(
-                    'flex size-[22px] items-center justify-center text-[0.75rem] tabular-nums',
+                    'flex size-[22px] items-center justify-center text-[0.8125rem] tabular-nums',
                     isToday(iso) ? 'bg-ink font-medium text-paper' : 'text-ink-2',
                   )}
                 >
@@ -271,7 +271,7 @@ export default function CalendarPage() {
                       />
                     ))}
                     {dayOccurrences.length > 3 && (
-                      <span className="text-[0.5rem] leading-none text-muted">+</span>
+                      <span className="text-[0.625rem] leading-none text-muted">+</span>
                     )}
                   </span>
                 )}
@@ -287,7 +287,7 @@ export default function CalendarPage() {
             <h2 className="font-display text-[1.0625rem] text-ink">
               {isToday(selectedDate) ? 'Hoje' : capitalize(formatShortDate(selectedDate))}
             </h2>
-            <p className="text-[0.75rem] text-muted">
+            <p className="text-[0.8125rem] text-muted">
               {selectedOccurrences.length === 0
                 ? 'Nenhum compromisso para este dia.'
                 : `${selectedOccurrences.length} compromisso${selectedOccurrences.length > 1 ? 's' : ''}`}
@@ -321,7 +321,7 @@ export default function CalendarPage() {
                   />
                   <div className="min-w-0 flex-1">
                     <p className="text-[0.9375rem] leading-snug text-ink">{occurrence.event.title}</p>
-                    <p className="mt-0.5 flex flex-wrap items-baseline gap-x-3 gap-y-0.5 text-[0.75rem] text-muted">
+                    <p className="mt-1 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-[0.8125rem] text-muted">
                       <span>{meta.label}</span>
                       {occurrence.startTime && (
                         <span className="flex items-center gap-1 tabular-nums">
@@ -339,7 +339,7 @@ export default function CalendarPage() {
                       {occurrence.isRecurring && <span className="text-rubric">repete</span>}
                     </p>
                     {occurrence.event.notes && (
-                      <p className="mt-1 text-[0.75rem] leading-relaxed text-muted">
+                      <p className="mt-1 text-[0.8125rem] leading-relaxed text-muted">
                         {occurrence.event.notes}
                       </p>
                     )}
@@ -375,14 +375,14 @@ export default function CalendarPage() {
       <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1.5 border-t border-rule pt-3">
         <Meta>Tipos</Meta>
         {EVENT_KINDS.map((kind) => (
-          <span key={kind.id} className="flex items-center gap-1.5 text-[0.6875rem] text-ink-2">
+          <span key={kind.id} className="flex items-center gap-1.5 text-[0.75rem] text-ink-2">
             <span className={cn('size-[6px] rounded-full', kind.dot)} aria-hidden />
             {kind.label}
           </span>
         ))}
       </div>
 
-      <p className="max-w-[62ch] text-[0.75rem] leading-relaxed text-muted">
+      <p className="max-w-[58ch] text-[0.8125rem] leading-relaxed text-muted">
         Para uma novena com data de início e fim, crie um compromisso do tipo “Novena”, marque a
         repetição semanal ou mensal e defina até quando ela vai. Os hábitos diários ficam em{' '}
         <Link to="/caminhada" className="underline decoration-rule-strong underline-offset-2 hover:text-rubric">

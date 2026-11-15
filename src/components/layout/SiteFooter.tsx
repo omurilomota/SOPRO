@@ -10,7 +10,7 @@ export function SiteFooter() {
 
   return (
     <footer className="mt-12 border-t border-rule pt-4">
-      <div className="flex flex-col gap-3 text-[0.6875rem] leading-relaxed text-muted sm:flex-row sm:items-start sm:justify-between">
+      <div className="flex flex-col gap-3 text-[0.75rem] leading-relaxed text-muted sm:flex-row sm:items-start sm:justify-between">
         <p className="max-w-[42ch]">
           SOPRO é um projeto comunitário, gratuito e open-source. Não é um aplicativo oficial da
           RCCBRASIL nem de qualquer instituição eclesial.

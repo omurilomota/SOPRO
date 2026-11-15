@@ -15,35 +15,35 @@
   --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
   --font-display: 'Newsreader Variable', ui-serif, Georgia, serif;
 
-  /* Superfícies */
-  --color-paper: #faf6ee;
-  --color-paper-2: #f3ece0;
-  --color-plate: #fffdf9;
+  /* Superfícies — papel com um sopro de calor, não pedra */
+  --color-paper: #faf8f4;
+  --color-paper-2: #f2eee6;
+  --color-plate: #fffdfa;
 
-  /* Tinta */
-  --color-ink: #1b1815;
-  --color-ink-2: #4a433b;
-  --color-muted: #7c7267;
+  /* Tinta — grafite quente, longe do preto */
+  --color-ink: #33302b;
+  --color-ink-2: #57524a;
+  --color-muted: #726a61;
 
-  /* Filetes */
-  --color-rule: #ded4c4;
-  --color-rule-strong: #c9bca8;
+  /* Filetes — visíveis, mas sem virar moldura */
+  --color-rule: #e5e0d7;
+  --color-rule-strong: #cfc8bb;
 
-  /* Rubrica — o acento da casa */
-  --color-rubric: #9c3a2c;
-  --color-rubric-2: #b85a48;
-  --color-rubric-wash: #f2e2dc;
+  /* Rubrica — terracota, não sangue */
+  --color-rubric: #9a4f43;
+  --color-rubric-2: #b06a5c;
+  --color-rubric-wash: #f6e8e3;
 
   /* Azul de referência (links eruditos, notas) */
-  --color-indigo: #33475e;
-  --color-indigo-wash: #e4e9ef;
+  --color-indigo: #3d5265;
+  --color-indigo-wash: #e9eef3;
 
   /* Cores litúrgicas — usadas só onde têm significado */
-  --color-liturgia-verde: #4a6b52;
-  --color-liturgia-vermelho: #9c3a2c;
-  --color-liturgia-roxo: #5f4468;
-  --color-liturgia-rosa: #b06a80;
-  --color-liturgia-branco: #b99a5e;
+  --color-liturgia-verde: #4c6a52;
+  --color-liturgia-vermelho: #9a4f43;
+  --color-liturgia-roxo: #63506e;
+  --color-liturgia-rosa: #ab7b8a;
+  --color-liturgia-branco: #b0925f;
 
   --radius: 3px;
 
@@ -53,28 +53,28 @@
 
 @layer theme {
   .dark {
-    --color-paper: #14120e;
-    --color-paper-2: #1b1815;
-    --color-plate: #201c17;
+    --color-paper: #1d1b18;
+    --color-paper-2: #262320;
+    --color-plate: #2b2723;
 
-    --color-ink: #f1ebe0;
-    --color-ink-2: #cfc7ba;
-    --color-muted: #9a9083;
+    --color-ink: #e8e2d8;
+    --color-ink-2: #c3bcb0;
+    --color-muted: #9a9286;
 
-    --color-rule: #322c24;
-    --color-rule-strong: #473f34;
+    --color-rule: #3a3530;
+    --color-rule-strong: #514a42;
 
-    --color-rubric: #d9776a;
-    --color-rubric-2: #e08e80;
-    --color-rubric-wash: #2a1e1a;
+    --color-rubric: #cc8578;
+    --color-rubric-2: #d99b8f;
+    --color-rubric-wash: #322521;
 
-    --color-indigo: #9bb0c6;
-    --color-indigo-wash: #1c242c;
+    --color-indigo: #a3b6c8;
+    --color-indigo-wash: #242c33;
 
-    --color-liturgia-verde: #7fa389;
-    --color-liturgia-roxo: #a98dba;
-    --color-liturgia-rosa: #d69aad;
-    --color-liturgia-branco: #d9bd85;
+    --color-liturgia-verde: #8fae96;
+    --color-liturgia-roxo: #ae95bd;
+    --color-liturgia-rosa: #d3a3b2;
+    --color-liturgia-branco: #d3ba8f;
   }
 }
 
@@ -111,8 +111,9 @@
     background-color: var(--color-paper);
     color: var(--color-ink);
     font-family: var(--font-sans);
-    font-size: 0.9375rem;
-    line-height: 1.6;
+    font-size: 1rem;
+    line-height: 1.65;
+    letter-spacing: 0.002em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-feature-settings: 'kern', 'liga', 'cv05';
@@ -126,8 +127,8 @@
     font-family: var(--font-display);
     font-weight: 400;
     font-variation-settings: 'opsz' 36;
-    letter-spacing: -0.018em;
-    line-height: 1.16;
+    letter-spacing: -0.012em;
+    line-height: 1.22;
     text-wrap: balance;
     color: var(--color-ink);
   }
@@ -226,18 +227,24 @@
   /* --- Texto corrido de leitura ---------------------------------------- */
   .reading {
     font-family: var(--font-display);
-    font-size: 1.0625rem;
+    font-size: 1.125rem;
     font-variation-settings: 'opsz' 16;
-    line-height: 1.82;
+    line-height: 1.9;
+    letter-spacing: 0.003em;
     color: var(--color-ink-2);
     white-space: pre-line;
     hanging-punctuation: first;
   }
 
+  /* Texto corrido dentro de .reading precisa de respiro entre parágrafos. */
+  .reading + .reading {
+    margin-top: 1.15em;
+  }
+
   .reading-sm {
     font-family: var(--font-display);
-    font-size: 0.9375rem;
-    line-height: 1.75;
+    font-size: 1rem;
+    line-height: 1.85;
     color: var(--color-ink-2);
     white-space: pre-line;
   }
@@ -259,7 +266,7 @@
     font-family: var(--font-display);
     font-style: italic;
     font-size: 1.0625rem;
-    line-height: 1.7;
+    line-height: 1.78;
     color: var(--color-ink);
   }
 
@@ -296,6 +303,17 @@
   .hairline {
     height: 1px;
     background: var(--color-rule);
+  }
+
+  /* --- Ritmo vertical ---------------------------------------------------
+     Duas classes que o app usa em vez de repetir space-y-* em cada tela:
+     respiro generoso entre blocos, e entrelinha folgada em listas densas. */
+  .stack-loose > * + * {
+    margin-top: 1.75rem;
+  }
+
+  .prose-block p + p {
+    margin-top: 0.95em;
   }
 
   .no-scrollbar::-webkit-scrollbar {

@@ -19,18 +19,18 @@ export function ReadingBlock({ reading }: { reading: LiturgyReading }) {
 
   return (
     <article className="space-y-2.5">
-      <header className="space-y-1.5">
+      <header className="space-y-2">
         <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
           <h3 className="rubric">{reading.label}</h3>
           {option.reference && (
-            <span className="font-display text-[0.8125rem] italic text-muted [font-variant-numeric:oldstyle-nums]">
+            <span className="font-display text-[0.875rem] italic text-muted [font-variant-numeric:oldstyle-nums]">
               {option.reference}
             </span>
           )}
         </div>
         {reading.options.length > 1 && (
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 pt-0.5" role="group" aria-label="Forma da leitura">
-            <span className="rubric-muted text-[0.5625rem]">Forma</span>
+            <span className="rubric-muted text-[0.625rem]">Forma</span>
             {reading.options.map((candidate, index) => (
               <button
                 key={candidate.reference ?? index}
@@ -38,7 +38,7 @@ export function ReadingBlock({ reading }: { reading: LiturgyReading }) {
                 onClick={() => setSelected(index)}
                 aria-pressed={index === selected}
                 className={cn(
-                  'border-b pb-px text-[0.6875rem] transition-colors',
+                  'border-b pb-px text-[0.75rem] transition-colors',
                   index === selected
                     ? 'border-rubric text-rubric'
                     : 'border-transparent text-muted hover:text-ink-2',
@@ -57,7 +57,7 @@ export function ReadingBlock({ reading }: { reading: LiturgyReading }) {
 
       {isPsalm && option.refrain && (
         <p className="border-l-2 border-rubric/40 pl-3 font-display text-[1.0625rem] leading-snug text-ink">
-          <span className="rubric mr-2 align-[0.1em] text-[0.5625rem]">Refrão</span>
+          <span className="rubric mr-2 align-[0.1em] text-[0.625rem]">Refrão</span>
           {option.refrain}
         </p>
       )}
@@ -93,7 +93,7 @@ export function Disclosure({
         type="button"
         onClick={() => setOpen((value) => !value)}
         aria-expanded={open}
-        className="flex w-full items-center justify-between gap-3 py-2.5 text-left text-[0.875rem] text-ink-2 transition-colors hover:text-rubric"
+        className="flex w-full items-center justify-between gap-3 py-3 text-left text-[0.875rem] text-ink-2 transition-colors hover:text-rubric"
       >
         {title}
         <ChevronDown

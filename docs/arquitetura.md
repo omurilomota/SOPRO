@@ -133,10 +133,14 @@ A interface é construída como um livro litúrgico, não como um painel:
 
 - **Estrutura por filetes e tipografia**, não por cartões. `.plate` é o único
   container com moldura e é raro.
-- **Rubrica** — versalete vermelho (`--color-rubric`) para rótulos estruturais;
+- **Rubrica** — versalete terracota (`--color-rubric`) para rótulos estruturais;
   substitui o "eyebrow" genérico de template.
-- **Serifa para leitura** (Newsreader), sans para interface (Inter).
+- **Serifa para leitura** (Newsreader) a 18px/1.9, sans para interface (Inter).
 - **Cantos quase retos** (`--radius: 3px`), **nenhuma sombra** em conteúdo.
+- **Tinta em grafite quente** (`#33302b`), nunca preto; papel com calor
+  (`#faf8f4`). Tema escuro parte de `#1d1b18`, não de preto.
+- **Respiro**: `.stack-loose` (1,75 rem entre blocos) e `.reading + .reading`
+  substituem a repetição de `space-y-*` nas telas.
 - Cores litúrgicas usadas só onde têm significado (marcadores de compromisso,
   cor da celebração).
 

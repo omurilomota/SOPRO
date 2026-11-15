@@ -10,8 +10,8 @@ export function Refs({ label = 'Referências', items }: { label?: string; items:
   if (items.length === 0) return null;
   return (
     <div className="mt-3 border-t border-rule pt-2.5">
-      <Rubric className="text-[0.625rem]">{label}</Rubric>
-      <p className="mt-1 text-[0.75rem] leading-relaxed text-muted">
+      <Rubric className="text-[0.6875rem]">{label}</Rubric>
+      <p className="mt-1 text-[0.8125rem] leading-relaxed text-muted">
         {items.map((item, index) => (
           <span key={item}>
             {index > 0 && <span className="mx-1.5 text-rule-strong">·</span>}
@@ -50,8 +50,8 @@ export function EntryHeader({
 export function Caution({ title = 'Cuidado pastoral', children }: { title?: string; children: ReactNode }) {
   return (
     <div className="border-l-2 border-rubric/50 pl-3.5">
-      <p className="rubric text-[0.625rem]">{title}</p>
-      <div className="mt-1 text-[0.8125rem] leading-relaxed text-ink-2">{children}</div>
+      <p className="rubric text-[0.6875rem]">{title}</p>
+      <div className="mt-1 text-[0.875rem] leading-relaxed text-ink-2">{children}</div>
     </div>
   );
 }
@@ -67,9 +67,9 @@ export function DashList({
   tone?: 'neutral' | 'rubric';
 }) {
   return (
-    <ul className={cn('space-y-1.5', className)}>
+    <ul className={cn('space-y-2', className)}>
       {items.map((item) => (
-        <li key={item} className="flex gap-2 text-[0.8125rem] leading-relaxed text-ink-2">
+        <li key={item} className="flex gap-2 text-[0.875rem] leading-relaxed text-ink-2">
           <span className={tone === 'rubric' ? 'text-rubric' : 'text-muted'} aria-hidden>
             —
           </span>

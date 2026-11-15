@@ -22,13 +22,13 @@ export function SidebarNav() {
             SOPRO
           </span>
         </NavLink>
-        <p className="mt-1.5 text-[0.6875rem] leading-relaxed text-muted">
+        <p className="mt-2 text-[0.75rem] leading-relaxed text-muted">
           Vida espiritual católica
         </p>
       </div>
 
       <nav aria-label="Navegação principal" className="mt-7 flex-1 overflow-y-auto px-3 pb-6">
-        <p className="mb-2 px-3 text-[0.625rem] font-medium uppercase tracking-[0.16em] text-muted/70">
+        <p className="mb-2 px-3 text-[0.6875rem] font-medium uppercase tracking-[0.16em] text-muted/70">
           Índice
         </p>
 
@@ -69,7 +69,7 @@ export function SidebarNav() {
           to={charismaticNav.to}
           className={({ isActive }) =>
             cn(
-              'group relative block px-3 py-2.5 transition-colors',
+              'group relative block px-3 py-3 transition-colors',
               isActive ? 'rubric-mark' : '',
             )
           }
@@ -85,7 +85,7 @@ export function SidebarNav() {
                 <FlameIcon active={isActive} />
                 {charismaticNav.label}
               </span>
-              <span className="mt-0.5 block pl-[22px] text-[0.6875rem] leading-snug text-muted">
+              <span className="mt-1 block pl-[22px] text-[0.75rem] leading-snug text-muted">
                 {charismaticNav.description}
               </span>
             </>
@@ -95,7 +95,7 @@ export function SidebarNav() {
 
       <div className="border-t border-rule px-6 py-4">
         <div className="flex items-center justify-between">
-          <p className="text-[0.625rem] leading-relaxed text-muted">
+          <p className="text-[0.6875rem] leading-relaxed text-muted">
             Comunitário e open-source
           </p>
           <ThemeToggle />

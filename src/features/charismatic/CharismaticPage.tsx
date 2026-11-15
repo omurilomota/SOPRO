@@ -26,7 +26,7 @@ export default function CharismaticPage() {
   const basicDone = formacao.completedCount;
 
   return (
-    <div className="space-y-8 animate-[var(--animate-fade)]">
+    <div className="stack-loose animate-[var(--animate-fade)]">
       <PageHeader
         label="Vida no Espírito"
         title="A Renovação Carismática Católica, sem atalho"
@@ -35,7 +35,7 @@ export default function CharismaticPage() {
 
       <CharismaticSectionNav />
 
-      <div className="grid gap-7 md:grid-cols-[minmax(0,1fr)_13.5rem] md:gap-9">
+      <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_13.5rem] md:gap-10">
         <div className="space-y-5">
           <p className="reading dropcap">
             A Renovação Carismática Católica nasceu em 1967, numa universidade americana, de
@@ -54,11 +54,11 @@ export default function CharismaticPage() {
         <aside className="space-y-4 border-t border-rule pt-4 md:border-l md:border-t-0 md:pl-5 md:pt-0">
           <div>
             <Rubric>Seu caminho</Rubric>
-            <p className="mt-1.5 font-display text-[1.75rem] leading-none text-ink [font-variant-numeric:oldstyle-nums]">
+            <p className="mt-2 font-display text-[1.75rem] leading-none text-ink [font-variant-numeric:oldstyle-nums]">
               {svesDone}
               <span className="text-[1rem] text-muted">/{svesSessions.length}</span>
             </p>
-            <p className="mt-1 text-[0.75rem] leading-snug text-muted">
+            <p className="mt-1 text-[0.8125rem] leading-snug text-muted">
               semanas do SVES concluídas
             </p>
           </div>
@@ -70,14 +70,14 @@ export default function CharismaticPage() {
               {basicDone}
               <span className="text-[1rem] text-muted">/{basicsModules.length}</span>
             </p>
-            <p className="mt-1 text-[0.75rem] leading-snug text-muted">
+            <p className="mt-1 text-[0.8125rem] leading-snug text-muted">
               módulos do Módulo Básico
             </p>
           </div>
 
           <div className="h-px bg-rule" />
 
-          <p className="text-[0.6875rem] leading-relaxed text-muted">
+          <p className="text-[0.75rem] leading-relaxed text-muted">
             O progresso fica só no seu aparelho. Não há conta, nem sincronização, nem envio de nada.
           </p>
         </aside>
@@ -105,7 +105,7 @@ export default function CharismaticPage() {
                       aria-hidden
                     />
                   </span>
-                  <span className="mt-0.5 block max-w-[54ch] text-[0.8125rem] leading-relaxed text-muted">
+                  <span className="mt-1 block max-w-[54ch] text-[0.875rem] leading-relaxed text-muted">
                     {section.description}
                   </span>
                 </span>
@@ -117,7 +117,7 @@ export default function CharismaticPage() {
 
       <Flush className="px-4 py-4">
         <Meta>Nota de transparência</Meta>
-        <p className="mt-1.5 max-w-[60ch] text-[0.8125rem] leading-relaxed text-ink-2">
+        <p className="mt-2 max-w-[58ch] text-[0.875rem] leading-relaxed text-ink-2">
           {charitableDisclaimer}
         </p>
       </Flush>

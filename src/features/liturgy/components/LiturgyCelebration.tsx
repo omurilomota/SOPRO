@@ -15,10 +15,10 @@ export function CelebrationView({ celebration, showEucharisticPrayers = true }: 
 
   return (
     <div className="space-y-6">
-      <header className="space-y-1.5">
+      <header className="space-y-2">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
           <LiturgicalColorMark color={celebration.color} />
-          {!celebration.isPrimary && <span className="rubric-muted text-[0.5625rem]">Alternativa</span>}
+          {!celebration.isPrimary && <span className="rubric-muted text-[0.625rem]">Alternativa</span>}
         </div>
         <h2 className="text-[1.5rem] leading-tight text-ink sm:text-[1.75rem]">{celebration.title}</h2>
       </header>

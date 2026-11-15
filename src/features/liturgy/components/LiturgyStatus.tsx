@@ -46,12 +46,12 @@ export function StaleNotice({
   onRetry: () => void;
 }) {
   return (
-    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-y border-rule bg-paper-2/60 px-1 py-2 text-[0.75rem] leading-relaxed text-ink-2">
+    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-y border-rule bg-paper-2/60 px-1 py-2 text-[0.8125rem] leading-relaxed text-ink-2">
       <span className="flex-1">{message}</span>
       <button
         type="button"
         onClick={onRetry}
-        className="inline-flex items-center gap-1 text-[0.75rem] font-medium text-rubric hover:underline"
+        className="inline-flex items-center gap-1 text-[0.8125rem] font-medium text-rubric hover:underline"
       >
         <RefreshCw size={12} aria-hidden />
         Atualizar

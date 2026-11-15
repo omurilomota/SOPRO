@@ -24,7 +24,7 @@ export function AppLayout() {
         <OfflineBanner />
 
         <header className="sticky top-0 z-30 border-b border-rule bg-paper/95 backdrop-blur-sm md:hidden">
-          <div className="flex items-center justify-between px-4 py-2.5">
+          <div className="flex items-center justify-between px-4 py-3">
             <Link to="/" className="flex items-baseline gap-1.5" aria-label="SOPRO — início">
               <BrandMark className="size-3.5 translate-y-0.5 text-rubric" />
               <span className="font-display text-[1.0625rem] tracking-[0.08em] text-ink">SOPRO</span>
@@ -35,7 +35,7 @@ export function AppLayout() {
 
         <main
           id="conteudo"
-          className="mx-auto w-full max-w-[52rem] flex-1 px-5 pb-24 pt-6 sm:px-7 md:pb-12 md:pt-10"
+          className="mx-auto w-full max-w-[49rem] flex-1 px-6 pb-24 pt-8 sm:px-8 md:pb-14 md:pt-12"
         >
           <a
             href="#conteudo"
@@ -46,7 +46,7 @@ export function AppLayout() {
           <Outlet />
         </main>
 
-        <div className="mx-auto w-full max-w-[52rem] px-5 pb-24 sm:px-7 md:pb-8">
+        <div className="mx-auto w-full max-w-[49rem] px-6 pb-24 sm:px-8 md:pb-10">
           <SiteFooter />
         </div>
       </div>

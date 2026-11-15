@@ -37,15 +37,15 @@ export class ErrorBoundary extends Component<{ children: ReactNode }, State> {
             dispositivo — nada foi apagado.
           </p>
           <details className="border-y border-rule py-2">
-            <summary className="cursor-pointer text-[0.75rem] text-muted">Detalhe técnico</summary>
-            <p className="mt-1.5 break-words font-mono text-[0.6875rem] leading-relaxed text-ink-2">
+            <summary className="cursor-pointer text-[0.8125rem] text-muted">Detalhe técnico</summary>
+            <p className="mt-2 break-words font-mono text-[0.75rem] leading-relaxed text-ink-2">
               {this.state.message}
             </p>
           </details>
           <button
             type="button"
             onClick={() => window.location.reload()}
-            className="rounded-[2px] bg-ink px-4 py-2 text-[0.8125rem] font-medium text-paper transition-colors hover:bg-rubric"
+            className="rounded-[2px] bg-ink px-4 py-2 text-[0.875rem] font-medium text-paper transition-colors hover:bg-rubric"
           >
             Recarregar a aplicação
           </button>

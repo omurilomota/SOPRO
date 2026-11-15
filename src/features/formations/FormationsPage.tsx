@@ -38,10 +38,10 @@ export default function FormationsPage() {
                   <span className="block font-display text-[1.0625rem] leading-snug text-ink transition-colors group-hover:text-rubric">
                     {track.title}
                   </span>
-                  <span className="mt-0.5 block max-w-[56ch] text-[0.8125rem] leading-relaxed text-muted">
+                  <span className="mt-1 block max-w-[56ch] text-[0.875rem] leading-relaxed text-muted">
                     {track.description}
                   </span>
-                  <span className="mt-1.5 flex flex-wrap items-center gap-x-3">
+                  <span className="mt-2 flex flex-wrap items-center gap-x-3">
                     <Meta>{LEVEL_LABEL[track.level]}</Meta>
                     <Meta>{track.lessons.length} encontros</Meta>
                   </span>
@@ -68,21 +68,21 @@ export default function FormationsPage() {
                 <h3 className="font-display text-[1rem] leading-snug text-ink">{resource.title}</h3>
                 <Tag>{LICENSE_LABEL[resource.rights.license]}</Tag>
               </div>
-              <p className="mt-0.5 text-[0.75rem] text-muted">
+              <p className="mt-1 text-[0.8125rem] text-muted">
                 {resource.author}
                 {resource.institution && ` · ${resource.institution}`}
               </p>
-              <p className="mt-1.5 max-w-[62ch] text-[0.8125rem] leading-relaxed text-ink-2">
+              <p className="mt-2 max-w-[58ch] text-[0.875rem] leading-relaxed text-ink-2">
                 {resource.description}
               </p>
-              <p className="mt-1 max-w-[62ch] text-[0.6875rem] leading-relaxed text-muted">
+              <p className="mt-1 max-w-[58ch] text-[0.75rem] leading-relaxed text-muted">
                 {resource.rights.notes}
               </p>
               <a
                 href={resource.url}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="mt-1.5 inline-flex items-center gap-1.5 border-b border-rule-strong pb-px text-[0.75rem] text-ink transition-colors hover:border-rubric hover:text-rubric"
+                className="mt-2 inline-flex items-center gap-1.5 border-b border-rule-strong pb-px text-[0.8125rem] text-ink transition-colors hover:border-rubric hover:text-rubric"
               >
                 Abrir na fonte original
                 <ExternalLink size={10} aria-hidden />
@@ -100,7 +100,7 @@ export default function FormationsPage() {
           <span className="block font-display text-[1.0625rem] text-ink transition-colors group-hover:text-rubric">
             Vida no Espírito
           </span>
-          <span className="block text-[0.75rem] text-muted">
+          <span className="block text-[0.8125rem] text-muted">
             A área específica da RCC: grupo de oração, SVES, carismas e discernimento
           </span>
         </span>

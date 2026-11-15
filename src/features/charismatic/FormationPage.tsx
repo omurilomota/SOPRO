@@ -36,11 +36,11 @@ export default function FormationPage() {
       <div className="grid gap-5 border-y border-rule py-4 sm:grid-cols-3">
         {formationPhases.map((phase) => (
           <div key={phase.id}>
-            <Rubric className="text-[0.5625rem]">
+            <Rubric className="text-[0.625rem]">
               {phase.id === 'querigma' ? 'Fase 1' : phase.id === 'basico' ? 'Fase 2' : 'Fase 3'}
             </Rubric>
-            <p className="mt-0.5 font-display text-[1.0625rem] leading-snug text-ink">{phase.name}</p>
-            <p className="mt-0.5 text-[0.75rem] leading-relaxed text-muted">{phase.note}</p>
+            <p className="mt-1 font-display text-[1.0625rem] leading-snug text-ink">{phase.name}</p>
+            <p className="mt-1 text-[0.8125rem] leading-relaxed text-muted">{phase.note}</p>
           </div>
         ))}
       </div>
@@ -98,20 +98,20 @@ export default function FormationPage() {
                         {stage.optional && <Meta>Opcional</Meta>}
                         <Meta>{stage.duration}</Meta>
                       </div>
-                      <p className="mt-1 max-w-[62ch] text-[0.8125rem] leading-relaxed text-ink-2">
+                      <p className="mt-1 max-w-[58ch] text-[0.875rem] leading-relaxed text-ink-2">
                         {stage.summary}
                       </p>
-                      <p className="mt-1 max-w-[62ch] text-[0.75rem] leading-relaxed text-muted">
-                        <span className="rubric-muted mr-1.5 text-[0.5625rem]">Formato</span>
+                      <p className="mt-1 max-w-[58ch] text-[0.8125rem] leading-relaxed text-muted">
+                        <span className="rubric-muted mr-1.5 text-[0.625rem]">Formato</span>
                         {stage.format}
                       </p>
-                      <p className="mt-1 max-w-[62ch] text-[0.75rem] leading-relaxed text-muted">
-                        <span className="rubric-muted mr-1.5 text-[0.5625rem]">Ao final</span>
+                      <p className="mt-1 max-w-[58ch] text-[0.8125rem] leading-relaxed text-muted">
+                        <span className="rubric-muted mr-1.5 text-[0.625rem]">Ao final</span>
                         {stage.outcome}
                       </p>
                       {stage.requires && (
-                        <p className="mt-1 text-[0.6875rem] text-muted">
-                          <span className="rubric-muted mr-1.5 text-[0.5625rem]">Requer</span>
+                        <p className="mt-1 text-[0.75rem] text-muted">
+                          <span className="rubric-muted mr-1.5 text-[0.625rem]">Requer</span>
                           {stage.requires}
                         </p>
                       )}
@@ -136,7 +136,7 @@ export default function FormationPage() {
         <p className="sr-only" aria-live="polite">
           {`Progresso da formação: ${completedCount} de ${basics.length} módulos.`}
         </p>
-        <p className="max-w-[64ch] text-[0.8125rem] leading-relaxed text-ink-2">
+        <p className="max-w-[58ch] text-[0.875rem] leading-relaxed text-ink-2">
           {completedCount === 0
             ? 'Você ainda não marcou nenhum módulo. Marque apenas o que efetivamente concluiu com a sua coordenação.'
             : `Módulos marcados até agora: ${completedCount} de ${basics.length}.`}{' '}

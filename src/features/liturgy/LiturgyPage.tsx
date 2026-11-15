@@ -100,7 +100,7 @@ export default function LiturgyPage() {
           )}
         </div>
 
-        <label className="flex items-center gap-1.5 text-[0.75rem] text-muted">
+        <label className="flex items-center gap-1.5 text-[0.8125rem] text-muted">
           <CalendarDays size={13} aria-hidden />
           <span className="sr-only sm:not-sr-only">Ir para a data</span>
           <input
@@ -109,7 +109,7 @@ export default function LiturgyPage() {
             onChange={(event) => {
               if (isValidISODate(event.target.value)) goTo(event.target.value);
             }}
-            className="border-0 border-b border-rule-strong bg-transparent px-0 py-1 text-[0.75rem] text-ink-2 focus:border-rubric focus:outline-none"
+            className="border-0 border-b border-rule-strong bg-transparent px-0 py-1 text-[0.8125rem] text-ink-2 focus:border-rubric focus:outline-none"
           />
         </label>
       </div>
@@ -143,7 +143,7 @@ export default function LiturgyPage() {
         </Section>
       )}
 
-      <div className="border-t border-rule pt-3 text-[0.6875rem] leading-relaxed text-muted">
+      <div className="border-t border-rule pt-3 text-[0.75rem] leading-relaxed text-muted">
         <p>
           Fonte dos textos litúrgicos:{' '}
           {liturgyProviderInfo.homepage ? (
@@ -161,14 +161,14 @@ export default function LiturgyPage() {
           . O SOPRO não redistribui esse material: ele é exibido a partir da fonte. Em caso de
           divergência, prevalece o Missal Romano.
         </p>
-        <p className="mt-1.5">
+        <p className="mt-2">
           A última liturgia consultada fica guardada neste dispositivo para leitura offline. Saiba
           mais em{' '}
           <ButtonLink
             to="/privacidade"
             variant="quiet"
             size="sm"
-            className="h-auto p-0 text-[0.6875rem] underline decoration-rule-strong underline-offset-2"
+            className="h-auto p-0 text-[0.75rem] underline decoration-rule-strong underline-offset-2"
           >
             privacidade
           </ButtonLink>

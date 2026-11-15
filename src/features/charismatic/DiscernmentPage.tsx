@@ -41,13 +41,13 @@ export default function DiscernmentPage() {
                 <span className="numeral w-5 shrink-0">{String(index + 1).padStart(2, '0')}</span>
                 <div className="min-w-0">
                   <h3 className="font-display text-[1.125rem] leading-snug text-ink">{criterion.title}</h3>
-                  <p className="mt-1 max-w-[60ch] font-display text-[1rem] italic leading-snug text-rubric">
+                  <p className="mt-1 max-w-[58ch] font-display text-[1rem] italic leading-snug text-rubric">
                     {criterion.question}
                   </p>
-                  <p className="mt-1.5 max-w-[62ch] text-[0.8125rem] leading-relaxed text-ink-2">
+                  <p className="mt-2 max-w-[58ch] text-[0.875rem] leading-relaxed text-ink-2">
                     {criterion.explanation}
                   </p>
-                  <p className="mt-1 text-[0.6875rem] text-muted">{criterion.source}</p>
+                  <p className="mt-1 text-[0.75rem] text-muted">{criterion.source}</p>
                 </div>
               </div>
             </li>
@@ -69,11 +69,11 @@ export default function DiscernmentPage() {
           {practical.map((criterion) => (
             <div key={criterion.id} className="border-t border-rule pt-2.5">
               <h3 className="font-display text-[1rem] leading-snug text-ink">{criterion.title}</h3>
-              <p className="mt-0.5 font-display text-[0.9375rem] italic leading-snug text-rubric">
+              <p className="mt-1 font-display text-[0.9375rem] italic leading-snug text-rubric">
                 {criterion.question}
               </p>
-              <p className="mt-1 text-[0.8125rem] leading-relaxed text-ink-2">{criterion.explanation}</p>
-              <p className="mt-1 text-[0.6875rem] text-muted">{criterion.source}</p>
+              <p className="mt-1 text-[0.875rem] leading-relaxed text-ink-2">{criterion.explanation}</p>
+              <p className="mt-1 text-[0.75rem] text-muted">{criterion.source}</p>
             </div>
           ))}
         </div>
@@ -87,22 +87,22 @@ export default function DiscernmentPage() {
           {pastoralWarnings.map((warning, index) => (
             <li key={warning.id} className="border-b border-rule py-4">
               <div className="flex items-baseline gap-3">
-                <span className="numeral w-5 shrink-0 text-[0.625rem]">
+                <span className="numeral w-5 shrink-0 text-[0.6875rem]">
                   {String(index + 1).padStart(2, '0')}
                 </span>
                 <div className="min-w-0">
                   <h3 className="font-display text-[1.0625rem] leading-snug text-ink">
                     {warning.title}
                   </h3>
-                  <p className="mt-1 max-w-[62ch] text-[0.8125rem] leading-relaxed text-muted">
-                    <span className="rubric-muted mr-1.5 text-[0.5625rem]">O problema</span>
+                  <p className="mt-1 max-w-[58ch] text-[0.875rem] leading-relaxed text-muted">
+                    <span className="rubric-muted mr-1.5 text-[0.625rem]">O problema</span>
                     {warning.problem}
                   </p>
-                  <p className="mt-1.5 max-w-[62ch] border-l-2 border-rubric/40 pl-3 text-[0.8125rem] leading-relaxed text-ink-2">
-                    <span className="rubric mr-1.5 text-[0.5625rem]">Orientação</span>
+                  <p className="mt-2 max-w-[58ch] border-l-2 border-rubric/40 pl-3 text-[0.875rem] leading-relaxed text-ink-2">
+                    <span className="rubric mr-1.5 text-[0.625rem]">Orientação</span>
                     {warning.guidance}
                   </p>
-                  <p className="mt-1 text-[0.6875rem] text-muted">{warning.source}</p>
+                  <p className="mt-1 text-[0.75rem] text-muted">{warning.source}</p>
                 </div>
               </div>
             </li>
@@ -116,7 +116,7 @@ export default function DiscernmentPage() {
             O discernimento pessoal não substitui o acompanhamento. Procure o seu pároco ou um
             diretor espiritual quando:
           </p>
-          <ul className="space-y-1.5">
+          <ul className="space-y-2">
             {[
               'Você acha que Deus está pedindo uma decisão grande — vocação, casamento, mudança de vida.',
               'Alguém afirmou ter uma "revelação" sobre você que gera medo ou obrigação.',
@@ -132,7 +132,7 @@ export default function DiscernmentPage() {
               </li>
             ))}
           </ul>
-          <p className="text-[0.8125rem] text-muted">
+          <p className="text-[0.875rem] text-muted">
             Em sofrimento psíquico, procure também profissional de saúde. Fé e tratamento não se
             opõem.
           </p>
@@ -143,7 +143,7 @@ export default function DiscernmentPage() {
         />
       </Section>
 
-      <p className="border-t border-rule pt-3 text-[0.75rem] leading-relaxed text-muted">
+      <p className="border-t border-rule pt-3 text-[0.8125rem] leading-relaxed text-muted">
         <Meta>Nota</Meta>{' '}
         Esta página não é um teste nem um formulário de avaliação. Não há resultado, pontuação ou
         perfil. É material de estudo — e o discernimento concreto é sempre seu, com a comunidade e

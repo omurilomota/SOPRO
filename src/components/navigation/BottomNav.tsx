@@ -39,7 +39,7 @@ export function BottomNav() {
             id="mais"
             className="fixed inset-x-0 bottom-[calc(3.5rem+env(safe-area-inset-bottom))] z-50 border-t border-rule bg-paper animate-[rise_0.18s_ease-out] md:hidden"
           >
-            <div className="flex items-center justify-between border-b border-rule px-4 py-2.5">
+            <div className="flex items-center justify-between border-b border-rule px-4 py-3">
               <p className="rubric">Mais</p>
               <button
                 type="button"
@@ -65,7 +65,7 @@ export function BottomNav() {
                     <item.icon size={14} strokeWidth={1.5} className="shrink-0 self-center text-muted" aria-hidden />
                     <span className="min-w-0">
                       <span className="block text-[0.875rem]">{item.label}</span>
-                      <span className="block text-[0.6875rem] leading-snug text-muted">
+                      <span className="block text-[0.75rem] leading-snug text-muted">
                         {item.description}
                       </span>
                     </span>
@@ -90,7 +90,7 @@ export function BottomNav() {
             <NavLink
               to="/carismatico"
               className={cn(
-                'flex h-full flex-col items-center gap-1 px-1 pb-2 pt-2 text-[0.5625rem] uppercase tracking-[0.08em]',
+                'flex h-full flex-col items-center gap-1 px-1 pb-2 pt-2 text-[0.625rem] uppercase tracking-[0.08em]',
                 isSpiritActive ? 'text-rubric' : 'text-muted',
               )}
             >
@@ -115,7 +115,7 @@ export function BottomNav() {
               aria-expanded={open}
               aria-controls="mais"
               className={cn(
-                'flex h-full w-full flex-col items-center gap-1 px-1 pb-2 pt-2 text-[0.5625rem] uppercase tracking-[0.08em]',
+                'flex h-full w-full flex-col items-center gap-1 px-1 pb-2 pt-2 text-[0.625rem] uppercase tracking-[0.08em]',
                 isMoreActive || open ? 'text-rubric' : 'text-muted',
               )}
             >
@@ -137,7 +137,7 @@ function NavItemCell({ item }: { item: (typeof mobileNav)[number] }) {
         end={item.to === '/'}
         className={({ isActive }) =>
           cn(
-            'flex h-full flex-col items-center gap-1 px-1 pb-2 pt-2 text-[0.5625rem] uppercase tracking-[0.08em]',
+            'flex h-full flex-col items-center gap-1 px-1 pb-2 pt-2 text-[0.625rem] uppercase tracking-[0.08em]',
             isActive ? 'text-ink' : 'text-muted',
           )
         }

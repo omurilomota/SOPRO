@@ -24,8 +24,8 @@ export function CharismaticLayout({
   const section = getSection(path);
 
   return (
-    <div className="space-y-7 animate-[var(--animate-fade)]">
-      <nav aria-label="Trilha de navegação" className="text-[0.6875rem] text-muted">
+    <div className="stack-loose animate-[var(--animate-fade)]">
+      <nav aria-label="Trilha de navegação" className="text-[0.75rem] text-muted">
         <Link to="/carismatico" className="transition-colors hover:text-rubric">
           Vida no Espírito
         </Link>
@@ -43,7 +43,7 @@ export function CharismaticLayout({
 
       <CharismaticSectionNav />
 
-      <div className="space-y-8">{children}</div>
+      <div className="stack-loose">{children}</div>
     </div>
   );
 }

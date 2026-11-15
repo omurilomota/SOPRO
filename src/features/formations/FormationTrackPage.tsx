@@ -16,7 +16,7 @@ export default function FormationTrackPage() {
       <div className="space-y-4">
         <Link
           to="/formacoes"
-          className="inline-flex items-center gap-1.5 text-[0.8125rem] text-muted transition-colors hover:text-rubric"
+          className="inline-flex items-center gap-1.5 text-[0.875rem] text-muted transition-colors hover:text-rubric"
         >
           <ArrowLeft size={13} aria-hidden /> Formações
         </Link>
@@ -32,7 +32,7 @@ export default function FormationTrackPage() {
     <div className="space-y-6 animate-[var(--animate-fade)]">
       <Link
         to="/formacoes"
-        className="inline-flex items-center gap-1.5 text-[0.8125rem] text-muted transition-colors hover:text-rubric"
+        className="inline-flex items-center gap-1.5 text-[0.875rem] text-muted transition-colors hover:text-rubric"
       >
         <ArrowLeft size={13} aria-hidden /> Formações
       </Link>
@@ -79,7 +79,7 @@ export default function FormationTrackPage() {
 
                   {lesson.scripture.length > 0 && (
                     <div>
-                      <Rubric className="text-[0.625rem]">Escritura</Rubric>
+                      <Rubric className="text-[0.6875rem]">Escritura</Rubric>
                       <p className="mt-1">
                         {lesson.scripture.map((reference, i) => (
                           <span key={reference}>
@@ -93,10 +93,10 @@ export default function FormationTrackPage() {
 
                   {lesson.magisterium.length > 0 && (
                     <div>
-                      <Rubric className="text-[0.625rem]">Magistério e referências</Rubric>
-                      <ul className="mt-1 space-y-0.5">
+                      <Rubric className="text-[0.6875rem]">Magistério e referências</Rubric>
+                      <ul className="mt-1 space-y-1.5">
                         {lesson.magisterium.map((reference) => (
-                          <li key={reference} className="text-[0.8125rem] leading-relaxed text-muted">
+                          <li key={reference} className="text-[0.875rem] leading-relaxed text-muted">
                             {reference}
                           </li>
                         ))}
@@ -106,10 +106,10 @@ export default function FormationTrackPage() {
 
                   {lesson.practice.length > 0 && (
                     <div className="border-l-2 border-rubric/40 pl-3.5">
-                      <p className="rubric text-[0.625rem]">Para viver esta semana</p>
+                      <p className="rubric text-[0.6875rem]">Para viver esta semana</p>
                       <ul className="mt-1 space-y-1">
                         {lesson.practice.map((item) => (
-                          <li key={item} className="flex gap-2 text-[0.8125rem] leading-relaxed text-ink-2">
+                          <li key={item} className="flex gap-2 text-[0.875rem] leading-relaxed text-ink-2">
                             <span className="text-rubric" aria-hidden>
                               —
                             </span>
@@ -128,7 +128,7 @@ export default function FormationTrackPage() {
 
       <div className="flex flex-wrap items-baseline gap-x-3 border-t border-rule pt-3">
         <Meta>Nota</Meta>
-        <p className="max-w-[62ch] text-[0.75rem] leading-relaxed text-muted">
+        <p className="max-w-[58ch] text-[0.8125rem] leading-relaxed text-muted">
           Síntese escrita para o SOPRO. Para aprofundar, consulte as referências indicadas e os
           documentos oficiais. Em caso de dúvida doutrinal, procure o seu pároco.
         </p>

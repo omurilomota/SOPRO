@@ -121,9 +121,9 @@ export default function TodayPage() {
   };
 
   return (
-    <div className="space-y-9 animate-[var(--animate-fade)]">
+    <div className="stack-loose animate-[var(--animate-fade)]">
       {/* Abertura ------------------------------------------------------- */}
-      <header className="space-y-2">
+      <header className="space-y-3">
         <p className="rubric">{capitalize(formatLongDate(today))}</p>
         <h1 className="text-[2rem] leading-[1.08] text-ink sm:text-[2.5rem]">
           {greeting}
@@ -141,7 +141,7 @@ export default function TodayPage() {
         action={
           <Link
             to={`/liturgia/${today}`}
-            className="inline-flex items-center gap-1 text-[0.75rem] text-ink-2 transition-colors hover:text-rubric"
+            className="inline-flex items-center gap-1 text-[0.8125rem] text-ink-2 transition-colors hover:text-rubric"
           >
             Ver completo
             <ArrowRight size={12} aria-hidden />
@@ -171,7 +171,7 @@ export default function TodayPage() {
                 </p>
                 <Link
                   to={`/liturgia/${today}`}
-                  className="inline-flex items-center gap-1.5 border-b border-rule-strong pb-0.5 text-[0.8125rem] text-ink transition-colors hover:border-rubric hover:text-rubric"
+                  className="inline-flex items-center gap-1.5 border-b border-rule-strong pb-0.5 text-[0.875rem] text-ink transition-colors hover:border-rubric hover:text-rubric"
                 >
                   Ler as leituras
                   <ArrowRight size={13} aria-hidden />
@@ -195,7 +195,7 @@ export default function TodayPage() {
         action={
           <Link
             to="/caminhada"
-            className="text-[0.75rem] text-ink-2 transition-colors hover:text-rubric"
+            className="text-[0.8125rem] text-ink-2 transition-colors hover:text-rubric"
           >
             Ajustar
           </Link>
@@ -207,7 +207,7 @@ export default function TodayPage() {
           <div className="flex flex-wrap items-center justify-between gap-3 border-y border-rule py-4">
             <div className="min-w-0">
               <p className="text-[0.9375rem] text-ink">Nenhum hábito definido</p>
-              <p className="text-[0.75rem] leading-relaxed text-muted">
+              <p className="text-[0.8125rem] leading-relaxed text-muted">
                 Escolha as atividades que deseja acompanhar — sem cobranças.
               </p>
             </div>
@@ -225,7 +225,7 @@ export default function TodayPage() {
                     type="button"
                     onClick={() => void toggleHabit(habit.id)}
                     disabled={done || pending === habit.id}
-                    className="flex w-full items-center gap-3 py-2.5 text-left transition-colors hover:text-rubric disabled:cursor-default"
+                    className="flex w-full items-center gap-3 py-3 text-left transition-colors hover:text-rubric disabled:cursor-default"
                   >
                     <span
                       className={cn(
@@ -245,7 +245,7 @@ export default function TodayPage() {
                       >
                         {habit.title}
                       </span>
-                      <span className="block text-[0.6875rem] uppercase tracking-[0.1em] text-muted">
+                      <span className="block text-[0.75rem] uppercase tracking-[0.1em] text-muted">
                         {KIND_LABEL[habit.kind]}
                       </span>
                     </span>
@@ -255,7 +255,7 @@ export default function TodayPage() {
             })}
           </ul>
         )}
-        <p className="text-[0.6875rem] leading-relaxed text-muted">
+        <p className="text-[0.75rem] leading-relaxed text-muted">
           Marcar não é obrigação: o registro serve apenas para você perceber o seu ritmo.
         </p>
       </Section>
@@ -266,7 +266,7 @@ export default function TodayPage() {
         action={
           <Link
             to="/calendario"
-            className="text-[0.75rem] text-ink-2 transition-colors hover:text-rubric"
+            className="text-[0.8125rem] text-ink-2 transition-colors hover:text-rubric"
           >
             Calendário
           </Link>
@@ -278,7 +278,7 @@ export default function TodayPage() {
           <div className="flex flex-wrap items-center justify-between gap-3 border-y border-rule py-4">
             <div className="min-w-0">
               <p className="text-[0.9375rem] text-ink">Nada marcado para hoje</p>
-              <p className="text-[0.75rem] leading-relaxed text-muted">
+              <p className="text-[0.8125rem] leading-relaxed text-muted">
                 {nextOccurrence
                   ? `Próximo: ${nextOccurrence.event.title} · ${relativeDayLabel(nextOccurrence.date)}`
                   : 'Adicione uma missa, uma confissão ou a reunião do seu grupo.'}
@@ -296,7 +296,7 @@ export default function TodayPage() {
               return (
                 <li
                   key={`${occurrence.event.id}-${occurrence.date}`}
-                  className="flex items-baseline gap-3 py-2.5"
+                  className="flex items-baseline gap-3 py-3"
                 >
                   <span
                     className={cn('size-[7px] shrink-0 translate-y-[-2px] rounded-full', meta.dot)}
@@ -304,7 +304,7 @@ export default function TodayPage() {
                   />
                   <div className="min-w-0 flex-1">
                     <p className="text-[0.9375rem] text-ink">{occurrence.event.title}</p>
-                    <p className="flex flex-wrap items-center gap-x-2.5 text-[0.75rem] text-muted">
+                    <p className="flex flex-wrap items-center gap-x-2.5 text-[0.8125rem] text-muted">
                       {occurrence.startTime && (
                         <span className="flex items-center gap-1 tabular-nums">
                           <Clock size={10} aria-hidden />
@@ -326,7 +326,7 @@ export default function TodayPage() {
         )}
 
         {nextOccurrence && todayOccurrences.length > 0 && (
-          <p className="flex flex-wrap items-baseline gap-x-2 text-[0.75rem] text-muted">
+          <p className="flex flex-wrap items-baseline gap-x-2 text-[0.8125rem] text-muted">
             <Meta>Próximo</Meta>
             <span className="text-ink-2">{nextOccurrence.event.title}</span>
             <span>
@@ -342,8 +342,8 @@ export default function TodayPage() {
         <Flush className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1.5 px-1 py-3">
           <div className="min-w-0">
             <Rubric>Grupo de oração</Rubric>
-            <p className="mt-0.5 text-[0.9375rem] text-ink">{nextGroupOccurrence.event.title}</p>
-            <p className="text-[0.75rem] text-muted">
+            <p className="mt-1 text-[0.9375rem] text-ink">{nextGroupOccurrence.event.title}</p>
+            <p className="text-[0.8125rem] text-muted">
               {capitalize(formatShortDate(nextGroupOccurrence.date))}
               {nextGroupOccurrence.startTime ? ` · ${formatTime(nextGroupOccurrence.startTime)}` : ''}
               {' · '}
@@ -352,7 +352,7 @@ export default function TodayPage() {
           </div>
           <Link
             to="/carismatico/grupo-de-oracao"
-            className="text-[0.75rem] text-ink-2 transition-colors hover:text-rubric"
+            className="text-[0.8125rem] text-ink-2 transition-colors hover:text-rubric"
           >
             Como funciona
           </Link>
@@ -365,7 +365,7 @@ export default function TodayPage() {
         action={
           <Link
             to="/carismatico"
-            className="inline-flex items-center gap-1 text-[0.75rem] text-ink-2 transition-colors hover:text-rubric"
+            className="inline-flex items-center gap-1 text-[0.8125rem] text-ink-2 transition-colors hover:text-rubric"
           >
             Abrir área
             <ArrowRight size={12} aria-hidden />
@@ -383,13 +383,13 @@ export default function TodayPage() {
                   {sves.completedCount}/{svesSessions.length} do SVES
                 </Meta>
               </div>
-              <p className="mt-1.5 max-w-[56ch] text-[0.8125rem] leading-relaxed text-ink-2">
+              <p className="mt-2 max-w-[56ch] text-[0.875rem] leading-relaxed text-ink-2">
                 {nextSves.theme}
               </p>
               <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1.5">
                 <Link
                   to="/carismatico/sves"
-                  className="inline-flex items-center gap-1.5 border-b border-rule-strong pb-0.5 text-[0.8125rem] text-ink transition-colors hover:border-rubric hover:text-rubric"
+                  className="inline-flex items-center gap-1.5 border-b border-rule-strong pb-0.5 text-[0.875rem] text-ink transition-colors hover:border-rubric hover:text-rubric"
                 >
                   Continuar o seminário
                   <ArrowRight size={13} aria-hidden />
@@ -402,13 +402,13 @@ export default function TodayPage() {
               <h3 className="font-display text-[1.125rem] leading-snug text-ink">
                 Seminário concluído
               </h3>
-              <p className="mt-1.5 max-w-[56ch] text-[0.8125rem] leading-relaxed text-ink-2">
+              <p className="mt-2 max-w-[56ch] text-[0.875rem] leading-relaxed text-ink-2">
                 O próximo passo do caminho é o Módulo Básico da formação. Ele é longo por um motivo:
                 sem base, o serviço vira improviso.
               </p>
               <Link
                 to="/carismatico/formacao"
-                className="mt-2 inline-flex items-center gap-1.5 border-b border-rule-strong pb-0.5 text-[0.8125rem] text-ink transition-colors hover:border-rubric hover:text-rubric"
+                className="mt-2 inline-flex items-center gap-1.5 border-b border-rule-strong pb-0.5 text-[0.875rem] text-ink transition-colors hover:border-rubric hover:text-rubric"
               >
                 Ver o processo formativo
                 <ArrowRight size={13} aria-hidden />
@@ -426,25 +426,25 @@ export default function TodayPage() {
               <p className="font-display text-[0.9375rem] leading-snug text-ink transition-colors group-hover:text-rubric">
                 {suggestedPrayer.title}
               </p>
-              <p className="text-[0.6875rem] uppercase tracking-[0.1em] text-muted">Oração</p>
+              <p className="text-[0.75rem] uppercase tracking-[0.1em] text-muted">Oração</p>
             </Link>
           )}
           <Link to="/oracoes" className="group border-t border-rule pt-2.5">
             <p className="font-display text-[0.9375rem] leading-snug text-ink transition-colors group-hover:text-rubric">
               Biblioteca de orações
             </p>
-            <p className="text-[0.6875rem] uppercase tracking-[0.1em] text-muted">Todas as categorias</p>
+            <p className="text-[0.75rem] uppercase tracking-[0.1em] text-muted">Todas as categorias</p>
           </Link>
           <Link to="/formacoes" className="group border-t border-rule pt-2.5">
             <p className="font-display text-[0.9375rem] leading-snug text-ink transition-colors group-hover:text-rubric">
               Formações
             </p>
-            <p className="text-[0.6875rem] uppercase tracking-[0.1em] text-muted">Trilhas e documentos</p>
+            <p className="text-[0.75rem] uppercase tracking-[0.1em] text-muted">Trilhas e documentos</p>
           </Link>
         </div>
       </Section>
 
-      <p className="flex items-center gap-1.5 text-[0.6875rem] text-muted">
+      <p className="flex items-center gap-1.5 text-[0.75rem] text-muted">
         <CalendarDays size={11} aria-hidden />
         Tudo o que você vê aqui está salvo apenas neste dispositivo.
       </p>

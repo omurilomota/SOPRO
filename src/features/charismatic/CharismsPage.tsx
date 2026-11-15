@@ -43,11 +43,11 @@ export default function CharismsPage() {
                   onClick={() => setSelected(item.id)}
                   aria-pressed={selected === item.id}
                   className={cn(
-                    'flex w-full items-baseline gap-2 py-1.5 text-left text-[0.8125rem] transition-colors',
+                    'flex w-full items-baseline gap-2 py-2 text-left text-[0.875rem] transition-colors',
                     selected === item.id ? 'text-rubric' : 'text-ink-2 hover:text-ink',
                   )}
                 >
-                  <span className="numeral shrink-0 text-[0.5625rem]">
+                  <span className="numeral shrink-0 text-[0.625rem]">
                     {String(index + 1).padStart(2, '0')}
                   </span>
                   <span>{item.name}</span>
@@ -65,11 +65,11 @@ export default function CharismsPage() {
                   onClick={() => setSelected(item.id)}
                   aria-pressed={selected === item.id}
                   className={cn(
-                    'flex w-full items-baseline gap-2 py-1.5 text-left text-[0.8125rem] transition-colors',
+                    'flex w-full items-baseline gap-2 py-2 text-left text-[0.875rem] transition-colors',
                     selected === item.id ? 'text-rubric' : 'text-ink-2 hover:text-ink',
                   )}
                 >
-                  <span className="numeral shrink-0 text-[0.5625rem]">
+                  <span className="numeral shrink-0 text-[0.625rem]">
                     {String(index + 1).padStart(2, '0')}
                   </span>
                   <span>{item.name}</span>
@@ -81,7 +81,7 @@ export default function CharismsPage() {
 
         {/* Verbete */}
         <article className="md:border-l md:border-rule md:pl-8">
-          <header className="space-y-1.5">
+          <header className="space-y-2">
             <p className="flex flex-wrap items-baseline gap-x-2.5">
               <Rubric>
                 {carismOfServiceIds.includes(charism.id) ? 'Carisma de serviço' : 'Carisma de manifestação'}
@@ -90,7 +90,7 @@ export default function CharismsPage() {
                 {charism.scripture.slice(0, 3).map((reference, index) => (
                   <span key={reference}>
                     {index > 0 && <span className="mx-1 text-rule-strong">·</span>}
-                    <Reference className="text-[0.75rem]">{reference}</Reference>
+                    <Reference className="text-[0.8125rem]">{reference}</Reference>
                   </span>
                 ))}
               </span>
@@ -101,28 +101,28 @@ export default function CharismsPage() {
             </p>
           </header>
 
-          <div className="reading mt-4 max-w-[62ch]">{charism.body}</div>
+          <div className="reading mt-4 max-w-[58ch]">{charism.body}</div>
 
           <div className="mt-5 border-l-2 border-rule-strong pl-4">
-            <Rubric className="text-[0.5625rem]">Para que serve</Rubric>
-            <p className="mt-0.5 max-w-[58ch] text-[0.8125rem] leading-relaxed text-ink-2">
+            <Rubric className="text-[0.625rem]">Para que serve</Rubric>
+            <p className="mt-1 max-w-[58ch] text-[0.875rem] leading-relaxed text-ink-2">
               {charism.purpose}
             </p>
           </div>
 
           <div className="mt-5">
-            <Rubric className="text-[0.5625rem]">Cuidados pastorais</Rubric>
+            <Rubric className="text-[0.625rem]">Cuidados pastorais</Rubric>
             <DashList className="mt-1" items={charism.cautions} tone="rubric" />
           </div>
 
           <div className="mt-4">
-            <Rubric className="text-[0.5625rem]">O que se pede antes de exercer</Rubric>
+            <Rubric className="text-[0.625rem]">O que se pede antes de exercer</Rubric>
             <DashList className="mt-1" items={charism.requirements} />
           </div>
 
           <div className="mt-4 flex flex-wrap items-baseline gap-x-3 border-t border-rule pt-2">
             <Meta>Magistério</Meta>
-            <span className="text-[0.75rem] text-muted">{charism.magisterium.join(' · ')}</span>
+            <span className="text-[0.8125rem] text-muted">{charism.magisterium.join(' · ')}</span>
           </div>
         </article>
       </div>

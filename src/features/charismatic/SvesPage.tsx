@@ -37,7 +37,7 @@ export default function SvesPage() {
             {completedCount}
             <span className="text-[1rem] text-muted"> / {svesSessions.length} semanas</span>
           </p>
-          <p className="mt-1 text-[0.75rem] leading-relaxed text-muted">
+          <p className="mt-1 text-[0.8125rem] leading-relaxed text-muted">
             {completedCount === 0
               ? 'Comece pela semana 1. Marque conforme viver cada encontro — não antes.'
               : completedCount >= svesSessions.length
@@ -91,7 +91,7 @@ export default function SvesPage() {
                     aria-pressed={done}
                     aria-label={`Marcar semana ${session.number} como concluída`}
                     className={cn(
-                      'mt-0.5 flex size-[18px] shrink-0 items-center justify-center border transition-colors',
+                      'mt-1 flex size-[18px] shrink-0 items-center justify-center border transition-colors',
                       done
                         ? 'border-rubric bg-rubric text-paper'
                         : 'border-rule-strong text-transparent hover:border-ink',
@@ -107,7 +107,7 @@ export default function SvesPage() {
                     className="min-w-0 flex-1 text-left"
                   >
                     <span className="flex flex-wrap items-baseline gap-x-2.5">
-                      <span className="numeral text-[0.6875rem]">
+                      <span className="numeral text-[0.75rem]">
                         {String(session.number).padStart(2, '0')}
                       </span>
                       <span
@@ -122,7 +122,7 @@ export default function SvesPage() {
                     </span>
 
                     {!expanded && (
-                      <span className="mt-0.5 block max-w-[62ch] text-[0.8125rem] leading-relaxed text-muted">
+                      <span className="mt-1 block max-w-[58ch] text-[0.875rem] leading-relaxed text-muted">
                         {session.theme.split('.')[0]}.
                       </span>
                     )}
@@ -131,11 +131,11 @@ export default function SvesPage() {
 
                 {expanded && (
                   <div className="space-y-3 pb-5 pl-[30px] pr-1">
-                    <p className="reading-sm max-w-[64ch]">{session.theme}</p>
+                    <p className="reading-sm max-w-[58ch]">{session.theme}</p>
 
                     <div>
-                      <Rubric className="text-[0.5625rem]">Escritura</Rubric>
-                      <p className="mt-0.5">
+                      <Rubric className="text-[0.625rem]">Escritura</Rubric>
+                      <p className="mt-1">
                         {session.scripture.map((reference, index) => (
                           <span key={reference}>
                             {index > 0 && <span className="mx-1.5 text-rule-strong">·</span>}
@@ -146,16 +146,16 @@ export default function SvesPage() {
                     </div>
 
                     <div className="border-l-2 border-rubric/40 pl-3.5">
-                      <Rubric className="text-[0.5625rem]">O que se espera</Rubric>
-                      <p className="mt-0.5 max-w-[62ch] text-[0.8125rem] leading-relaxed text-ink-2">
+                      <Rubric className="text-[0.625rem]">O que se espera</Rubric>
+                      <p className="mt-1 max-w-[58ch] text-[0.875rem] leading-relaxed text-ink-2">
                         {session.aim}
                       </p>
                     </div>
 
                     {record?.note && (
                       <div>
-                        <Rubric className="text-[0.5625rem]">Sua anotação</Rubric>
-                        <p className="mt-0.5 whitespace-pre-line text-[0.8125rem] leading-relaxed text-muted">
+                        <Rubric className="text-[0.625rem]">Sua anotação</Rubric>
+                        <p className="mt-1 whitespace-pre-line text-[0.875rem] leading-relaxed text-muted">
                           {record.note}
                         </p>
                       </div>
@@ -185,10 +185,10 @@ export default function SvesPage() {
           {baptismInSpiritSenses.map((sense) => (
             <div key={sense.id} className="border-t border-rule pt-2.5">
               <h3 className="font-display text-[1.0625rem] leading-snug text-ink">{sense.title}</h3>
-              <p className="mt-1 whitespace-pre-line text-[0.8125rem] leading-relaxed text-ink-2">
+              <p className="mt-1 whitespace-pre-line text-[0.875rem] leading-relaxed text-ink-2">
                 {sense.body}
               </p>
-              <Reference className="mt-1.5 block text-[0.6875rem]">{sense.reference}</Reference>
+              <Reference className="mt-2 block text-[0.75rem]">{sense.reference}</Reference>
             </div>
           ))}
         </div>
@@ -225,9 +225,9 @@ export default function SvesPage() {
               text: 'O seminário caminha junto com a vida sacramental. Confissão e Eucaristia não são apêndice: a semana 5 costuma propor a confissão.',
             },
           ].map((row) => (
-            <div key={row.label} className="grid gap-0.5 py-2.5 sm:grid-cols-[9rem_1fr] sm:gap-5">
-              <dt className="text-[0.8125rem] font-medium text-ink">{row.label}</dt>
-              <dd className="max-w-[60ch] text-[0.8125rem] leading-relaxed text-ink-2">{row.text}</dd>
+            <div key={row.label} className="grid gap-0.5 py-3 sm:grid-cols-[9rem_1fr] sm:gap-5">
+              <dt className="text-[0.875rem] font-medium text-ink">{row.label}</dt>
+              <dd className="max-w-[58ch] text-[0.875rem] leading-relaxed text-ink-2">{row.text}</dd>
             </div>
           ))}
         </dl>
@@ -240,8 +240,8 @@ export default function SvesPage() {
       >
         <ol className="grid gap-x-6 gap-y-1 sm:grid-cols-2">
           {svesAlternativeOutline.map((title, index) => (
-            <li key={title} className="flex gap-2.5 border-b border-rule py-1.5 text-[0.8125rem]">
-              <span className="numeral shrink-0 text-[0.625rem]">{index + 1}</span>
+            <li key={title} className="flex gap-2.5 border-b border-rule py-2 text-[0.875rem]">
+              <span className="numeral shrink-0 text-[0.6875rem]">{index + 1}</span>
               <span className="text-ink-2">{title}</span>
             </li>
           ))}

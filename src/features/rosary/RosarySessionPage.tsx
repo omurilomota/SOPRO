@@ -43,7 +43,7 @@ export default function RosarySessionPage() {
       <div className="space-y-4">
         <Link
           to="/terco"
-          className="inline-flex items-center gap-1.5 text-[0.8125rem] text-muted hover:text-rubric"
+          className="inline-flex items-center gap-1.5 text-[0.875rem] text-muted hover:text-rubric"
         >
           <ArrowLeft size={13} aria-hidden /> Terço
         </Link>
@@ -89,14 +89,14 @@ export default function RosarySessionPage() {
         <button
           type="button"
           onClick={leave}
-          className="inline-flex items-center gap-1.5 text-[0.8125rem] text-muted transition-colors hover:text-rubric"
+          className="inline-flex items-center gap-1.5 text-[0.875rem] text-muted transition-colors hover:text-rubric"
         >
           <ArrowLeft size={13} aria-hidden /> {group.name}
         </button>
         <button
           type="button"
           onClick={() => setFocusMode((value) => !value)}
-          className="border-b border-rule-strong pb-px text-[0.6875rem] text-muted transition-colors hover:border-rubric hover:text-rubric"
+          className="border-b border-rule-strong pb-px text-[0.75rem] text-muted transition-colors hover:border-rubric hover:text-rubric"
           aria-pressed={focusMode}
         >
           {focusMode ? 'Sair do modo leitura' : 'Modo leitura'}
@@ -110,7 +110,7 @@ export default function RosarySessionPage() {
             style={{ width: `${progress}%` }}
           />
         </div>
-        <p className="text-right text-[0.6875rem] tabular-nums text-muted">
+        <p className="text-right text-[0.75rem] tabular-nums text-muted">
           Etapa {stepIndex + 1} de {steps.length}
         </p>
       </div>
@@ -153,7 +153,7 @@ export default function RosarySessionPage() {
                 />
               ))}
             </div>
-            <p className="text-center text-[0.8125rem] text-muted">
+            <p className="text-center text-[0.875rem] text-muted">
               {beads === 0
                 ? `Toque a cada Ave-Maria (${totalBeads})`
                 : beads >= totalBeads
@@ -205,7 +205,7 @@ export default function RosarySessionPage() {
         )}
       </div>
 
-      <p className="pb-2 text-center text-[0.6875rem] leading-relaxed text-muted">
+      <p className="pb-2 text-center text-[0.75rem] leading-relaxed text-muted">
         Não há registro de pontuação. Se precisar parar, pare — e retome quando puder.
       </p>
     </div>

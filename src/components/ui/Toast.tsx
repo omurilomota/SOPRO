@@ -49,13 +49,13 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             <div
               key={toast.id}
               className={cn(
-                'pointer-events-auto flex w-full max-w-sm items-start gap-2.5 border border-rule border-l-2 bg-plate px-3.5 py-2.5 text-[0.8125rem] animate-[var(--animate-rise)]',
+                'pointer-events-auto flex w-full max-w-sm items-start gap-2.5 border border-rule border-l-2 bg-plate px-3.5 py-3 text-[0.875rem] animate-[var(--animate-rise)]',
                 toast.tone === 'error' ? 'border-rubric text-ink' : 'border-ink text-ink',
               )}
             >
               <Icon
                 size={13}
-                className={cn('mt-0.5 shrink-0', toast.tone === 'error' ? 'text-rubric' : 'text-ink-2')}
+                className={cn('mt-1 shrink-0', toast.tone === 'error' ? 'text-rubric' : 'text-ink-2')}
                 aria-hidden
               />
               <span className="flex-1 leading-snug">{toast.message}</span>

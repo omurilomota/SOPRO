@@ -47,7 +47,7 @@ export default function GroupMomentsPage() {
               >
                 <span className="flex items-baseline gap-1.5">
                   <span
-                    className={cn('numeral text-[0.6875rem]', selected ? 'text-rubric' : 'text-muted/70')}
+                    className={cn('numeral text-[0.75rem]', selected ? 'text-rubric' : 'text-muted/70')}
                     aria-hidden
                   >
                     {index + 1}
@@ -61,7 +61,7 @@ export default function GroupMomentsPage() {
                     {item.name}
                   </span>
                 </span>
-                <Reference className="text-[0.6875rem]">{item.scripture}</Reference>
+                <Reference className="text-[0.75rem]">{item.scripture}</Reference>
               </button>
             );
           })}
@@ -79,13 +79,13 @@ export default function GroupMomentsPage() {
             <dt>
               <Meta>Quem participa</Meta>
             </dt>
-            <dd className="mt-0.5 text-[0.8125rem] leading-relaxed text-ink-2">{moment.who}</dd>
+            <dd className="mt-1 text-[0.875rem] leading-relaxed text-ink-2">{moment.who}</dd>
           </div>
           <div>
             <dt>
               <Meta>Quando</Meta>
             </dt>
-            <dd className="mt-0.5 text-[0.8125rem] leading-relaxed text-ink-2">{moment.frequency}</dd>
+            <dd className="mt-1 text-[0.875rem] leading-relaxed text-ink-2">{moment.frequency}</dd>
           </div>
         </dl>
 
@@ -96,7 +96,7 @@ export default function GroupMomentsPage() {
                 <span className="numeral w-5 shrink-0 pt-0.5">{String(index + 1).padStart(2, '0')}</span>
                 <div className="min-w-0">
                   <p className="font-display text-[1rem] leading-snug text-ink">{step.title}</p>
-                  <p className="mt-0.5 max-w-[62ch] text-[0.8125rem] leading-relaxed text-ink-2">
+                  <p className="mt-1 max-w-[58ch] text-[0.875rem] leading-relaxed text-ink-2">
                     {step.description}
                   </p>
                 </div>
@@ -117,11 +117,11 @@ export default function GroupMomentsPage() {
         <div className="grid gap-x-6 gap-y-3 sm:grid-cols-5">
           {['Avaliar', 'Analisar', 'Planejar', 'Interceder', 'Preparar'].map((verb) => (
             <div key={verb} className="border-t border-rule pt-2">
-              <Rubric className="text-[0.5625rem]">{verb}</Rubric>
+              <Rubric className="text-[0.625rem]">{verb}</Rubric>
             </div>
           ))}
         </div>
-        <p className="mt-3 max-w-[64ch] text-[0.8125rem] leading-relaxed text-ink-2">
+        <p className="mt-3 max-w-[58ch] text-[0.875rem] leading-relaxed text-ink-2">
           A tradição carismática descreve o núcleo com esses cinco verbos, e às vezes acrescenta
           três: pastorear (acompanhar pessoas), revezar (não concentrar tudo em uma pessoa) e
           abastecer (cuidar do material e da formação). Nenhum deles é governo: é serviço.

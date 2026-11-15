@@ -52,12 +52,12 @@ export default function GiftsPage() {
       <div className="grid gap-x-6 gap-y-5 border-t border-rule pt-4 sm:grid-cols-3">
         {CATEGORIES.map((category) => (
           <div key={category.id}>
-            <p className={cn('numeral text-[0.6875rem]', category.color)}>{category.count}</p>
-            <h2 className="mt-0.5 font-display text-[1.125rem] leading-snug text-ink">
+            <p className={cn('numeral text-[0.75rem]', category.color)}>{category.count}</p>
+            <h2 className="mt-1 font-display text-[1.125rem] leading-snug text-ink">
               {category.title}
             </h2>
-            <Reference className="text-[0.75rem]">{category.reference}</Reference>
-            <p className="mt-1.5 max-w-[40ch] text-[0.8125rem] leading-relaxed text-ink-2">
+            <Reference className="text-[0.8125rem]">{category.reference}</Reference>
+            <p className="mt-2 max-w-[40ch] text-[0.875rem] leading-relaxed text-ink-2">
               {category.text}
             </p>
           </div>
@@ -76,7 +76,7 @@ export default function GiftsPage() {
         label="Os sete dons infusos"
         description="Abra cada um para ver os sinais concretos, o que ele não é, e uma prática para cultivar."
       >
-        <div className="grid gap-6 sm:grid-cols-[10.5rem_1fr]">
+        <div className="grid gap-6 sm:grid-cols-[10.625rem_1fr]">
           <ul className="border-t border-rule">
             {giftsInfused.map((item, index) => {
               const selected = item.id === gift.id;
@@ -91,7 +91,7 @@ export default function GiftsPage() {
                       selected ? 'text-rubric' : 'text-ink-2 hover:text-ink',
                     )}
                   >
-                    <span className="numeral shrink-0 text-[0.625rem]">
+                    <span className="numeral shrink-0 text-[0.6875rem]">
                       {String(index + 1).padStart(2, '0')}
                     </span>
                     <span
@@ -110,28 +110,28 @@ export default function GiftsPage() {
 
           <article className="border-t border-rule pt-3 sm:border-l sm:border-t-0 sm:pl-6 sm:pt-0">
             <header>
-              <Rubric className="text-[0.5625rem]">{gift.latin}</Rubric>
+              <Rubric className="text-[0.625rem]">{gift.latin}</Rubric>
               <h3 className="text-[1.375rem] leading-tight text-ink">{gift.name}</h3>
               <p className="mt-1 max-w-[56ch] font-display text-[1rem] italic leading-snug text-ink-2">
                 {gift.summary}
               </p>
             </header>
 
-            <div className="reading-sm mt-3 max-w-[62ch]">{gift.body}</div>
+            <div className="reading-sm mt-3 max-w-[58ch]">{gift.body}</div>
 
             <div className="mt-4">
-              <Rubric className="text-[0.5625rem]">Sinais concretos</Rubric>
+              <Rubric className="text-[0.625rem]">Sinais concretos</Rubric>
               <DashList className="mt-1" items={gift.signs} />
             </div>
 
             <div className="mt-4">
-              <Rubric className="text-[0.5625rem]">O que não é</Rubric>
+              <Rubric className="text-[0.625rem]">O que não é</Rubric>
               <DashList className="mt-1" items={gift.misreadings} tone="rubric" />
             </div>
 
             <div className="mt-4 border-l-2 border-rubric/40 pl-3.5">
-              <Rubric className="text-[0.5625rem]">Para cultivar</Rubric>
-              <p className="mt-0.5 max-w-[62ch] text-[0.8125rem] leading-relaxed text-ink-2">
+              <Rubric className="text-[0.625rem]">Para cultivar</Rubric>
+              <p className="mt-1 max-w-[58ch] text-[0.875rem] leading-relaxed text-ink-2">
                 {gift.practice}
               </p>
             </div>
@@ -139,12 +139,12 @@ export default function GiftsPage() {
             <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1 border-t border-rule pt-2">
               <Meta>Escritura</Meta>
               {gift.scripture.map((reference) => (
-                <Reference key={reference} className="text-[0.75rem]">
+                <Reference key={reference} className="text-[0.8125rem]">
                   {reference}
                 </Reference>
               ))}
             </div>
-            <p className="mt-1 flex flex-wrap items-baseline gap-x-3 text-[0.6875rem] text-muted">
+            <p className="mt-1 flex flex-wrap items-baseline gap-x-3 text-[0.75rem] text-muted">
               <Meta>Magistério</Meta>
               {gift.magisterium.join(' · ')}
             </p>
@@ -160,15 +160,15 @@ export default function GiftsPage() {
         <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1.5">
           <Link
             to="/carismatico/carismas"
-            className="inline-flex items-center gap-1.5 border-b border-rule-strong pb-0.5 text-[0.8125rem] text-ink transition-colors hover:border-rubric hover:text-rubric"
+            className="inline-flex items-center gap-1.5 border-b border-rule-strong pb-0.5 text-[0.875rem] text-ink transition-colors hover:border-rubric hover:text-rubric"
           >
             Ver os carismas um por um
           </Link>
-          <span className="text-[0.75rem] text-muted">
+          <span className="text-[0.8125rem] text-muted">
             10 carismas de 1Cor 12 e 7 de serviço (Rm 12), com cautelas pastorais
           </span>
         </div>
-        <p className="mt-3 max-w-[64ch] text-[0.8125rem] leading-relaxed text-ink-2">
+        <p className="mt-3 max-w-[58ch] text-[0.875rem] leading-relaxed text-ink-2">
           Uma advertência que vale mais que a lista: a CNBB pede que não se tenha a presunção de
           possuir carismas nem que se peça temerariamente por eles (Doc. 53, nn. 56-58). O SOPRO não
           oferece testes de identificação de dons — quem faz esse discernimento é a pessoa, em
@@ -183,12 +183,12 @@ export default function GiftsPage() {
       >
         <ul className="ruled border-y border-rule">
           {fruitsOfTheSpirit.map((fruit) => (
-            <li key={fruit.id} className="grid gap-0.5 py-2.5 sm:grid-cols-[10rem_1fr] sm:gap-5">
+            <li key={fruit.id} className="grid gap-0.5 py-3 sm:grid-cols-[10rem_1fr] sm:gap-5">
               <p className="font-display text-[0.9375rem] text-ink">{fruit.name}</p>
               <div>
-                <p className="text-[0.8125rem] leading-relaxed text-ink-2">{fruit.summary}</p>
-                <p className="mt-0.5 text-[0.75rem] leading-relaxed text-muted">
-                  <span className="rubric-muted mr-1.5 text-[0.5625rem]">No cotidiano</span>
+                <p className="text-[0.875rem] leading-relaxed text-ink-2">{fruit.summary}</p>
+                <p className="mt-1 text-[0.8125rem] leading-relaxed text-muted">
+                  <span className="rubric-muted mr-1.5 text-[0.625rem]">No cotidiano</span>
                   {fruit.inDailyLife}
                 </p>
               </div>
@@ -197,7 +197,7 @@ export default function GiftsPage() {
         </ul>
       </Section>
 
-      <p className="max-w-[64ch] border-t border-rule pt-3 text-[0.8125rem] leading-relaxed text-muted">
+      <p className="max-w-[58ch] border-t border-rule pt-3 text-[0.875rem] leading-relaxed text-muted">
         Se você chegou até aqui buscando saber qual é o seu dom: a resposta católica é
         desconcertante. Não se descobre o próprio carisma olhando para dentro — descobre-se servindo.
         O dom aparece quando a comunidade precisa dele e você responde.

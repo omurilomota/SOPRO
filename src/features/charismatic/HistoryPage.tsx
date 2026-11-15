@@ -39,7 +39,7 @@ export default function HistoryPage() {
               <h2 className="font-display text-[1.0625rem] leading-snug text-ink">{event.title}</h2>
               {event.place && <Meta>{event.place}</Meta>}
             </div>
-            <p className="mt-1 max-w-[64ch] text-[0.8125rem] leading-relaxed text-ink-2">
+            <p className="mt-1 max-w-[58ch] text-[0.875rem] leading-relaxed text-ink-2">
               {event.body}
             </p>
           </li>
@@ -68,25 +68,25 @@ export default function HistoryPage() {
                   {document.title}
                 </h3>
                 <span className="flex items-baseline gap-2.5">
-                  <Reference className="text-[0.75rem]">{document.year}</Reference>
+                  <Reference className="text-[0.8125rem]">{document.year}</Reference>
                   {document.url && (
                     <a
                       href={document.url}
                       target="_blank"
                       rel="noreferrer noopener"
-                      className="border-b border-rule-strong pb-px text-[0.6875rem] text-ink transition-colors hover:border-rubric hover:text-rubric"
+                      className="border-b border-rule-strong pb-px text-[0.75rem] text-ink transition-colors hover:border-rubric hover:text-rubric"
                     >
                       Abrir
                     </a>
                   )}
                 </span>
               </div>
-              <p className="mt-0.5 text-[0.75rem] text-muted">{document.author}</p>
-              <p className="mt-1 max-w-[62ch] text-[0.8125rem] leading-relaxed text-ink-2">
+              <p className="mt-1 text-[0.8125rem] text-muted">{document.author}</p>
+              <p className="mt-1 max-w-[58ch] text-[0.875rem] leading-relaxed text-ink-2">
                 {document.summary}
               </p>
-              <p className="mt-1 max-w-[62ch] text-[0.8125rem] leading-relaxed text-muted">
-                <span className="rubric-muted mr-1.5 text-[0.5625rem]">Por que importa</span>
+              <p className="mt-1 max-w-[58ch] text-[0.875rem] leading-relaxed text-muted">
+                <span className="rubric-muted mr-1.5 text-[0.625rem]">Por que importa</span>
                 {document.relevance}
               </p>
             </li>
@@ -95,8 +95,8 @@ export default function HistoryPage() {
       </Section>
 
       <div className="border-t border-rule pt-3">
-        <Rubric className="text-[0.5625rem]">Nota sobre direitos</Rubric>
-        <p className="mt-1 max-w-[64ch] text-[0.75rem] leading-relaxed text-muted">
+        <Rubric className="text-[0.625rem]">Nota sobre direitos</Rubric>
+        <p className="mt-1 max-w-[58ch] text-[0.8125rem] leading-relaxed text-muted">
           O SOPRO não reproduz o texto integral de documentos de terceiros. As sínteses são próprias
           e as referências apontam para as fontes. Documentos da Santa Sé estão disponíveis no site
           do Vaticano; os da CNBB, no site da conferência e em publicações impressas.

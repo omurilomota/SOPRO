@@ -22,7 +22,7 @@ export default function MeetingPage() {
     >
       <section className="border-t border-rule pt-5">
         <Rubric>Os três polos</Rubric>
-        <p className="mt-1.5 max-w-[64ch] text-[0.875rem] leading-relaxed text-ink-2">
+        <p className="mt-2 max-w-[58ch] text-[0.875rem] leading-relaxed text-ink-2">
           A tradição carismática resume a reunião de oração em três movimentos. Se um deles domina,
           a reunião se desequilibra: só louvor vira animação; só pregação vira aula; só efusão vira
           busca de sensação.
@@ -31,9 +31,9 @@ export default function MeetingPage() {
         <ol className="mt-4 grid gap-4 sm:grid-cols-3">
           {POLES.map((pole, index) => (
             <li key={pole} className="border-t-2 border-rubric/60 pt-2.5">
-              <span className="numeral text-[0.6875rem]">{`0${index + 1}`}</span>
-              <p className="mt-0.5 font-display text-[1.0625rem] leading-snug text-ink">{pole}</p>
-              <p className="mt-0.5 text-[0.75rem] leading-relaxed text-muted">
+              <span className="numeral text-[0.75rem]">{`0${index + 1}`}</span>
+              <p className="mt-1 font-display text-[1.0625rem] leading-snug text-ink">{pole}</p>
+              <p className="mt-1 text-[0.8125rem] leading-relaxed text-muted">
                 {index === 0 && 'Reconhecer quem Deus é antes de pedir qualquer coisa.'}
                 {index === 1 && 'Pedir e acolher uma nova efusão da graça já recebida.'}
                 {index === 2 && 'Anunciar Jesus, não resolver a vida de ninguém em 20 minutos.'}
@@ -65,18 +65,18 @@ export default function MeetingPage() {
                     {element.central && <Meta>Polo</Meta>}
                   </div>
 
-                  <p className="mt-1 max-w-[62ch] text-[0.8125rem] leading-relaxed text-ink-2">
+                  <p className="mt-1 max-w-[58ch] text-[0.875rem] leading-relaxed text-ink-2">
                     {element.description}
                   </p>
 
-                  <p className="mt-1.5 max-w-[62ch] text-[0.8125rem] leading-relaxed text-muted">
-                    <span className="rubric-muted mr-1.5 text-[0.5625rem]">Por quê</span>
+                  <p className="mt-2 max-w-[58ch] text-[0.875rem] leading-relaxed text-muted">
+                    <span className="rubric-muted mr-1.5 text-[0.625rem]">Por quê</span>
                     {element.purpose}
                   </p>
 
                   {element.pitfall && (
-                    <p className="mt-1.5 max-w-[62ch] border-l-2 border-rule-strong pl-3 text-[0.8125rem] leading-relaxed text-muted">
-                      <span className="rubric mr-1.5 text-[0.5625rem]">Erro comum</span>
+                    <p className="mt-2 max-w-[58ch] border-l-2 border-rule-strong pl-3 text-[0.875rem] leading-relaxed text-muted">
+                      <span className="rubric mr-1.5 text-[0.625rem]">Erro comum</span>
                       {element.pitfall}
                     </p>
                   )}
@@ -99,9 +99,9 @@ export default function MeetingPage() {
             ['100–115 min', 'Testemunhos e oração final'],
             ['115–120 min', 'Avisos, curtos'],
           ].map(([time, label]) => (
-            <div key={time} className="flex items-baseline gap-3 border-b border-rule py-1.5">
-              <span className="w-20 shrink-0 text-[0.6875rem] tabular-nums text-rubric">{time}</span>
-              <span className="text-[0.8125rem] text-ink-2">{label}</span>
+            <div key={time} className="flex items-baseline gap-3 border-b border-rule py-2">
+              <span className="w-20 shrink-0 text-[0.75rem] tabular-nums text-rubric">{time}</span>
+              <span className="text-[0.875rem] text-ink-2">{label}</span>
             </div>
           ))}
         </div>

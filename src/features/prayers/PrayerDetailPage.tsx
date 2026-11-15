@@ -117,7 +117,7 @@ function BackLink() {
   return (
     <Link
       to="/oracoes"
-      className="inline-flex items-center gap-1.5 text-[0.8125rem] text-muted transition-colors hover:text-rubric"
+      className="inline-flex items-center gap-1.5 text-[0.875rem] text-muted transition-colors hover:text-rubric"
     >
       <ArrowLeft size={13} aria-hidden /> Orações
     </Link>

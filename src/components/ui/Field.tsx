@@ -32,18 +32,18 @@ export function Field({ label, hint, error, children, className, optional }: Fie
     <div className={cn('space-y-1', className)}>
       <label
         htmlFor={id}
-        className="flex items-baseline justify-between gap-2 text-[0.75rem] font-medium tracking-[0.02em] text-ink-2"
+        className="flex items-baseline justify-between gap-2 text-[0.8125rem] font-medium tracking-[0.02em] text-ink-2"
       >
         <span>{label}</span>
-        {optional && <span className="text-[0.6875rem] font-normal text-muted">opcional</span>}
+        {optional && <span className="text-[0.75rem] font-normal text-muted">opcional</span>}
       </label>
       {children(id)}
       {error ? (
-        <p id={`${id}-error`} role="alert" className="text-[0.75rem] text-rubric">
+        <p id={`${id}-error`} role="alert" className="text-[0.8125rem] text-rubric">
           {error}
         </p>
       ) : hint ? (
-        <p id={`${id}-hint`} className="text-[0.75rem] leading-relaxed text-muted">
+        <p id={`${id}-hint`} className="text-[0.8125rem] leading-relaxed text-muted">
           {hint}
         </p>
       ) : null}
@@ -110,7 +110,7 @@ export function Segmented<T extends string>({
           onClick={() => onChange(option.value)}
           aria-pressed={value === option.value}
           className={cn(
-            'px-3 py-1.5 text-[0.75rem] transition-colors [&+&]:border-l [&+&]:border-rule-strong',
+            'px-3 py-2 text-[0.8125rem] transition-colors [&+&]:border-l [&+&]:border-rule-strong',
             value === option.value
               ? 'bg-ink text-paper'
               : 'text-ink-2 hover:bg-paper-2',

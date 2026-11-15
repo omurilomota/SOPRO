@@ -75,16 +75,16 @@ export default function GlossaryPage() {
                     <dt className="font-display text-[1.0625rem] leading-snug text-ink">
                       {entry.term}
                     </dt>
-                    <dd className="mt-0.5 max-w-[66ch] text-[0.8125rem] leading-relaxed text-ink-2">
+                    <dd className="mt-1 max-w-[58ch] text-[0.875rem] leading-relaxed text-ink-2">
                       {entry.definition}
                     </dd>
                     {entry.see && entry.see.length > 0 && (
                       <dd className="mt-1 flex flex-wrap items-baseline gap-x-2">
-                        <span className="rubric-muted text-[0.5625rem]">Ver também</span>
+                        <span className="rubric-muted text-[0.625rem]">Ver também</span>
                         {entry.see.map((term, index) => (
                           <span key={term}>
                             {index > 0 && <span className="mr-1.5 text-rule-strong">·</span>}
-                            <Reference className="text-[0.75rem]">{term}</Reference>
+                            <Reference className="text-[0.8125rem]">{term}</Reference>
                           </span>
                         ))}
                       </dd>

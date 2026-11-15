@@ -259,7 +259,7 @@ export function EventFormModal({
         </Field>
 
         {formError && (
-          <p role="alert" className="rounded-lg bg-liturgy-red/8 px-3 py-2 text-[0.75rem] text-liturgy-red">
+          <p role="alert" className="rounded-lg bg-liturgy-red/8 px-3 py-2 text-[0.8125rem] text-liturgy-red">
             {formError}
           </p>
         )}

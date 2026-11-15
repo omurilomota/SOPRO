@@ -22,7 +22,7 @@ export function Reference({ children, className }: { children: ReactNode; classN
   return (
     <span
       className={cn(
-        'font-display text-[0.8125rem] italic text-muted [font-variant-numeric:oldstyle-nums]',
+        'font-display text-[0.875rem] italic text-muted [font-variant-numeric:oldstyle-nums]',
         className,
       )}
     >
@@ -44,7 +44,7 @@ const COLOR_INFO: Record<LiturgicalColor, { label: string; className: string }> 
 export function LiturgicalColorMark({ color }: { color: LiturgicalColor }) {
   const info = COLOR_INFO[color];
   return (
-    <span className="inline-flex items-center gap-1.5 text-[0.6875rem] text-muted">
+    <span className="inline-flex items-center gap-1.5 text-[0.75rem] text-muted">
       <span className={cn('size-[7px] rounded-full ring-1 ring-black/5', info.className)} aria-hidden />
       {info.label}
     </span>
@@ -56,7 +56,7 @@ export function Tag({ children, tone = 'neutral' }: { children: ReactNode; tone?
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-1 border-b pb-px text-[0.6875rem] font-medium tracking-[0.06em]',
+        'inline-flex items-center gap-1 border-b pb-px text-[0.75rem] font-medium tracking-[0.06em]',
         tone === 'rubric'
           ? 'border-rubric/35 text-rubric'
           : 'border-rule-strong text-muted',

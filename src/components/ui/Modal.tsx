@@ -64,16 +64,16 @@ export function Modal({ open, onClose, title, description, children, footer, siz
         <header className="flex items-start justify-between gap-4 px-5 pb-3 pt-4 sm:px-6">
           <div className="min-w-0">
             <p className="rubric">Formulário</p>
-            <h2 id={titleId} className="mt-0.5 text-[1.25rem] leading-tight text-ink">
+            <h2 id={titleId} className="mt-1 text-[1.25rem] leading-tight text-ink">
               {title}
             </h2>
-            {description && <p className="mt-1 text-[0.75rem] text-muted">{description}</p>}
+            {description && <p className="mt-1 text-[0.8125rem] text-muted">{description}</p>}
           </div>
           <button
             type="button"
             onClick={onClose}
             aria-label="Fechar"
-            className="-mr-1 -mt-0.5 p-1.5 text-muted transition-colors hover:text-rubric"
+            className="-mr-1 -mt-1 p-1.5 text-muted transition-colors hover:text-rubric"
           >
             <X size={15} aria-hidden />
           </button>
@@ -82,7 +82,7 @@ export function Modal({ open, onClose, title, description, children, footer, siz
         <div className="flex-1 overflow-y-auto border-t border-rule px-5 py-4 sm:px-6">{children}</div>
 
         {footer && (
-          <footer className="flex items-center justify-end gap-2 border-t border-rule bg-paper-2/60 px-5 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:px-6">
+          <footer className="flex items-center justify-end gap-2 border-t border-rule bg-paper-2/60 px-5 py-3 pb-[max(0.8125rem,env(safe-area-inset-bottom))] sm:px-6">
             {footer}
           </footer>
         )}

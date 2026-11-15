@@ -11,7 +11,7 @@ type Size = 'sm' | 'md';
  * inferior no hover. Nada de sombras.
  */
 const base =
-  'inline-flex items-center justify-center gap-1.5 rounded-[2px] text-[0.8125rem] font-medium ' +
+  'inline-flex items-center justify-center gap-1.5 rounded-[2px] text-[0.875rem] font-medium ' +
   'transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-45 ' +
   'focus-visible:outline-2 focus-visible:outline-offset-2';
 
@@ -69,7 +69,7 @@ export function TextLink({
     <Link
       to={to}
       className={cn(
-        'inline-flex items-center gap-1 text-[0.8125rem] text-ink-2 underline decoration-rule-strong decoration-1 underline-offset-[3px] transition-colors hover:text-rubric hover:decoration-rubric/50',
+        'inline-flex items-center gap-1 text-[0.875rem] text-ink-2 underline decoration-rule-strong decoration-1 underline-offset-[3px] transition-colors hover:text-rubric hover:decoration-rubric/50',
         className,
       )}
     >

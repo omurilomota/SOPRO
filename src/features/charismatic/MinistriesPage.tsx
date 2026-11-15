@@ -34,7 +34,7 @@ export default function MinistriesPage() {
           {ministries.map((ministry, index) => (
             <li key={ministry.id} className="border-b border-rule py-4">
               <div className="flex items-baseline gap-3">
-                <span className="numeral w-5 shrink-0 text-[0.625rem]">
+                <span className="numeral w-5 shrink-0 text-[0.6875rem]">
                   {String(index + 1).padStart(2, '0')}
                 </span>
                 <div className="min-w-0 flex-1">
@@ -44,18 +44,18 @@ export default function MinistriesPage() {
                     </h3>
                     {ministry.abbreviation && <Meta>{ministry.abbreviation}</Meta>}
                   </div>
-                  <p className="mt-0.5 max-w-[62ch] text-[0.8125rem] leading-relaxed text-ink-2">
+                  <p className="mt-1 max-w-[58ch] text-[0.875rem] leading-relaxed text-ink-2">
                     {ministry.summary}
                   </p>
 
                   <div className="mt-2">
-                    <Rubric className="text-[0.5625rem]">O que se faz</Rubric>
-                    <DashList className="mt-0.5" items={ministry.serves} />
+                    <Rubric className="text-[0.625rem]">O que se faz</Rubric>
+                    <DashList className="mt-1" items={ministry.serves} />
                   </div>
 
                   <div className="mt-2">
-                    <Rubric className="text-[0.5625rem]">O que se pede</Rubric>
-                    <DashList className="mt-0.5" items={ministry.requirements} tone="rubric" />
+                    <Rubric className="text-[0.625rem]">O que se pede</Rubric>
+                    <DashList className="mt-1" items={ministry.requirements} tone="rubric" />
                   </div>
                 </div>
               </div>
@@ -65,7 +65,7 @@ export default function MinistriesPage() {
       </Section>
 
       <Section label="Como escolher" description="A resposta católica é desconcertante.">
-        <div className="reading max-w-[64ch]">
+        <div className="reading max-w-[58ch]">
           {`A pergunta "qual é o meu carisma?" costuma levar a uma busca introspectiva que não encontra resposta. O carisma não é um traço de personalidade a ser descoberto: é uma graça dada para uma necessidade concreta.
 
 Por isso o caminho normal é o inverso. Você começa servindo — na acolhida, na limpeza, no som, no café — e percebe, com o tempo e com a confirmação dos irmãos, aquilo que a comunidade precisa e que você faz com alegria e fruto.

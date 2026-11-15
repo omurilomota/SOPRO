@@ -71,7 +71,7 @@ export default function JournalPage() {
     <div className="space-y-6 animate-[var(--animate-fade)]">
       <Link
         to="/caminhada"
-        className="inline-flex items-center gap-1.5 text-[0.8125rem] text-muted transition-colors hover:text-rubric"
+        className="inline-flex items-center gap-1.5 text-[0.875rem] text-muted transition-colors hover:text-rubric"
       >
         <ArrowLeft size={13} aria-hidden /> Minha caminhada
       </Link>
@@ -141,7 +141,7 @@ export default function JournalPage() {
           </Field>
 
           <div className="flex items-center justify-between gap-3">
-            <p className="text-[0.6875rem] leading-relaxed text-muted">
+            <p className="text-[0.75rem] leading-relaxed text-muted">
               Salvo no IndexedDB deste navegador. Não é enviado a nenhum servidor.
             </p>
             <Button type="submit" size="sm" disabled={saving || !body.trim()}>
@@ -168,7 +168,7 @@ export default function JournalPage() {
               <li key={entry.id}>
                 <article className="py-4">
                   <div className="flex flex-wrap items-baseline justify-between gap-2">
-                    <Rubric className="text-[0.5625rem]">
+                    <Rubric className="text-[0.625rem]">
                       {capitalize(formatLongDate(entry.date))}
                     </Rubric>
                     <div className="flex items-center gap-2">
@@ -190,7 +190,7 @@ export default function JournalPage() {
                   {entry.title && (
                     <h3 className="mt-1 font-display text-[1.0625rem] text-ink">{entry.title}</h3>
                   )}
-                  <p className="mt-1.5 whitespace-pre-line text-[0.875rem] leading-relaxed text-ink-2">
+                  <p className="mt-2 whitespace-pre-line text-[0.875rem] leading-relaxed text-ink-2">
                     {entry.body}
                   </p>
                 </article>

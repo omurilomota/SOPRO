@@ -41,9 +41,9 @@ export function Section({
   variant = 'rule',
 }: SectionProps) {
   return (
-    <section id={id} className={cn('space-y-3', className)} aria-label={label ?? title}>
+    <section id={id} className={cn('space-y-4', className)} aria-label={label ?? title}>
       {(label || title || action) && (
-        <header className="space-y-1.5">
+        <header className="space-y-2">
           <div className="flex items-baseline justify-between gap-4">
             {label ? (
               <div className={variant === 'rule' ? 'section-rule flex-1' : ''}>
@@ -55,10 +55,10 @@ export function Section({
             {action && <div className="shrink-0">{action}</div>}
           </div>
           {title && (
-            <h2 className="text-[1.0625rem] leading-snug text-ink">{title}</h2>
+            <h2 className="text-[1.125rem] leading-snug text-ink">{title}</h2>
           )}
           {description && (
-            <p className="text-[0.8125rem] leading-relaxed text-muted">{description}</p>
+            <p className="max-w-[58ch] text-[0.875rem] leading-[1.7] text-muted">{description}</p>
           )}
         </header>
       )}

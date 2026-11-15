@@ -60,9 +60,9 @@ export default function WhatIsRccPage() {
       <div className="grid gap-3 sm:grid-cols-4 sm:gap-6">
         {historyFacts.map((fact) => (
           <div key={fact.label}>
-            <p className="rubric-muted text-[0.5625rem]">{fact.label}</p>
-            <p className="mt-0.5 font-display text-[1.0625rem] leading-snug text-ink">{fact.value}</p>
-            <p className="mt-0.5 text-[0.6875rem] leading-snug text-muted">{fact.note}</p>
+            <p className="rubric-muted text-[0.625rem]">{fact.label}</p>
+            <p className="mt-1 font-display text-[1.0625rem] leading-snug text-ink">{fact.value}</p>
+            <p className="mt-1 text-[0.75rem] leading-snug text-muted">{fact.note}</p>
           </div>
         ))}
       </div>
@@ -87,7 +87,7 @@ export default function WhatIsRccPage() {
           {AFFIRMATIONS.map((item) => (
             <div key={item.title} className="py-4">
               <dt className="font-display text-[1.0625rem] leading-snug text-ink">{item.title}</dt>
-              <dd className="mt-1 max-w-[64ch] text-[0.875rem] leading-relaxed text-ink-2">
+              <dd className="mt-1 max-w-[58ch] text-[0.875rem] leading-relaxed text-ink-2">
                 {item.body}
               </dd>
             </div>
@@ -103,7 +103,7 @@ export default function WhatIsRccPage() {
           {CONCERNS.map((item) => (
             <div key={item.concern} className="border-l-2 border-rule-strong pl-4">
               <p className="font-display text-[1rem] leading-snug text-ink">{item.concern}</p>
-              <p className="mt-1 text-[0.8125rem] leading-relaxed text-ink-2">{item.answer}</p>
+              <p className="mt-1 text-[0.875rem] leading-relaxed text-ink-2">{item.answer}</p>
             </div>
           ))}
         </div>
@@ -116,7 +116,7 @@ export default function WhatIsRccPage() {
       </Caution>
 
       <Section label="Para ler na fonte" variant="plain">
-        <p className="text-[0.8125rem] leading-relaxed text-muted">
+        <p className="text-[0.875rem] leading-relaxed text-muted">
           O SOPRO não substitui os documentos. Se você coordena um grupo, leia ao menos o Doc. 53 da
           CNBB — inteiro, não só as citações que circulam.
         </p>

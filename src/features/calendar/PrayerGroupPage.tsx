@@ -38,7 +38,7 @@ export default function PrayerGroupPage() {
     <div className="space-y-6 animate-[var(--animate-fade)]">
       <Link
         to="/calendario"
-        className="inline-flex items-center gap-1.5 text-[0.8125rem] text-muted transition-colors hover:text-rubric"
+        className="inline-flex items-center gap-1.5 text-[0.875rem] text-muted transition-colors hover:text-rubric"
       >
         <ArrowLeft size={13} aria-hidden /> Calendário
       </Link>
@@ -75,7 +75,7 @@ export default function PrayerGroupPage() {
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <h2 className="font-display text-[1.0625rem] text-ink">{group.name}</h2>
-                    <p className="mt-0.5 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-[0.75rem] text-muted">
+                    <p className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.8125rem] text-muted">
                       <span className="flex items-center gap-1">
                         <Clock size={12} aria-hidden />
                         {WEEKDAY_NAMES[group.weekday]} · {formatTime(group.startTime)}
@@ -89,7 +89,7 @@ export default function PrayerGroupPage() {
                       )}
                     </p>
                     {group.notes && (
-                      <p className="mt-1.5 text-[0.75rem] leading-relaxed text-muted">{group.notes}</p>
+                      <p className="mt-2 text-[0.8125rem] leading-relaxed text-muted">{group.notes}</p>
                     )}
                   </div>
                   <div className="flex shrink-0 gap-0.5">
@@ -124,7 +124,7 @@ export default function PrayerGroupPage() {
         </ul>
       )}
 
-      <div className="border-t border-rule pt-3 text-[0.75rem] leading-relaxed text-muted">
+      <div className="border-t border-rule pt-3 text-[0.8125rem] leading-relaxed text-muted">
         <p className="mb-1 font-medium text-ink-2">Por que só no dispositivo?</p>
         <p>
           Nesta primeira versão não existe rede nacional de grupos nem cadastro público de
@@ -331,7 +331,7 @@ function PrayerGroupModal({ open, onClose, group, defaultName, onSubmit }: Modal
         </Field>
 
         {error && (
-          <p role="alert" className="border-l-2 border-rubric pl-3 text-[0.75rem] text-rubric">
+          <p role="alert" className="border-l-2 border-rubric pl-3 text-[0.8125rem] text-rubric">
             {error}
           </p>
         )}

@@ -126,10 +126,10 @@ export default function SpiritualLifePage() {
         ) : (
           <ul className="ruled border-y border-rule">
             {habits.items.map((habit) => (
-              <li key={habit.id} className="flex flex-wrap items-center gap-x-3 gap-y-2 py-2.5">
+              <li key={habit.id} className="flex flex-wrap items-center gap-x-3 gap-y-2 py-3">
                 <div className="min-w-0 flex-1">
                   <p className="text-[0.9375rem] text-ink">{habit.title}</p>
-                  <p className="text-[0.6875rem] uppercase tracking-[0.1em] text-muted">
+                  <p className="text-[0.75rem] uppercase tracking-[0.1em] text-muted">
                     {HABIT_KINDS.find((kind) => kind.value === habit.kind)?.label}
                   </p>
                 </div>
@@ -148,7 +148,7 @@ export default function SpiritualLifePage() {
                         aria-pressed={done}
                         aria-label={`${formatShortDate(date)} — ${done ? 'feito' : 'não marcado'}`}
                         className={cn(
-                          'flex size-[22px] items-center justify-center border text-[0.5rem] transition-colors',
+                          'flex size-[22px] items-center justify-center border text-[0.625rem] transition-colors',
                           done
                             ? 'border-rubric bg-rubric text-paper'
                             : 'border-rule-strong text-muted hover:border-ink',
@@ -214,7 +214,7 @@ export default function SpiritualLifePage() {
             Adicionar
           </Button>
         </form>
-        <p className="text-[0.6875rem] leading-relaxed text-muted">
+        <p className="text-[0.75rem] leading-relaxed text-muted">
           Os sete quadrados mostram a última semana. Marcar não é nota — serve para você perceber
           padrões, não para cobrar constância.
         </p>
@@ -224,7 +224,7 @@ export default function SpiritualLifePage() {
       <Section
         label="Diário espiritual"
         action={
-          <Link to="/caminhada/diario" className="text-[0.75rem] text-ink-2 hover:text-rubric">
+          <Link to="/caminhada/diario" className="text-[0.8125rem] text-ink-2 hover:text-rubric">
             Ver tudo
           </Link>
         }
@@ -243,11 +243,11 @@ export default function SpiritualLifePage() {
           <ul className="ruled border-y border-rule">
             {journal.items.slice(0, 3).map((entry) => (
               <li key={entry.id} className="py-3">
-                <Rubric className="text-[0.5625rem]">{formatShortDate(entry.date)}</Rubric>
+                <Rubric className="text-[0.625rem]">{formatShortDate(entry.date)}</Rubric>
                 {entry.title && (
-                  <p className="mt-0.5 font-display text-[1rem] text-ink">{entry.title}</p>
+                  <p className="mt-1 font-display text-[1rem] text-ink">{entry.title}</p>
                 )}
-                <p className="mt-1 line-clamp-3 whitespace-pre-line text-[0.8125rem] leading-relaxed text-ink-2">
+                <p className="mt-1 line-clamp-3 whitespace-pre-line text-[0.875rem] leading-relaxed text-ink-2">
                   {entry.body}
                 </p>
               </li>
@@ -294,7 +294,7 @@ export default function SpiritualLifePage() {
         ) : (
           <ul className="ruled border-y border-rule">
             {intentions.items.map((intention) => (
-              <li key={intention.id} className="flex items-center gap-3 py-2.5">
+              <li key={intention.id} className="flex items-center gap-3 py-3">
                 <span className="min-w-0 flex-1 text-[0.875rem] text-ink">{intention.text}</span>
                 {intention.answeredAt ? (
                   <Tag tone="rubric">Atendida</Tag>
@@ -307,7 +307,7 @@ export default function SpiritualLifePage() {
                         answeredAt: new Date().toISOString(),
                       })
                     }
-                    className="text-[0.6875rem] text-muted underline decoration-rule-strong underline-offset-2 transition-colors hover:text-rubric"
+                    className="text-[0.75rem] text-muted underline decoration-rule-strong underline-offset-2 transition-colors hover:text-rubric"
                   >
                     Marcar como atendida
                   </button>
@@ -377,7 +377,7 @@ export default function SpiritualLifePage() {
         </form>
 
         {verses.items.length === 0 ? (
-          <p className="text-[0.75rem] leading-relaxed text-muted">
+          <p className="text-[0.8125rem] leading-relaxed text-muted">
             Guarde aqui os versículos que falam com você. Sempre à mão, offline.
           </p>
         ) : (
@@ -386,7 +386,7 @@ export default function SpiritualLifePage() {
               <li key={verse.id} className="flex items-start gap-3 py-3">
                 <div className="min-w-0 flex-1">
                   <Reference>{verse.reference}</Reference>
-                  <p className="mt-0.5 font-display text-[0.9375rem] leading-relaxed text-ink">
+                  <p className="mt-1 font-display text-[0.9375rem] leading-relaxed text-ink">
                     {verse.text}
                   </p>
                 </div>
@@ -442,7 +442,7 @@ export default function SpiritualLifePage() {
         ) : (
           <ul className="ruled border-y border-rule">
             {plan.items.map((item) => (
-              <li key={item.id} className="flex items-center gap-3 py-2.5">
+              <li key={item.id} className="flex items-center gap-3 py-3">
                 <span className="numeral shrink-0" aria-hidden>
                   ·
                 </span>
@@ -463,7 +463,7 @@ export default function SpiritualLifePage() {
 
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1.5 border-t border-rule pt-3">
         <Meta>Seus dados</Meta>
-        <p className="flex-1 text-[0.75rem] leading-relaxed text-muted">
+        <p className="flex-1 text-[0.8125rem] leading-relaxed text-muted">
           Quer levar seus dados com você ou apagá-los? Em Configurações há exportação e exclusão
           integral.
         </p>

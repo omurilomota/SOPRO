@@ -16,7 +16,7 @@ export function CharismaticSectionNav() {
               to={section.to}
               className={({ isActive }) =>
                 cn(
-                  'relative flex items-baseline gap-1.5 whitespace-nowrap px-2.5 py-2 text-[0.75rem] transition-colors',
+                  'relative flex items-baseline gap-1.5 whitespace-nowrap px-2.5 py-2 text-[0.8125rem] transition-colors',
                   isActive ? 'text-ink' : 'text-muted hover:text-rubric',
                 )
               }
@@ -25,7 +25,7 @@ export function CharismaticSectionNav() {
                 <>
                   <span
                     className={cn(
-                      'numeral text-[0.625rem]',
+                      'numeral text-[0.6875rem]',
                       isActive ? 'text-rubric' : 'text-muted/60',
                     )}
                     aria-hidden
