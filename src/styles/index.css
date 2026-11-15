@@ -1,0 +1,351 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ==========================================================================
+   SOPRO — sistema visual "Missal"
+   --------------------------------------------------------------------------
+   A referência não é um app de produtividade: é o livro litúrgico.
+   Papel quente, tinta densa, filetes finos e RUBRICA — o vermelho com que os
+   missais imprimem as instruções desde a Idade Média. Cantos quase retos,
+   hierarquia tipográfica serifada, estrutura por linhas e não por cartões.
+   ========================================================================== */
+
+@theme {
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Newsreader Variable', ui-serif, Georgia, serif;
+
+  /* Superfícies — papel com um sopro de calor, não pedra */
+  --color-paper: #faf8f4;
+  --color-paper-2: #f2eee6;
+  --color-plate: #fffdfa;
+
+  /* Tinta — grafite quente, longe do preto */
+  --color-ink: #33302b;
+  --color-ink-2: #57524a;
+  --color-muted: #726a61;
+
+  /* Filetes — visíveis, mas sem virar moldura */
+  --color-rule: #e5e0d7;
+  --color-rule-strong: #cfc8bb;
+
+  /* Rubrica — terracota, não sangue */
+  --color-rubric: #9a4f43;
+  --color-rubric-2: #b06a5c;
+  --color-rubric-wash: #f6e8e3;
+
+  /* Azul de referência (links eruditos, notas) */
+  --color-indigo: #3d5265;
+  --color-indigo-wash: #e9eef3;
+
+  /* Cores litúrgicas — usadas só onde têm significado */
+  --color-liturgia-verde: #4c6a52;
+  --color-liturgia-vermelho: #9a4f43;
+  --color-liturgia-roxo: #63506e;
+  --color-liturgia-rosa: #ab7b8a;
+  --color-liturgia-branco: #b0925f;
+
+  --radius: 3px;
+
+  --animate-rise: rise 0.4s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+  --animate-fade: fade 0.3s ease-out both;
+}
+
+@layer theme {
+  .dark {
+    --color-paper: #1d1b18;
+    --color-paper-2: #262320;
+    --color-plate: #2b2723;
+
+    --color-ink: #e8e2d8;
+    --color-ink-2: #c3bcb0;
+    --color-muted: #9a9286;
+
+    --color-rule: #3a3530;
+    --color-rule-strong: #514a42;
+
+    --color-rubric: #cc8578;
+    --color-rubric-2: #d99b8f;
+    --color-rubric-wash: #322521;
+
+    --color-indigo: #a3b6c8;
+    --color-indigo-wash: #242c33;
+
+    --color-liturgia-verde: #8fae96;
+    --color-liturgia-roxo: #ae95bd;
+    --color-liturgia-rosa: #d3a3b2;
+    --color-liturgia-branco: #d3ba8f;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--color-rule);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.65;
+    letter-spacing: 0.002em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'kern', 'liga', 'cv05';
+    min-height: 100dvh;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-variation-settings: 'opsz' 36;
+    letter-spacing: -0.012em;
+    line-height: 1.22;
+    text-wrap: balance;
+    color: var(--color-ink);
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  strong {
+    font-weight: 600;
+  }
+
+  /* Foco: rubrica, nunca o anel azul padrão do navegador. */
+  :focus-visible {
+    outline: 2px solid var(--color-rubric);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: var(--color-rubric-wash);
+    color: var(--color-rubric);
+  }
+
+  ::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-rule-strong);
+    border: 3px solid var(--color-paper);
+    border-radius: 99px;
+  }
+
+  input,
+  textarea,
+  select,
+  button {
+    font: inherit;
+    color: inherit;
+  }
+
+  input[type='date'],
+  input[type='time'] {
+    color-scheme: light;
+  }
+  .dark input[type='date'],
+  .dark input[type='time'] {
+    color-scheme: dark;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px solid var(--color-rule);
+  }
+}
+
+@layer components {
+  /* --- Rótulo de rubrica: o marcador estrutural do sistema --------------
+     Pequeno, versalete, vermelho. Usado em títulos de seção, metadados,
+     referências. Substitui o "eyebrow" genérico. */
+  .rubric {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--color-rubric);
+    font-feature-settings: 'kern';
+  }
+
+  .rubric-muted {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  /* --- Título de seção com filete --------------------------------------
+     O filete preenche a linha até a borda: estrutura por linha, não por caixa. */
+  .section-rule {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .section-rule::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--color-rule);
+  }
+
+  /* --- Texto corrido de leitura ---------------------------------------- */
+  .reading {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-variation-settings: 'opsz' 16;
+    line-height: 1.9;
+    letter-spacing: 0.003em;
+    color: var(--color-ink-2);
+    white-space: pre-line;
+    hanging-punctuation: first;
+  }
+
+  /* Texto corrido dentro de .reading precisa de respiro entre parágrafos. */
+  .reading + .reading {
+    margin-top: 1.15em;
+  }
+
+  .reading-sm {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    line-height: 1.85;
+    color: var(--color-ink-2);
+    white-space: pre-line;
+  }
+
+  /* --- Capitular: abertura de artigo longo ----------------------------- */
+  .dropcap::first-letter {
+    float: left;
+    font-family: var(--font-display);
+    font-size: 3.1em;
+    line-height: 0.82;
+    padding-right: 0.09em;
+    padding-top: 0.06em;
+    color: var(--color-rubric);
+    font-weight: 400;
+  }
+
+  /* --- Citação litúrgica / escriturística ------------------------------ */
+  .scripture {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.0625rem;
+    line-height: 1.78;
+    color: var(--color-ink);
+  }
+
+  /* --- Placa: o único "cartão" do sistema -----------------------------
+     Borda fina, canto quase reto, sem sombra. Reservada ao conteúdo
+     principal de uma tela — não a cada bloco. */
+  .plate {
+    background: var(--color-plate);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius);
+  }
+
+  .plate-flush {
+    background: transparent;
+    border: 0;
+    border-top: 1px solid var(--color-rule);
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  /* --- Lista pautada: a alternativa ao grid de cartões ----------------- */
+  .ruled > * + * {
+    border-top: 1px solid var(--color-rule);
+  }
+
+  /* --- Numeral marginal (como nos livros de horas) --------------------- */
+  .numeral {
+    font-family: var(--font-display);
+    font-size: 0.8125rem;
+    color: var(--color-rubric);
+    font-variant-numeric: oldstyle-nums tabular-nums;
+    letter-spacing: 0.02em;
+  }
+
+  .hairline {
+    height: 1px;
+    background: var(--color-rule);
+  }
+
+  /* --- Ritmo vertical ---------------------------------------------------
+     Duas classes que o app usa em vez de repetir space-y-* em cada tela:
+     respiro generoso entre blocos, e entrelinha folgada em listas densas. */
+  .stack-loose > * + * {
+    margin-top: 1.75rem;
+  }
+
+  .prose-block p + p {
+    margin-top: 0.95em;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+
+  /* Fita de rúbrica à esquerda — marca item ativo na navegação. */
+  .rubric-mark {
+    position: relative;
+  }
+  .rubric-mark::before {
+    content: '';
+    position: absolute;
+    left: -1px;
+    top: 4px;
+    bottom: 4px;
+    width: 2px;
+    background: var(--color-rubric);
+    border-radius: 1px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
