@@ -1,0 +1,210 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* --------------------------------------------------------------------------
+   Design tokens — SOPRO
+   Paleta clara e serena: marfim, tinta, latão suave e azul-sereno.
+   -------------------------------------------------------------------------- */
+@theme {
+  --font-sans:
+    'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Newsreader Variable', ui-serif, Georgia, 'Times New Roman', serif;
+
+  --color-canvas: #faf7f2;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f4efe7;
+  --color-surface-sunken: #efe8dd;
+  --color-ink: #23201b;
+  --color-ink-soft: #4b453d;
+  --color-muted: #7d746a;
+  --color-line: #e7dfd3;
+  --color-line-strong: #d8cdba;
+
+  --color-brass: #a3824a;
+  --color-brass-strong: #8a6a34;
+  --color-brass-soft: #f2e8d6;
+  --color-serenity: #3f5f73;
+  --color-serenity-soft: #e8eef1;
+
+  --color-liturgy-green: #4c7a5a;
+  --color-liturgy-red: #a8453b;
+  --color-liturgy-purple: #6a4b79;
+  --color-liturgy-rose: #bc7590;
+  --color-liturgy-white: #c2a267;
+
+  --radius-card: 1.125rem;
+  --shadow-soft: 0 1px 2px rgb(35 32 27 / 0.04), 0 8px 24px -16px rgb(35 32 27 / 0.18);
+
+  --animate-fade-up: fade-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fade-in: fade-in 0.35s ease-out both;
+}
+
+@layer theme {
+  .dark {
+    --color-canvas: #14120f;
+    --color-surface: #1c1916;
+    --color-surface-muted: #232019;
+    --color-surface-sunken: #100e0c;
+    --color-ink: #f0eae0;
+    --color-ink-soft: #d5cdc1;
+    --color-muted: #a49a8c;
+    --color-line: #322c25;
+    --color-line-strong: #453d33;
+
+    --color-brass: #cba76f;
+    --color-brass-strong: #dcbd8b;
+    --color-brass-soft: #2f2719;
+    --color-serenity: #9dbed1;
+    --color-serenity-soft: #1e2a31;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: 'cv11', 'ss01';
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    min-height: 100dvh;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.014em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brass);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: var(--color-brass-soft);
+    color: var(--color-ink);
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-line-strong);
+    border-radius: 999px;
+    border: 3px solid var(--color-canvas);
+  }
+
+  input,
+  textarea,
+  select,
+  button {
+    font: inherit;
+    color: inherit;
+  }
+
+  input[type='date'],
+  input[type='time'] {
+    color-scheme: light;
+  }
+  .dark input[type='date'],
+  .dark input[type='time'] {
+    color-scheme: dark;
+  }
+}
+
+@layer components {
+  /* Texto corrido de leituras e orações: confortável para leitura longa. */
+  .prose-reading {
+    font-size: 1.0625rem;
+    line-height: 1.85;
+    color: var(--color-ink-soft);
+    white-space: pre-line;
+  }
+
+  .prose-reading strong {
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+
+  .liturgy-quote {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    line-height: 1.7;
+    color: var(--color-ink);
+  }
+
+  .hairline {
+    background-image: linear-gradient(
+      to right,
+      transparent,
+      var(--color-line-strong),
+      transparent
+    );
+    height: 1px;
+  }
+
+  .surface {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
